@@ -1,4 +1,4 @@
-package ch.zhaw.multichannel.gui;
+package gui;
 
 import java.awt.EventQueue;
 
