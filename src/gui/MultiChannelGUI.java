@@ -1,7 +1,9 @@
 package gui;
 
-import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -9,8 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-
-import messageTypes.Email;
+import javax.swing.SwingConstants;
 
 import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.ColumnSpec;
@@ -19,9 +20,6 @@ import com.jgoodies.forms.layout.RowSpec;
 
 import core.GUIHandler;
 import core.IGUIHandler;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class MultiChannelGUI {
 
@@ -51,7 +49,7 @@ public class MultiChannelGUI {
 		GUIHandler handler = new GUIHandler();
 		guiHandler = (IGUIHandler)handler;
 		initialize();
-		
+
 		this.frame.setVisible(true);
 
 	}
@@ -65,7 +63,7 @@ public class MultiChannelGUI {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new FormLayout(new ColumnSpec[] {
 				FormFactory.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("default:grow"),
+				FormFactory.MIN_COLSPEC,
 				FormFactory.RELATED_GAP_COLSPEC,
 				ColumnSpec.decode("default:grow"),
 				FormFactory.RELATED_GAP_COLSPEC,
@@ -91,14 +89,12 @@ public class MultiChannelGUI {
 				FormFactory.RELATED_GAP_COLSPEC,
 				FormFactory.DEFAULT_COLSPEC,
 				FormFactory.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("default:grow"),
+				FormFactory.MIN_COLSPEC,
 				FormFactory.RELATED_GAP_COLSPEC,
 				FormFactory.DEFAULT_COLSPEC,
-				FormFactory.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("left:max(12dlu;default)"),
 				FormFactory.RELATED_GAP_COLSPEC,
 				FormFactory.MIN_COLSPEC,},
-			new RowSpec[] {
+				new RowSpec[] {
 				FormFactory.RELATED_GAP_ROWSPEC,
 				FormFactory.DEFAULT_ROWSPEC,
 				FormFactory.RELATED_GAP_ROWSPEC,
@@ -113,52 +109,56 @@ public class MultiChannelGUI {
 				FormFactory.MIN_ROWSPEC,
 				FormFactory.RELATED_GAP_ROWSPEC,
 				FormFactory.DEFAULT_ROWSPEC,}));
-		
+
 		JLabel lblReciever = new JLabel("Empfänger:");
 		frame.getContentPane().add(lblReciever, "2, 2");
-		
+
 		JTextField tFReciever = new JTextField();
 		frame.getContentPane().add(tFReciever, "4, 2, 25, 1, fill, default");
 		tFReciever.setColumns(10);
-		
-		JLabel lblReminder = new JLabel("Reminder:");
-		frame.getContentPane().add(lblReminder, "30, 2");
-		
-		JCheckBox checkBox = new JCheckBox("");
-		frame.getContentPane().add(checkBox, "32, 2, center, default");
-		
+
+		//		JLabel lblReminder = new JLabel("Reminder:");
+		//		frame.getContentPane().add(lblReminder, "30, 2");
+
+		final JCheckBox checkBox = new JCheckBox("Reminder: ");
+		checkBox.setHorizontalTextPosition(SwingConstants.LEADING);
+		checkBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(checkBox.isSelected()) {
+					System.out.println("Gib Kalender!");
+				}
+			}
+		});
+		frame.getContentPane().add(checkBox, "30, 2, center, default");
+
 		JLabel lblBetreff = new JLabel("Betreff:");
 		frame.getContentPane().add(lblBetreff, "2, 4");
-		
+
 		JTextField tFSubject = new JTextField();
 		frame.getContentPane().add(tFSubject, "4, 4, 23, 1, fill, default");
 		tFSubject.setColumns(10);
-		
-		JLabel lblTyp = new JLabel("Typ:");
-		frame.getContentPane().add(lblTyp, "28, 4, right, default");
-		
-		JComboBox comboBox = new JComboBox();
-		frame.getContentPane().add(comboBox, "30, 4, 3, 1, fill, default");
-		
+
+		final JComboBox comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Email", "Sms", "Mms", "Print"}));
+		frame.getContentPane().add(comboBox, "30, 4, fill, default");
+
 		JLabel lblMessage = new JLabel("Nachricht:");
 		frame.getContentPane().add(lblMessage, "2, 6");
-		
+
 		JTextArea textArea = new JTextArea();
 		frame.getContentPane().add(textArea, "2, 8, 27, 5, fill, fill");
-		
+
 		JButton button = new JButton("Abschicken");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
-				Email email = new Email();
-				
-				
-				
-				guiHandler.sendMessage("bla","bla","Email");
-				
+
+				String selectedItem = (String)comboBox.getSelectedItem();
+
+				guiHandler.sendMessage("bla","bla", selectedItem);
+
 			}
 		});
-		frame.getContentPane().add(button, "30, 12, 3, 1, fill, fill");
+		frame.getContentPane().add(button, "30, 12, fill, fill");
 	}
 
 }
