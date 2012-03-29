@@ -3,6 +3,7 @@ Softwareprojekt MultiChannel
 
 How to add it to Eclipse
 ------------------------
+* Install WindowBuilder Pro, the Swing Part is enough
 * New Project
 * Set Eclipse encoding to utf-8
 * Import 

@@ -18,8 +18,6 @@ import com.jgoodies.forms.layout.RowSpec;
 public class MultiChannelGUI {
 
 	private JFrame frame;
-	private JTextField tFReciever;
-	private JTextField tFSubject;
 
 	/**
 	 * Launch the application.
@@ -105,7 +103,7 @@ public class MultiChannelGUI {
 		JLabel lblReciever = new JLabel("Empfänger:");
 		frame.getContentPane().add(lblReciever, "2, 2");
 		
-		tFReciever = new JTextField();
+		JTextField tFReciever = new JTextField();
 		frame.getContentPane().add(tFReciever, "4, 2, 25, 1, fill, default");
 		tFReciever.setColumns(10);
 		
@@ -118,7 +116,7 @@ public class MultiChannelGUI {
 		JLabel lblBetreff = new JLabel("Betreff:");
 		frame.getContentPane().add(lblBetreff, "2, 4");
 		
-		tFSubject = new JTextField();
+		JTextField tFSubject = new JTextField();
 		frame.getContentPane().add(tFSubject, "4, 4, 23, 1, fill, default");
 		tFSubject.setColumns(10);
 		
