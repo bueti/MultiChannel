@@ -6,10 +6,29 @@ import messageTypes.Message;
 public class GUIHandler implements IGUIHandler{
 
 	@Override
-	public void sendMessage(String text, String recipient) {
+	
+	
+	
+	public void sendMessage(String Recipient,String Text, String Type) {
 		DataHandler handler = DataHandler.getInstance();
 		
-		handler.handleMessage(new Email());
+		try {
+			Class c = Class.forName("messageTypes." + Type);
+			Message msg = (Message) c.newInstance();
+			msg.validate();
+			handler.handleMessage(msg);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 		
 	}
 	

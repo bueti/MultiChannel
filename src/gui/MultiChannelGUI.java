@@ -10,19 +10,28 @@ import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import messageTypes.Email;
+
 import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
 
+import core.GUIHandler;
+import core.IGUIHandler;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
 public class MultiChannelGUI {
 
 	private JFrame frame;
+	private IGUIHandler guiHandler;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -33,13 +42,18 @@ public class MultiChannelGUI {
 				}
 			}
 		});
-	}
+	}*/
 
 	/**
 	 * Create the application.
 	 */
 	public MultiChannelGUI() {
+		GUIHandler handler = new GUIHandler();
+		guiHandler = (IGUIHandler)handler;
 		initialize();
+		
+		this.frame.setVisible(true);
+
 	}
 
 	/**
@@ -133,6 +147,17 @@ public class MultiChannelGUI {
 		frame.getContentPane().add(textArea, "2, 8, 27, 5, fill, fill");
 		
 		JButton button = new JButton("Abschicken");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				Email email = new Email();
+				
+				
+				
+				guiHandler.sendMessage("bla","bla","Email");
+				
+			}
+		});
 		frame.getContentPane().add(button, "30, 12, 3, 1, fill, fill");
 	}
 

@@ -17,7 +17,7 @@ public class GUI {
 	}
 	
 	public void sendMessage(){
-		guiHandler.sendMessage("bla", "bla");
+		//guiHandler.sendMessage("bla", "bla");
 		
 	}
 
