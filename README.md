@@ -8,5 +8,5 @@ How to add it to Eclipse
 * Import 
 * Git
 * SSH -> git@github.com:bueti/MultiChannel.git
-* Properties -> Java Buildpath -> Libraries -> Add Library -> User Library -> User Library-> New -> forms-1.3.0 -> Add jar -> forms-1.3.0.jar ausw�hlen
+* Properties -> Java Buildpath -> Libraries -> Add Library -> User Library -> User Library-> New -> forms-1.3.0 -> Add jar -> forms-1.3.0.jar auswählen
 * Have fun...
