@@ -3,8 +3,6 @@ package gui;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.swing.DefaultComboBoxModel;
@@ -36,21 +34,6 @@ public class MultiChannelGUI {
 	private JFrame frame;
 	private IGUIHandler guiHandler;
 
-	/**
-	 * Launch the application.
-	 */
-	/*public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MultiChannelGUI window = new MultiChannelGUI();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}*/
 
 	/**
 	 * Create the application.
@@ -169,6 +152,9 @@ public class MultiChannelGUI {
 		frame.getContentPane().add(button, "30, 12, fill, fill");
 	}
 
+	/*
+	 * Hübscher Date Picker
+	 */
 	private JPanel datePicker(String label, Date value) {
 		JPanel datePanel = new JPanel();
 		JDateChooser dateChooser = new JDateChooser();
@@ -194,10 +180,5 @@ public class MultiChannelGUI {
 		datePanel.add(timeSpinner);
 
 		return datePanel;
-	}
-	private String getDateTime() {
-		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyy");
-		Date date = new Date();
-		return dateFormat.format(date);
 	}
 }

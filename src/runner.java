@@ -1,4 +1,3 @@
-import gui.GUI;
 import gui.MultiChannelGUI;
 
 
