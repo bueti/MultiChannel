@@ -1,22 +1,32 @@
 package gui;
 
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSpinner;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SpinnerDateModel;
+import javax.swing.SpinnerModel;
 import javax.swing.SwingConstants;
 
 import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
+import com.toedter.calendar.JDateChooser;
 
 import core.GUIHandler;
 import core.IGUIHandler;
@@ -91,7 +101,7 @@ public class MultiChannelGUI {
 				FormFactory.RELATED_GAP_COLSPEC,
 				FormFactory.MIN_COLSPEC,
 				FormFactory.RELATED_GAP_COLSPEC,
-				FormFactory.DEFAULT_COLSPEC,
+				FormFactory.MIN_COLSPEC,
 				FormFactory.RELATED_GAP_COLSPEC,
 				FormFactory.MIN_COLSPEC,},
 				new RowSpec[] {
@@ -117,19 +127,17 @@ public class MultiChannelGUI {
 		frame.getContentPane().add(tFReciever, "4, 2, 25, 1, fill, default");
 		tFReciever.setColumns(10);
 
-		//		JLabel lblReminder = new JLabel("Reminder:");
-		//		frame.getContentPane().add(lblReminder, "30, 2");
-
 		final JCheckBox checkBox = new JCheckBox("Reminder: ");
-		checkBox.setHorizontalTextPosition(SwingConstants.LEADING);
 		checkBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(checkBox.isSelected()) {
-					System.out.println("Gib Kalender!");
-				}
+				System.out.println("Kalender");
+
 			}
 		});
+		checkBox.setHorizontalTextPosition(SwingConstants.LEADING);
 		frame.getContentPane().add(checkBox, "30, 2, center, default");
+
+		frame.getContentPane().add(datePicker(null, new Date()), "30, 10, 1, 1, fill, default");
 
 		JLabel lblBetreff = new JLabel("Betreff:");
 		frame.getContentPane().add(lblBetreff, "2, 4");
@@ -161,4 +169,35 @@ public class MultiChannelGUI {
 		frame.getContentPane().add(button, "30, 12, fill, fill");
 	}
 
+	private JPanel datePicker(String label, Date value) {
+		JPanel datePanel = new JPanel();
+		JDateChooser dateChooser = new JDateChooser();
+		if (value != null) {
+			dateChooser.setDate(value);
+		}
+		for (Component comp : dateChooser.getComponents()) {
+			if (comp instanceof JTextField) {
+				((JTextField) comp).setColumns(50);
+				((JTextField) comp).setEditable(false);
+			}
+		}
+		datePanel.add(dateChooser);
+
+		SpinnerModel model = new SpinnerDateModel();
+		JSpinner timeSpinner = new JSpinner(model);
+		JComponent editor = new JSpinner.DateEditor(timeSpinner, "HH:mm");
+		timeSpinner.setEditor(editor);
+		if(value != null) {
+			timeSpinner.setValue(value);
+		}
+
+		datePanel.add(timeSpinner);
+
+		return datePanel;
+	}
+	private String getDateTime() {
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyy");
+		Date date = new Date();
+		return dateFormat.format(date);
+	}
 }
