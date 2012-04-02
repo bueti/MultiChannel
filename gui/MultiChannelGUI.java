@@ -167,7 +167,7 @@ public class MultiChannelGUI {
 				((JTextField) comp).setEditable(false);
 			}
 		}
-		datePanel.add(dateChooser);
+		
 
 		SpinnerModel model = new SpinnerDateModel();
 		JSpinner timeSpinner = new JSpinner(model);
@@ -178,7 +178,8 @@ public class MultiChannelGUI {
 		}
 
 		datePanel.add(timeSpinner);
-
+		datePanel.add(dateChooser);
+		
 		return datePanel;
 	}
 }
