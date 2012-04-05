@@ -6,14 +6,14 @@ public class DataHandler {
     private static DataHandler instance = null;
  
     /**
-     * Default-Konstruktor, der nicht außerhalb dieser Klasse
+     * Default-Konstruktor, der nicht ausserhalb dieser Klasse
      * aufgerufen werden kann
      */
     private DataHandler() {}
  
     /**
      * Statische Methode, liefert die einzige Instanz dieser
-     * Klasse zurück
+     * Klasse zurÃ¼ck
      */
     public static DataHandler getInstance() {
         if (instance == null) {
@@ -23,8 +23,10 @@ public class DataHandler {
     }
     
     public void handleMessage(Message msg){
-    	
-    	msg.send();
+    	if (msg.validate()) {
+    		msg.send();
+    	} else
+    		System.out.println("Message not validated correctly!");
     }
 }
 

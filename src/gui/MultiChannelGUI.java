@@ -106,7 +106,7 @@ public class MultiChannelGUI {
 		JLabel lblReciever = new JLabel("Empfänger:");
 		frame.getContentPane().add(lblReciever, "2, 2");
 
-		JTextField tFReciever = new JTextField();
+		final JTextField tFReciever = new JTextField();
 		frame.getContentPane().add(tFReciever, "4, 2, 25, 1, fill, default");
 		tFReciever.setColumns(10);
 
@@ -122,10 +122,10 @@ public class MultiChannelGUI {
 
 		frame.getContentPane().add(datePicker(null, new Date()), "30, 10, 1, 1, fill, default");
 
-		JLabel lblBetreff = new JLabel("Betreff:");
-		frame.getContentPane().add(lblBetreff, "2, 4");
+		JLabel lblSubject = new JLabel("Betreff:");
+		frame.getContentPane().add(lblSubject, "2, 4");
 
-		JTextField tFSubject = new JTextField();
+		final JTextField tFSubject = new JTextField();
 		frame.getContentPane().add(tFSubject, "4, 4, 23, 1, fill, default");
 		tFSubject.setColumns(10);
 
@@ -136,8 +136,8 @@ public class MultiChannelGUI {
 		JLabel lblMessage = new JLabel("Nachricht:");
 		frame.getContentPane().add(lblMessage, "2, 6");
 
-		JTextArea textArea = new JTextArea();
-		frame.getContentPane().add(textArea, "2, 8, 27, 5, fill, fill");
+		final JTextArea messageBody = new JTextArea();
+		frame.getContentPane().add(messageBody, "2, 8, 27, 5, fill, fill");
 
 		JButton button = new JButton("Abschicken");
 		button.addActionListener(new ActionListener() {
@@ -145,7 +145,8 @@ public class MultiChannelGUI {
 
 				String selectedItem = (String)comboBox.getSelectedItem();
 
-				guiHandler.sendMessage("bla","bla", selectedItem);
+				// sendMessage(String recipient, String subject, String message, String type)
+				guiHandler.sendMessage(tFReciever.getText(), tFSubject.getText(), messageBody.getText(),  selectedItem);
 
 			}
 		});

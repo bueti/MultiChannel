@@ -1,7 +1,5 @@
 package core;
 
-import messageTypes.Message;
-
 public interface IGUIHandler {
-	void sendMessage(String Recipient,String Text, String Type);
+	void sendMessage(String recipient, String subject, String message, String type);
 }
