@@ -41,7 +41,7 @@ public class MultiChannelGUI {
 	public MultiChannelGUI() {
 		GUIHandler handler = new GUIHandler();
 		guiHandler = (IGUIHandler)handler;
-		initialize();
+		this.initialize();
 
 		this.frame.setVisible(true);
 
@@ -144,9 +144,9 @@ public class MultiChannelGUI {
 			public void actionPerformed(ActionEvent arg0) {
 
 				String selectedItem = (String)comboBox.getSelectedItem();
-
+				
 				// sendMessage(String recipient, String subject, String message, String type)
-				guiHandler.sendMessage(tFReciever.getText(), tFSubject.getText(), messageBody.getText(),  selectedItem);
+				//guiHandler.sendMessage(tFReciever.getText(), tFSubject.getText(), messageBody.getText(),  selectedItem);
 
 			}
 		});

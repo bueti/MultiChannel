@@ -1,37 +1,40 @@
 package core;
 
+import java.util.Date;
+import java.util.List;
+
 import messageTypes.Message;
 
-public class GUIHandler implements IGUIHandler{
-
-	@Override
+public class GUIHandler implements IGUIHandler {
 	
-	public void sendMessage(String recipient, String subject, String message, String type) {
-		DataHandler handler = DataHandler.getInstance();
+	MessageProvider handler;
+	
+	public GUIHandler(){
+		this.handler = MessageProvider.getInstance();
+	}
+	
+	public void sendMessage(String recipient, String subject, String message,
+			String type) throws ClassNotFoundException, InstantiationException,
+			IllegalAccessException {
 		
-		try {
-			Class c = Class.forName("messageTypes." + type);
-			Message msg = (Message) c.newInstance();
-			System.out.println("Empfänger: " + recipient);
-			System.out.println("Betrefft: " + subject);
-			System.out.println("Nachricht: " + message);
 
-			// Send Message
-			handler.handleMessage(msg);
-			
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		Class messageType = Class.forName("messageTypes." + type);
+		Message msg = (Message) messageType.newInstance();
+		
+		if(msg.validate()){
+			this.handler.sendMessageNow(msg);
 		}
+	}
+
+	public void sendMessage(String recipient, String subject, String message,
+			String type, Date sendTime) {
 		
+
+	}
+
+	public List<String> getAllMessageTypes() {
 		
-		
+		return null;
 	}
 	
 
