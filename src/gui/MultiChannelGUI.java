@@ -33,6 +33,10 @@ public class MultiChannelGUI {
 
 	private JFrame frame;
 	private IGUIHandler guiHandler;
+	private JComboBox comboBox;
+	private JTextField tFReciever;
+	private JTextField tFSubject;
+	private JTextArea messageBody; 
 
 
 	/**
@@ -41,6 +45,7 @@ public class MultiChannelGUI {
 	public MultiChannelGUI() {
 		GUIHandler handler = new GUIHandler();
 		guiHandler = (IGUIHandler)handler;
+		
 		this.initialize();
 
 		this.frame.setVisible(true);
@@ -106,7 +111,7 @@ public class MultiChannelGUI {
 		JLabel lblReciever = new JLabel("Empfänger:");
 		frame.getContentPane().add(lblReciever, "2, 2");
 
-		final JTextField tFReciever = new JTextField();
+		tFReciever = new JTextField();
 		frame.getContentPane().add(tFReciever, "4, 2, 25, 1, fill, default");
 		tFReciever.setColumns(10);
 
@@ -125,31 +130,23 @@ public class MultiChannelGUI {
 		JLabel lblSubject = new JLabel("Betreff:");
 		frame.getContentPane().add(lblSubject, "2, 4");
 
-		final JTextField tFSubject = new JTextField();
+		tFSubject = new JTextField();
 		frame.getContentPane().add(tFSubject, "4, 4, 23, 1, fill, default");
 		tFSubject.setColumns(10);
 
-		final JComboBox comboBox = new JComboBox();
+		comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Email", "Sms", "Mms", "Print"}));
 		frame.getContentPane().add(comboBox, "30, 4, fill, default");
 
 		JLabel lblMessage = new JLabel("Nachricht:");
 		frame.getContentPane().add(lblMessage, "2, 6");
 
-		final JTextArea messageBody = new JTextArea();
+		messageBody = new JTextArea();
 		frame.getContentPane().add(messageBody, "2, 8, 27, 5, fill, fill");
 
 		JButton button = new JButton("Abschicken");
-		button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+		button.addActionListener(new SendActionListener());
 
-				String selectedItem = (String)comboBox.getSelectedItem();
-				
-				// sendMessage(String recipient, String subject, String message, String type)
-				//guiHandler.sendMessage(tFReciever.getText(), tFSubject.getText(), messageBody.getText(),  selectedItem);
-
-			}
-		});
 		frame.getContentPane().add(button, "30, 12, fill, fill");
 	}
 
@@ -182,5 +179,22 @@ public class MultiChannelGUI {
 		datePanel.add(dateChooser);
 		
 		return datePanel;
+	}
+	
+	private class SendActionListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent ae) {
+			// ClassNotFoundException, InstantiationException, IllegalAccessException;
+			try {
+				String selectedItem = (String)comboBox.getSelectedItem();
+				guiHandler.sendMessage(tFReciever.getText(), tFSubject.getText(), messageBody.getText(),  selectedItem);
+			} catch (ClassNotFoundException e) {
+				System.out.println("Klasse nicht gefunden!");
+			} catch (InstantiationException e) {
+				System.out.println("Konnte Objekt nicht instatieren!");
+			} catch (IllegalAccessException e) {
+				System.out.println("Konnte auf's Objekt nicht zugreifen!");
+			}
+		}
 	}
 }
