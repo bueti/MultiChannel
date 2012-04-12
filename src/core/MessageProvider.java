@@ -18,12 +18,14 @@ public class MessageProvider {
         return instance;
     }
     
-    public String sendMessageNow(Message msg){
-    	msg.send();
+    public String sendMessageNow(Message msg, String recipient, String subject, String message) {
+    	// TODO: Übergabe Empfänger und Nachricht
+    	
+    	msg.send(recipient, subject, message);
     	return null;
     }
     
-    public String sendMessageLater(Message msg){
+    public String sendMessageLater(Message msg) {
 		queueHandler.addMessageToQueue(msg);
 		
     	

@@ -12,6 +12,7 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextArea;
@@ -28,19 +29,24 @@ import com.toedter.calendar.JDateChooser;
 
 import core.GUIHandler;
 import core.IGUIHandler;
+import exceptions.EmptyRecipientException;
+import exceptions.EmptySubjectAndMessageException;
 
 public class MultiChannelGUI {
 
+	/**
+	 * Instanzvariablen
+	 */
 	private JFrame frame;
 	private IGUIHandler guiHandler;
 	private JComboBox comboBox;
-	private JTextField tFReciever;
+	private JTextField tFRecipient;
 	private JTextField tFSubject;
-	private JTextArea messageBody; 
-
+	private JTextArea messageBody;
+	private String selectedItem;
 
 	/**
-	 * Create the application.
+	 * Konstruktor
 	 */
 	public MultiChannelGUI() {
 		GUIHandler handler = new GUIHandler();
@@ -54,6 +60,7 @@ public class MultiChannelGUI {
 
 	/**
 	 * Initialize the contents of the frame.
+	 * TODO: Ersetzen durch Standard Swing Bibliothek ?
 	 */
 	private void initialize() {
 		frame = new JFrame();
@@ -111,9 +118,9 @@ public class MultiChannelGUI {
 		JLabel lblReciever = new JLabel("Empfänger:");
 		frame.getContentPane().add(lblReciever, "2, 2");
 
-		tFReciever = new JTextField();
-		frame.getContentPane().add(tFReciever, "4, 2, 25, 1, fill, default");
-		tFReciever.setColumns(10);
+		tFRecipient = new JTextField();
+		frame.getContentPane().add(tFRecipient, "4, 2, 25, 1, fill, default");
+		tFRecipient.setColumns(10);
 
 		final JCheckBox checkBox = new JCheckBox("Reminder: ");
 		checkBox.addActionListener(new ActionListener() {
@@ -135,6 +142,7 @@ public class MultiChannelGUI {
 		tFSubject.setColumns(10);
 
 		comboBox = new JComboBox();
+		// TODO: Automatische Generierung der ComboBox - Typen Liste
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Email", "Sms", "Mms", "Print"}));
 		frame.getContentPane().add(comboBox, "30, 4, fill, default");
 
@@ -152,6 +160,7 @@ public class MultiChannelGUI {
 
 	/*
 	 * Hübscher Date Picker
+	 * TODO: Ersetzen durch Standard Java Bibliothek ?
 	 */
 	private JPanel datePicker(String label, Date value) {
 		JPanel datePanel = new JPanel();
@@ -181,19 +190,33 @@ public class MultiChannelGUI {
 		return datePanel;
 	}
 	
+	/*
+	 * ActionListeners
+	 */
 	private class SendActionListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent ae) {
 			// ClassNotFoundException, InstantiationException, IllegalAccessException;
 			try {
-				String selectedItem = (String)comboBox.getSelectedItem();
-				guiHandler.sendMessage(tFReciever.getText(), tFSubject.getText(), messageBody.getText(),  selectedItem);
+				selectedItem = (String)comboBox.getSelectedItem();
+				guiHandler.sendMessage(tFRecipient.getText(), tFSubject.getText(), messageBody.getText(),  selectedItem);
 			} catch (ClassNotFoundException e) {
-				System.out.println("Klasse nicht gefunden!");
+				JOptionPane.showMessageDialog(frame, "Der Nachricht Typ \"" + selectedItem + "\" ist nicht verfügbar!", null,
+						JOptionPane.ERROR_MESSAGE);
 			} catch (InstantiationException e) {
-				System.out.println("Konnte Objekt nicht instatieren!");
+				JOptionPane.showMessageDialog(frame, "Konnte Objekt nicht instatieren!", null,
+						JOptionPane.ERROR_MESSAGE);
 			} catch (IllegalAccessException e) {
-				System.out.println("Konnte auf's Objekt nicht zugreifen!");
+				JOptionPane.showMessageDialog(frame, "Konnte nicht auf's Objekt zugreifen!", null,
+						JOptionPane.ERROR_MESSAGE);
+			} catch (EmptyRecipientException e) {
+				// TODO Auto-generated catch block
+				JOptionPane.showMessageDialog(frame, "Kein Empfänger angegeben!", null,
+						JOptionPane.ERROR_MESSAGE);
+			} catch (EmptySubjectAndMessageException e) {
+				// TODO Auto-generated catch block
+				JOptionPane.showMessageDialog(frame, "Kein Betrefft und keine Nachricht angegeben", null,
+						JOptionPane.ERROR_MESSAGE);
 			}
 		}
 	}

@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 
 import messageTypes.Message;
+import exceptions.EmptyRecipientException;
+import exceptions.EmptySubjectAndMessageException;
 
 public class GUIHandler implements IGUIHandler {
 
@@ -13,19 +15,21 @@ public class GUIHandler implements IGUIHandler {
 		this.handler = MessageProvider.getInstance();
 	}
 
+	// Ohne Reminder
 	public void sendMessage(String recipient, String subject, String message, String type) 
-			throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+			throws ClassNotFoundException, InstantiationException, IllegalAccessException, EmptyRecipientException, EmptySubjectAndMessageException {
 
-		Class messageType = Class.forName("messageTypes." + type);
+		Class<?> messageType = Class.forName("messageTypes." + type);
 		Message msg = (Message) messageType.newInstance();
 
-		if (msg.validate()) {
-			this.handler.sendMessageNow(msg);
+		// String recipient, String subject, String message
+		if (msg.validate(recipient, subject, message)) {
+			this.handler.sendMessageNow(msg, recipient, subject, message);
 		}
 	}
 
-	public void sendMessage(String recipient, String subject, String message,
-			String type, Date sendTime) {
+	// TODO: Mit Reminder
+	public void sendMessage(String recipient, String subject, String message, String type, Date sendTime) {
 
 	}
 
