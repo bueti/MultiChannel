@@ -4,14 +4,16 @@ import java.util.Date;
 
 import exceptions.EmptyRecipientException;
 import exceptions.EmptySubjectAndMessageException;
+import exceptions.IllegalEmailAddressException;
 
 public abstract class Message {
 	private Boolean sendReminder;
 	private Date reminderTime;
 	private Boolean sendLater;
 	private Date sendTime;
+	
 	public abstract void send(String recipient, String subject, String message);
-	public abstract boolean validate(String recipient, String subject, String message) throws EmptyRecipientException, EmptySubjectAndMessageException;
+	public abstract boolean validate(String recipient, String subject, String message) throws EmptyRecipientException, EmptySubjectAndMessageException, IllegalEmailAddressException;
 	
 	public Boolean getSendReminder() {
 		return sendReminder;

@@ -31,6 +31,7 @@ import core.GUIHandler;
 import core.IGUIHandler;
 import exceptions.EmptyRecipientException;
 import exceptions.EmptySubjectAndMessageException;
+import exceptions.IllegalEmailAddressException;
 
 public class MultiChannelGUI {
 
@@ -174,7 +175,6 @@ public class MultiChannelGUI {
 				((JTextField) comp).setEditable(false);
 			}
 		}
-		
 
 		SpinnerModel model = new SpinnerDateModel();
 		JSpinner timeSpinner = new JSpinner(model);
@@ -196,10 +196,14 @@ public class MultiChannelGUI {
 	private class SendActionListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent ae) {
-			// ClassNotFoundException, InstantiationException, IllegalAccessException;
 			try {
 				selectedItem = (String)comboBox.getSelectedItem();
 				guiHandler.sendMessage(tFRecipient.getText(), tFSubject.getText(), messageBody.getText(),  selectedItem);
+				
+				// Clean fields
+				tFRecipient.setText("");
+				tFSubject.setText("");
+				messageBody.setText("");				
 			} catch (ClassNotFoundException e) {
 				JOptionPane.showMessageDialog(frame, "Der Nachricht Typ \"" + selectedItem + "\" ist nicht verfügbar!", null,
 						JOptionPane.ERROR_MESSAGE);
@@ -210,12 +214,13 @@ public class MultiChannelGUI {
 				JOptionPane.showMessageDialog(frame, "Konnte nicht auf's Objekt zugreifen!", null,
 						JOptionPane.ERROR_MESSAGE);
 			} catch (EmptyRecipientException e) {
-				// TODO Auto-generated catch block
 				JOptionPane.showMessageDialog(frame, "Kein Empfänger angegeben!", null,
 						JOptionPane.ERROR_MESSAGE);
 			} catch (EmptySubjectAndMessageException e) {
-				// TODO Auto-generated catch block
 				JOptionPane.showMessageDialog(frame, "Kein Betrefft und keine Nachricht angegeben", null,
+						JOptionPane.ERROR_MESSAGE);
+			} catch (IllegalEmailAddressException e) {
+				JOptionPane.showMessageDialog(frame, "Ungültige Email Adresse!", null,
 						JOptionPane.ERROR_MESSAGE);
 			}
 		}

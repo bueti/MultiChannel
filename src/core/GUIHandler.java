@@ -6,6 +6,7 @@ import java.util.List;
 import messageTypes.Message;
 import exceptions.EmptyRecipientException;
 import exceptions.EmptySubjectAndMessageException;
+import exceptions.IllegalEmailAddressException;
 
 public class GUIHandler implements IGUIHandler {
 
@@ -17,7 +18,7 @@ public class GUIHandler implements IGUIHandler {
 
 	// Ohne Reminder
 	public void sendMessage(String recipient, String subject, String message, String type) 
-			throws ClassNotFoundException, InstantiationException, IllegalAccessException, EmptyRecipientException, EmptySubjectAndMessageException {
+			throws ClassNotFoundException, InstantiationException, IllegalAccessException, EmptyRecipientException, EmptySubjectAndMessageException, IllegalEmailAddressException {
 
 		Class<?> messageType = Class.forName("messageTypes." + type);
 		Message msg = (Message) messageType.newInstance();

@@ -6,9 +6,10 @@ import exceptions.EmptySubjectAndMessageException;
 public class Print extends Message {
 
 	public void send(String printer, String subject, String message) {
-		// TODO: Schöner Output
-		System.out.println("Nachricht \"" + subject + "\" an Drucker \""
+		System.out.println("\"" + subject + "\" an Drucker \""
 				+ printer + "\" geschickt.");
+		System.out.println("Nachricht:");
+		System.out.println(message);
 	}
 
 	public boolean validate(String printer, String subject, String message)
@@ -17,7 +18,7 @@ public class Print extends Message {
 			if (subject.equals("") && message.equals("")) {
 				throw new EmptySubjectAndMessageException();
 			}
-			System.out.println("Validated");
+//			System.out.println("Validated");
 			return true;
 		} else {
 			throw new EmptyRecipientException();
