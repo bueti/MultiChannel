@@ -1,7 +1,7 @@
 import gui.MultiChannelGUI;
 
 
-public class runner {
+public class MultiChannel {
 
 	public static void main(String[] args) {
 
