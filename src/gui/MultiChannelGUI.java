@@ -143,8 +143,7 @@ public class MultiChannelGUI {
 		tFSubject.setColumns(10);
 
 		comboBox = new JComboBox();
-		// TODO: Automatische Generierung der ComboBox - Typen Liste
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Email", "Sms", "Mms", "Print"}));
+		comboBox.setModel(new DefaultComboBoxModel(guiHandler.getAllMessageTypes()));
 		frame.getContentPane().add(comboBox, "30, 4, fill, default");
 
 		JLabel lblMessage = new JLabel("Nachricht:");
@@ -205,7 +204,7 @@ public class MultiChannelGUI {
 				tFSubject.setText("");
 				messageBody.setText("");				
 			} catch (ClassNotFoundException e) {
-				JOptionPane.showMessageDialog(frame, "Der Nachricht Typ \"" + selectedItem + "\" ist nicht verfügbar!", null,
+				JOptionPane.showMessageDialog(frame, "Der Nachricht Typ \"" + selectedItem + "\" ist nicht implementiert!", null,
 						JOptionPane.ERROR_MESSAGE);
 			} catch (InstantiationException e) {
 				JOptionPane.showMessageDialog(frame, "Konnte Objekt nicht instatieren!", null,

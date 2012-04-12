@@ -1,7 +1,6 @@
 package core;
 
 import java.util.Date;
-import java.util.List;
 
 import messageTypes.Message;
 import exceptions.EmptyRecipientException;
@@ -11,6 +10,7 @@ import exceptions.IllegalEmailAddressException;
 public class GUIHandler implements IGUIHandler {
 
 	MessageProvider handler;
+	String[] allMessageTypes;
 
 	public GUIHandler() {
 		this.handler = MessageProvider.getInstance();
@@ -34,9 +34,9 @@ public class GUIHandler implements IGUIHandler {
 
 	}
 
-	public List<String> getAllMessageTypes() {
-
-		return null;
+	public String[] getAllMessageTypes() {
+		allMessageTypes = new String[] {"Email", "Sms", "Mms", "Print"};
+		return allMessageTypes;
 	}
 
 }
