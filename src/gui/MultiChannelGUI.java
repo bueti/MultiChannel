@@ -46,6 +46,7 @@ public class MultiChannelGUI {
 	private JTextArea messageBody;
 	private JCheckBox checkBox;
 	private String selectedItem;
+	private JPanel calendarPanel;
 
 	/**
 	 * Konstruktor
@@ -129,7 +130,9 @@ public class MultiChannelGUI {
 		frame.getContentPane().add(checkBox, "30, 2, center, default");
 		checkBox.addActionListener(new ReminderActionListener());
 
-		frame.getContentPane().add(datePicker(null, new Date()), "30, 10, 1, 1, fill, default");
+		calendarPanel = datePicker(null, new Date());
+		calendarPanel.setVisible(false);
+		frame.getContentPane().add(calendarPanel, "30, 10, 1, 1, fill, default");
 
 		JLabel lblSubject = new JLabel("Betreff:");
 		frame.getContentPane().add(lblSubject, "2, 4");
@@ -224,8 +227,11 @@ public class MultiChannelGUI {
 	private class ReminderActionListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent ae) {
-			// TODO: Redraw GUI with Calendar
-			System.out.println("Gib Kalender");
+			if(checkBox.isSelected()) {
+				calendarPanel.setVisible(true);
+			} else {
+				calendarPanel.setVisible(false);
+			}
 		}
 	}
 }
