@@ -44,6 +44,7 @@ public class MultiChannelGUI {
 	private JTextField tFRecipient;
 	private JTextField tFSubject;
 	private JTextArea messageBody;
+	private JCheckBox checkBox;
 	private String selectedItem;
 
 	/**
@@ -123,15 +124,10 @@ public class MultiChannelGUI {
 		frame.getContentPane().add(tFRecipient, "4, 2, 25, 1, fill, default");
 		tFRecipient.setColumns(10);
 
-		final JCheckBox checkBox = new JCheckBox("Reminder: ");
-		checkBox.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("Kalender");
-
-			}
-		});
+		checkBox = new JCheckBox("Reminder: ");
 		checkBox.setHorizontalTextPosition(SwingConstants.LEADING);
 		frame.getContentPane().add(checkBox, "30, 2, center, default");
+		checkBox.addActionListener(new ReminderActionListener());
 
 		frame.getContentPane().add(datePicker(null, new Date()), "30, 10, 1, 1, fill, default");
 
@@ -222,6 +218,14 @@ public class MultiChannelGUI {
 				JOptionPane.showMessageDialog(frame, "Ungültige Email Adresse!", null,
 						JOptionPane.ERROR_MESSAGE);
 			}
+		}
+	}
+	
+	private class ReminderActionListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent ae) {
+			// TODO: Redraw GUI with Calendar
+			System.out.println("Gib Kalender");
 		}
 	}
 }
