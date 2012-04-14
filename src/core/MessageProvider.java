@@ -1,5 +1,7 @@
 package core;
 
+import java.util.Timer;
+
 import messageTypes.Message;
 
 public class MessageProvider {
@@ -18,17 +20,12 @@ public class MessageProvider {
         return instance;
     }
     
-    public String sendMessageNow(Message msg, String recipient, String subject, String message) {
+    public String sendMessageNow(Message msg) {
     	// TODO: Übergabe Empfänger und Nachricht
+    	// TODO: Try catch falls versenden failt
+    	msg.send();
     	
-    	msg.send(recipient, subject, message);
-    	return null;
-    }
-    
-    public String sendMessageLater(Message msg) {
-		queueHandler.addMessageToQueue(msg);
-		
-    	
+    	//TODO: return wirklich nötig?
     	return null;
     }
 }

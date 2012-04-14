@@ -11,9 +11,12 @@ public abstract class Message {
 	private Date reminderTime;
 	private Boolean sendLater;
 	private Date sendTime;
+	private String recipient;
+	private String subject;
+	private String text;
 	
-	public abstract void send(String recipient, String subject, String message);
-	public abstract boolean validate(String recipient, String subject, String message) throws EmptyRecipientException, EmptySubjectAndMessageException, IllegalEmailAddressException;
+	public abstract void send();
+	public abstract boolean validate() throws EmptyRecipientException, EmptySubjectAndMessageException, IllegalEmailAddressException;
 	
 	public Boolean getSendReminder() {
 		return sendReminder;
@@ -38,5 +41,23 @@ public abstract class Message {
 	}
 	public void setSendTime(Date sendTime) {
 		this.sendTime = sendTime;
+	}
+	public String getRecipient() {
+		return recipient;
+	}
+	public void setRecipient(String recipient) {
+		this.recipient = recipient;
+	}
+	public String getText() {
+		return text;
+	}
+	public void setText(String text) {
+		this.text = text;
+	}
+	public String getSubject() {
+		return subject;
+	}
+	public void setSubject(String subject) {
+		this.subject = subject;
 	}
 }

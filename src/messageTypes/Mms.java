@@ -3,13 +3,14 @@ package messageTypes;
 public class Mms extends Message {
 
 	@Override
-	public void send(String recipient, String subject, String message) {
-		// TODO: Schöner Output
-		System.out.println("MMS abgeschickt!");
+	public void send() {
+		System.out.println("\"" + this.getSubject() + "\" an \"" + this.getRecipient() + "\" geschickt.");
+		System.out.println("Nachricht:");
+		System.out.println(this.getText());
 	}
 
 	@Override
-	public boolean validate(String recipient, String subject, String message) {
+	public boolean validate() {
 		// TODO: MMS Validierung:
 		// Mehrere Empfänger?
 		// Format Handling: +417uxxxyyzz, 07uxxxyyyzz, 07u'xxx'yy'zz, +41'7u'xxx'yy'zz, 07u xxx yy zz

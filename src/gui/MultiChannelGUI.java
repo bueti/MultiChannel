@@ -3,7 +3,9 @@ package gui;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -196,7 +198,10 @@ public class MultiChannelGUI {
 		public void actionPerformed(ActionEvent ae) {
 			try {
 				selectedItem = (String)comboBox.getSelectedItem();
-				guiHandler.sendMessage(tFRecipient.getText(), tFSubject.getText(), messageBody.getText(),  selectedItem);
+				//Der Methode muss eine Liste von Recipients übergeben werden
+				List<String> test = new ArrayList<String>(); //Nur zum testen
+				test.add(tFRecipient.getText());
+				guiHandler.sendMessage(test, tFSubject.getText(), messageBody.getText(),  selectedItem);
 				
 				// Clean fields
 				tFRecipient.setText("");

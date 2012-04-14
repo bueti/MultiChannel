@@ -5,17 +5,17 @@ import exceptions.EmptySubjectAndMessageException;
 
 public class Print extends Message {
 
-	public void send(String printer, String subject, String message) {
-		System.out.println("\"" + subject + "\" an Drucker \""
-				+ printer + "\" geschickt.");
+	public void send() {
+		System.out.println("\"" + this.getSubject() + "\" an Drucker \""
+				+ this.getRecipient() + "\" geschickt.");
 		System.out.println("Nachricht:");
-		System.out.println(message);
+		System.out.println(this.getText());
 	}
 
-	public boolean validate(String printer, String subject, String message)
+	public boolean validate()
 			throws EmptyRecipientException, EmptySubjectAndMessageException {
-		if (!printer.equals("")) {
-			if (subject.equals("") && message.equals("")) {
+		if (!this.getRecipient().equals("")) {
+			if (this.getSubject().equals("") && this.getText().equals("")) {
 				throw new EmptySubjectAndMessageException();
 			}
 //			System.out.println("Validated");

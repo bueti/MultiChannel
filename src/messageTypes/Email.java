@@ -7,17 +7,17 @@ import exceptions.IllegalEmailAddressException;
 
 public class Email extends Message {
 
-	public void send(String recipient, String subject, String message) {
-		System.out.println("\"" + subject + "\" an \"" + recipient + "\" geschickt.");
+	public void send() {
+		System.out.println("\"" + this.getSubject() + "\" an \"" + this.getRecipient() + "\" geschickt.");
 		System.out.println("Nachricht:");
-		System.out.println(message);
+		System.out.println(this.getText());
 	}
 
-	public boolean validate(String recipient, String subject, String message)
+	public boolean validate()
 			throws EmptyRecipientException, EmptySubjectAndMessageException, IllegalEmailAddressException {
-		if (!recipient.equals("")) {
-			if(recipient.contains("@")) {
-				if (subject.equals("") && message.equals("")) {
+		if (!this.getRecipient().equals("")) {
+			if(this.getRecipient().contains("@")) {
+				if (this.getSubject().equals("") && this.getText().equals("")) {
 					throw new EmptySubjectAndMessageException();
 				}
 			} else {
@@ -27,5 +27,15 @@ public class Email extends Message {
 		} else {
 			throw new EmptyRecipientException();
 		}
+		
+		//RegEx für Email addresse
+		/*#  public boolean isValidEmailAddress(String emailAddress){  
+			#    String  expression="^[\\w\\-]([\\.\\w])+[\\w]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";  
+			#    CharSequence inputStr = emailAddress;  
+			#    Pattern pattern = Pattern.compile(expression,Pattern.CASE_INSENSITIVE);  
+			#    Matcher matcher = pattern.matcher(inputStr);  
+			#    return matcher.matches();  
+			#   
+			#  }*/
 	}
 }
