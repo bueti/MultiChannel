@@ -15,6 +15,7 @@ public class Email extends Message {
 
 	public boolean validate()
 			throws EmptyRecipientException, EmptySubjectAndMessageException, IllegalEmailAddressException {
+		// TODO: Email Address Verification: http://leshazlewood.com/2006/11/06/emailaddress-java-class/ 
 		if (!this.getRecipient().equals("")) {
 			if(this.getRecipient().contains("@")) {
 				if (this.getSubject().equals("") && this.getText().equals("")) {

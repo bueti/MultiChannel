@@ -198,9 +198,14 @@ public class MultiChannelGUI {
 		public void actionPerformed(ActionEvent ae) {
 			try {
 				selectedItem = (String)comboBox.getSelectedItem();
-				//Der Methode muss eine Liste von Recipients übergeben werden
+				// Der Methode muss eine Liste von Recipients übergeben werden
 				List<String> test = new ArrayList<String>(); //Nur zum testen
-				test.add(tFRecipient.getText());
+				// TODO: Multi-Split: ",", ";", etc... 
+				String[] addresses = tFRecipient.getText().split("\\s+");
+
+				for (int i = 0; i<addresses.length; i++) {
+					test.add(addresses[i]);
+				}
 				guiHandler.sendMessage(test, tFSubject.getText(), messageBody.getText(),  selectedItem);
 				
 				// Clean fields
