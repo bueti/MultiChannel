@@ -9,6 +9,7 @@ tmp/**/*
 *.swp
 *~.nib
 local.properties
+*.class
 #.classpath
 #.settings/
 #.loadpath
