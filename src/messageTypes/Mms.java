@@ -17,5 +17,9 @@ public class Mms extends Message {
 		System.out.println("Validated");
 		return true;
 	}
+	
+	public void sendReminder() {
+		System.out.println("\"Das ist der Reminder and die Message: " + this.getSubject() + "and den Empfänger" + this.getRecipient() + "\"");
+	}
 
 }

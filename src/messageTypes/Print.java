@@ -11,6 +11,10 @@ public class Print extends Message {
 		System.out.println("Nachricht:");
 		System.out.println(this.getText());
 	}
+	
+	public void sendReminder() {
+		System.out.println("\"Das ist der Reminder and die Message: " + this.getSubject() + "and den Empfänger" + this.getRecipient() + "\"");
+	}
 
 	public boolean validate()
 			throws EmptyRecipientException, EmptySubjectAndMessageException {

@@ -16,6 +16,7 @@ public abstract class Message {
 	private String text;
 	
 	public abstract void send();
+	public abstract void sendReminder();
 	public abstract boolean validate() throws EmptyRecipientException, EmptySubjectAndMessageException, IllegalEmailAddressException;
 	
 	public Boolean getSendReminder() {

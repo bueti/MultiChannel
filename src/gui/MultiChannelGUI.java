@@ -4,8 +4,10 @@ import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -49,6 +51,10 @@ public class MultiChannelGUI {
 	private JCheckBox checkBox;
 	private String selectedItem;
 	private JPanel calendarPanel;
+	private JSpinner timespinner;
+	private JDateChooser dateChooser;
+	private SpinnerModel model;
+	private JComponent editor;
 
 	/**
 	 * Konstruktor
@@ -165,7 +171,7 @@ public class MultiChannelGUI {
 	 */
 	private JPanel datePicker(String label, Date value) {
 		JPanel datePanel = new JPanel();
-		JDateChooser dateChooser = new JDateChooser();
+		dateChooser = new JDateChooser();
 		if (value != null) {
 			dateChooser.setDate(value);
 		}
@@ -175,16 +181,16 @@ public class MultiChannelGUI {
 				((JTextField) comp).setEditable(false);
 			}
 		}
-
-		SpinnerModel model = new SpinnerDateModel();
-		JSpinner timeSpinner = new JSpinner(model);
-		JComponent editor = new JSpinner.DateEditor(timeSpinner, "HH:mm");
-		timeSpinner.setEditor(editor);
+		
+		model = new SpinnerDateModel();
+		timespinner = new JSpinner(model);
+		editor = new JSpinner.DateEditor(timespinner, "HH:mm");
+		timespinner.setEditor(editor);
 		if(value != null) {
-			timeSpinner.setValue(value);
+			timespinner.setValue(value);
 		}
 
-		datePanel.add(timeSpinner);
+		datePanel.add(timespinner);
 		datePanel.add(dateChooser);
 		
 		return datePanel;
@@ -206,8 +212,20 @@ public class MultiChannelGUI {
 				for (int i = 0; i<addresses.length; i++) {
 					test.add(addresses[i]);
 				}
-				guiHandler.sendMessage(test, tFSubject.getText(), messageBody.getText(),  selectedItem);
-				
+				if(!checkBox.isSelected()){	
+					guiHandler.sendMessage(test, tFSubject.getText(), messageBody.getText(),  selectedItem);
+				}else{
+				    
+					//TODO: Just for test because timepicker does not work
+				    //Create instance of java.util.Date
+				    java.util.Date utilDate = new Date();
+				    utilDate.setTime(System.currentTimeMillis() + 120000);
+				    java.util.Date utilDate2 = new Date();
+				    utilDate2.setTime(System.currentTimeMillis() + 110000);
+					
+					guiHandler.sendMessage(test, tFSubject.getText(), messageBody.getText(), selectedItem,utilDate,utilDate2);
+				}
+				//TODO: Felder sollten nur gecleart werden wenn keine exception auftritt
 				// Clean fields
 				tFRecipient.setText("");
 				tFSubject.setText("");

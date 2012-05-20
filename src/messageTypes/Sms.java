@@ -7,6 +7,11 @@ public class Sms extends Message {
 		// TODO: Schöner Output
 		System.out.println("SMS abgeschickt!");
 	}
+	
+	public void sendReminder() {
+		System.out.println("\"Das ist der Reminder and die Message: " + this.getSubject() + " an den Empfänger: " + this.getRecipient() + " \"");
+	}
+	
 
 	@Override
 	public boolean validate() {
