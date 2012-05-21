@@ -43,18 +43,23 @@ public class MultiChannelGUI {
 	 * Instanzvariablen
 	 */
 	private JFrame frame;
+	private JPanel schedulerPanel;
+	private JPanel calendarPanel;
+	private JPanel reminderPanel2;
 	private IGUIHandler guiHandler;
 	private JComboBox comboBox;
 	private JTextField tFRecipient;
 	private JTextField tFSubject;
 	private JTextArea messageBody;
-	private JCheckBox checkBox;
+	private JCheckBox chckbxScheduler;
 	private String selectedItem;
-	private JPanel calendarPanel;
 	private JSpinner timespinner;
 	private JDateChooser dateChooser;
 	private SpinnerModel model;
 	private JComponent editor;
+	private JPanel reminderPanel1;
+	private JTextField textField;
+	private JCheckBox chckbxReminder;
 
 	/**
 	 * Konstruktor
@@ -105,24 +110,26 @@ public class MultiChannelGUI {
 				FormFactory.RELATED_GAP_COLSPEC,
 				FormFactory.DEFAULT_COLSPEC,
 				FormFactory.RELATED_GAP_COLSPEC,
-				FormFactory.MIN_COLSPEC,
+				ColumnSpec.decode("min:grow"),
 				FormFactory.RELATED_GAP_COLSPEC,
 				FormFactory.MIN_COLSPEC,
 				FormFactory.RELATED_GAP_COLSPEC,
 				FormFactory.MIN_COLSPEC,},
-				new RowSpec[] {
+			new RowSpec[] {
 				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.NARROW_LINE_GAP_ROWSPEC,
 				FormFactory.DEFAULT_ROWSPEC,
 				FormFactory.RELATED_GAP_ROWSPEC,
 				FormFactory.DEFAULT_ROWSPEC,
 				FormFactory.RELATED_GAP_ROWSPEC,
 				FormFactory.DEFAULT_ROWSPEC,
 				FormFactory.RELATED_GAP_ROWSPEC,
-				FormFactory.DEFAULT_ROWSPEC,
+				RowSpec.decode("fill:max(46dlu;default)"),
 				FormFactory.RELATED_GAP_ROWSPEC,
-				RowSpec.decode("fill:max(70dlu;default):grow"),
+				RowSpec.decode("bottom:max(22dlu;default):grow"),
 				FormFactory.RELATED_GAP_ROWSPEC,
-				FormFactory.MIN_ROWSPEC,
+				RowSpec.decode("fill:default"),
 				FormFactory.RELATED_GAP_ROWSPEC,
 				FormFactory.DEFAULT_ROWSPEC,}));
 
@@ -132,42 +139,72 @@ public class MultiChannelGUI {
 		tFRecipient = new JTextField();
 		frame.getContentPane().add(tFRecipient, "4, 2, 25, 1, fill, default");
 		tFRecipient.setColumns(10);
-
-		checkBox = new JCheckBox("Reminder: ");
-		checkBox.setHorizontalTextPosition(SwingConstants.LEADING);
-		frame.getContentPane().add(checkBox, "30, 2, center, default");
-		checkBox.addActionListener(new ReminderActionListener());
+		
+		chckbxScheduler = new JCheckBox("Scheduler: ");
+		chckbxScheduler.setToolTipText("Mark if you want to schedule this message.");
+		chckbxScheduler.setHorizontalTextPosition(SwingConstants.LEADING);
+		chckbxScheduler.addActionListener(new SchedulerActionListener());
+		
+		schedulerPanel = new JPanel();
+		schedulerPanel.add(chckbxScheduler);
+		schedulerPanel.setVisible(false);
+		schedulerPanel.setVisible(true);
+		frame.getContentPane().add(schedulerPanel, "30, 2, left, fill");
 
 		calendarPanel = datePicker(null, new Date());
 		calendarPanel.setVisible(false);
-		frame.getContentPane().add(calendarPanel, "30, 10, 1, 1, fill, default");
+		
+		chckbxReminder = new JCheckBox("Reminder: ");
+		chckbxScheduler.setToolTipText("Mark if you want to recieve a reminder before this message is sent.");
+		chckbxReminder.setHorizontalTextPosition(SwingConstants.LEADING);
+		chckbxReminder.addActionListener(new ReminderActionListener());
+		
+		reminderPanel2 = new JPanel();
+		reminderPanel2.add(chckbxReminder);
+		reminderPanel2.setVisible(false);
+		frame.getContentPane().add(reminderPanel2, "30, 4, left, fill");
+
+		comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel(guiHandler.getAllMessageTypes()));
+		frame.getContentPane().add(comboBox, "30, 6, fill, default");
+				
+		frame.getContentPane().add(calendarPanel, "30, 10, fill, default");
 
 		JLabel lblSubject = new JLabel("Betreff:");
 		frame.getContentPane().add(lblSubject, "2, 4");
 
 		tFSubject = new JTextField();
-		frame.getContentPane().add(tFSubject, "4, 4, 23, 1, fill, default");
+		frame.getContentPane().add(tFSubject, "4, 4, 25, 1, fill, default");
 		tFSubject.setColumns(10);
-
-		comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(guiHandler.getAllMessageTypes()));
-		frame.getContentPane().add(comboBox, "30, 4, fill, default");
 
 		JLabel lblMessage = new JLabel("Nachricht:");
 		frame.getContentPane().add(lblMessage, "2, 6");
 
 		messageBody = new JTextArea();
-		frame.getContentPane().add(messageBody, "2, 8, 27, 5, fill, fill");
+		frame.getContentPane().add(messageBody, "2, 8, 27, 7, fill, fill");
 
 		JButton button = new JButton("Abschicken");
 		button.addActionListener(new SendActionListener());
+		
+		reminderPanel1 = new JPanel();
+		frame.getContentPane().add(reminderPanel1, "30, 12, fill, fill");
+		reminderPanel1.setLayout(null);
+		reminderPanel1.setVisible(false);
+		
+		textField = new JTextField();
+		textField.setBounds(64, 6, 52, 28);
+		reminderPanel1.add(textField);
+		textField.setColumns(10);
+		
+		JLabel lblMinuten = new JLabel("Minuten:");
+		lblMinuten.setBounds(6, 12, 61, 16);
+		reminderPanel1.add(lblMinuten);
 
-		frame.getContentPane().add(button, "30, 12, fill, fill");
+		frame.getContentPane().add(button, "30, 14, fill, fill");
 	}
 
 	/*
-	 * Hübscher Date Picker
-	 * TODO: Ersetzen durch Standard Java Bibliothek ?
+	 * Date Picker
 	 */
 	private JPanel datePicker(String label, Date value) {
 		JPanel datePanel = new JPanel();
@@ -212,7 +249,7 @@ public class MultiChannelGUI {
 				for (int i = 0; i<addresses.length; i++) {
 					test.add(addresses[i]);
 				}
-				if(!checkBox.isSelected()){	
+				if(!chckbxScheduler.isSelected()){	
 					guiHandler.sendMessage(test, tFSubject.getText(), messageBody.getText(),  selectedItem);
 				}else{
 				    
@@ -252,14 +289,28 @@ public class MultiChannelGUI {
 		}
 	}
 	
-	private class ReminderActionListener implements ActionListener {
+	private class SchedulerActionListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent ae) {
-			if(checkBox.isSelected()) {
+			if(chckbxScheduler.isSelected()) {
 				calendarPanel.setVisible(true);
+				reminderPanel2.setVisible(true);
 			} else {
 				calendarPanel.setVisible(false);
+				reminderPanel2.setVisible(false);
 			}
 		}
 	}
+	private class ReminderActionListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent ae) {
+			if(chckbxReminder.isSelected()) {
+				reminderPanel1.setVisible(true);
+			} else {
+				reminderPanel1.setVisible(false);
+			}
+			
+		}
+	}
+
 }
