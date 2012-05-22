@@ -3,7 +3,6 @@ package gui;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -23,6 +22,8 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerDateModel;
 import javax.swing.SpinnerModel;
 import javax.swing.SwingConstants;
+
+import org.joda.time.DateTime;
 
 import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.ColumnSpec;
@@ -57,8 +58,11 @@ public class MultiChannelGUI {
 	private SpinnerModel model;
 	private JComponent editor;
 	private JPanel reminderTimePanel;
-	private JTextField textField;
+	private JTextField tFReminderTimer;
 	private JCheckBox chckbxReminder;
+	
+	/* Joda Kalendar */
+	private DateTime dt;
 
 	/**
 	 * Konstruktor
@@ -75,7 +79,6 @@ public class MultiChannelGUI {
 
 	/**
 	 * Initialize the contents of the frame.
-	 * TODO: Ersetzen durch Standard Swing Bibliothek ?
 	 */
 	private void initialize() {
 		frame = new JFrame();
@@ -190,10 +193,10 @@ public class MultiChannelGUI {
 		reminderTimePanel.setLayout(null);
 		reminderTimePanel.setVisible(false);
 		
-		textField = new JTextField();
-		textField.setBounds(64, 6, 52, 28);
-		reminderTimePanel.add(textField);
-		textField.setColumns(10);
+		tFReminderTimer = new JTextField();
+		tFReminderTimer.setBounds(64, 6, 52, 28);
+		reminderTimePanel.add(tFReminderTimer);
+		tFReminderTimer.setColumns(10);
 		
 		JLabel lblMinuten = new JLabel("Minuten:");
 		lblMinuten.setBounds(6, 12, 61, 16);
@@ -236,6 +239,7 @@ public class MultiChannelGUI {
 	 * ActionListeners
 	 */
 	private class SendActionListener implements ActionListener {
+
 		@Override
 		public void actionPerformed(ActionEvent ae) {
 			try {
@@ -248,33 +252,24 @@ public class MultiChannelGUI {
 				for (int i = 0; i<addresses.length; i++) {
 					test.add(addresses[i]);
 				}
+				
 				if(!chckbxScheduler.isSelected()){	
 					guiHandler.sendMessage(test, tFSubject.getText(), messageBody.getText(),  selectedItem);
-				}else{
+				} else {
+				    Date date = dateChooser.getDate();
+				    Date time = (Date)timespinner.getValue();
 				    
-					//TODO: Just for test because timepicker does not work
-				    //Create instance of java.util.Date
-					
-//				    java.util.Date utilDate = new Date();
-//				    utilDate.setTime(System.currentTimeMillis() + 120000);
-//				    java.util.Date utilDate2 = new Date();
-//				    utilDate2.setTime(System.currentTimeMillis() + 110000);
-					
-					java.util.Date utilDate = new Date();
-					SimpleDateFormat date, time;
-					System.out.println(utilDate);
-					//Mon May 21 14:18:25 CEST 2012
-					
-					date = new SimpleDateFormat("EEE MMMMM dd HH:mm:ss z yyyy");
-					
-//					Date reminderDate = date.format(dateChooser.getDate());
-					
-					System.out.println();
-//					System.out.println("Day:" + day.format(dateChooser.getDate()) + " Month " + month.format(dateChooser.getDate()) + " Year: " + year.format(dateChooser.getDate()));
-//					guiHandler.sendMessage(test, tFSubject.getText(), messageBody.getText(), selectedItem, dateChooser.getDate(), timespinner.getValue());
+				    System.out.println(date + " " + time);
+				    
+//				    if(chckbxReminder.isSelected()) {
+//				    	time = time - Integer.parseInt( tFReminderTimer.getText() );
+//				    }
+				    
+				    guiHandler.sendMessage(test, tFSubject.getText(), messageBody.getText(), selectedItem, date, time);
 				}
+				
 				//TODO: Felder sollten nur gecleart werden wenn keine exception auftritt
-				// Clean fields
+				// Clear fields
 				tFRecipient.setText("");
 				tFSubject.setText("");
 				messageBody.setText("");				
