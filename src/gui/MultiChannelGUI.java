@@ -3,12 +3,10 @@ package gui;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
-import java.text.SimpleDateFormat;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -46,7 +44,7 @@ public class MultiChannelGUI {
 	private JFrame frame;
 	private JPanel schedulerPanel;
 	private JPanel calendarPanel;
-	private JPanel reminderPanel2;
+	private JPanel reminderPanel;
 	private IGUIHandler guiHandler;
 	private JComboBox comboBox;
 	private JTextField tFRecipient;
@@ -58,7 +56,7 @@ public class MultiChannelGUI {
 	private JDateChooser dateChooser;
 	private SpinnerModel model;
 	private JComponent editor;
-	private JPanel reminderPanel1;
+	private JPanel reminderTimePanel;
 	private JTextField textField;
 	private JCheckBox chckbxReminder;
 
@@ -160,10 +158,10 @@ public class MultiChannelGUI {
 		chckbxReminder.setHorizontalTextPosition(SwingConstants.LEADING);
 		chckbxReminder.addActionListener(new ReminderActionListener());
 		
-		reminderPanel2 = new JPanel();
-		reminderPanel2.add(chckbxReminder);
-		reminderPanel2.setVisible(false);
-		frame.getContentPane().add(reminderPanel2, "30, 4, left, fill");
+		reminderPanel = new JPanel();
+		reminderPanel.add(chckbxReminder);
+		reminderPanel.setVisible(false);
+		frame.getContentPane().add(reminderPanel, "30, 4, left, fill");
 
 		comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(guiHandler.getAllMessageTypes()));
@@ -187,19 +185,19 @@ public class MultiChannelGUI {
 		JButton button = new JButton("Abschicken");
 		button.addActionListener(new SendActionListener());
 		
-		reminderPanel1 = new JPanel();
-		frame.getContentPane().add(reminderPanel1, "30, 12, fill, fill");
-		reminderPanel1.setLayout(null);
-		reminderPanel1.setVisible(false);
+		reminderTimePanel = new JPanel();
+		frame.getContentPane().add(reminderTimePanel, "30, 12, fill, fill");
+		reminderTimePanel.setLayout(null);
+		reminderTimePanel.setVisible(false);
 		
 		textField = new JTextField();
 		textField.setBounds(64, 6, 52, 28);
-		reminderPanel1.add(textField);
+		reminderTimePanel.add(textField);
 		textField.setColumns(10);
 		
 		JLabel lblMinuten = new JLabel("Minuten:");
 		lblMinuten.setBounds(6, 12, 61, 16);
-		reminderPanel1.add(lblMinuten);
+		reminderTimePanel.add(lblMinuten);
 
 		frame.getContentPane().add(button, "30, 14, fill, fill");
 	}
@@ -307,10 +305,14 @@ public class MultiChannelGUI {
 		public void actionPerformed(ActionEvent ae) {
 			if(chckbxScheduler.isSelected()) {
 				calendarPanel.setVisible(true);
-				reminderPanel2.setVisible(true);
+				reminderPanel.setVisible(true);
 			} else {
+				reminderTimePanel.setVisible(false);
 				calendarPanel.setVisible(false);
-				reminderPanel2.setVisible(false);
+				// Also remove the reminder panel
+				reminderPanel.setVisible(false);
+				// and reset the reminder checkbox
+				chckbxReminder.setSelected(false);
 			}
 		}
 	}
@@ -318,9 +320,9 @@ public class MultiChannelGUI {
 		@Override
 		public void actionPerformed(ActionEvent ae) {
 			if(chckbxReminder.isSelected()) {
-				reminderPanel1.setVisible(true);
+				reminderTimePanel.setVisible(true);
 			} else {
-				reminderPanel1.setVisible(false);
+				reminderTimePanel.setVisible(false);
 			}
 			
 		}
