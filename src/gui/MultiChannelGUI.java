@@ -8,6 +8,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
+import java.text.SimpleDateFormat;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -255,12 +256,24 @@ public class MultiChannelGUI {
 				    
 					//TODO: Just for test because timepicker does not work
 				    //Create instance of java.util.Date
-				    java.util.Date utilDate = new Date();
-				    utilDate.setTime(System.currentTimeMillis() + 120000);
-				    java.util.Date utilDate2 = new Date();
-				    utilDate2.setTime(System.currentTimeMillis() + 110000);
 					
-					guiHandler.sendMessage(test, tFSubject.getText(), messageBody.getText(), selectedItem,utilDate,utilDate2);
+//				    java.util.Date utilDate = new Date();
+//				    utilDate.setTime(System.currentTimeMillis() + 120000);
+//				    java.util.Date utilDate2 = new Date();
+//				    utilDate2.setTime(System.currentTimeMillis() + 110000);
+					
+					java.util.Date utilDate = new Date();
+					SimpleDateFormat date, time;
+					System.out.println(utilDate);
+					//Mon May 21 14:18:25 CEST 2012
+					
+					date = new SimpleDateFormat("EEE MMMMM dd HH:mm:ss z yyyy");
+					
+//					Date reminderDate = date.format(dateChooser.getDate());
+					
+					System.out.println();
+//					System.out.println("Day:" + day.format(dateChooser.getDate()) + " Month " + month.format(dateChooser.getDate()) + " Year: " + year.format(dateChooser.getDate()));
+//					guiHandler.sendMessage(test, tFSubject.getText(), messageBody.getText(), selectedItem, dateChooser.getDate(), timespinner.getValue());
 				}
 				//TODO: Felder sollten nur gecleart werden wenn keine exception auftritt
 				// Clean fields
