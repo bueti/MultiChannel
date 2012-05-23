@@ -33,6 +33,14 @@ public class MessageProvider {
      */
     private IMessageScheduler messageScheduler;
     
+    /** 	
+    * Default constructor for <code>MessageProvider</code>
+    * Creates <code>MessageScheduler</code> instance with the implemented interface 	
+    */
+    private MessageProvider(){
+    	MessageScheduler scheduler = new MessageScheduler();
+    	this.messageScheduler = (IMessageScheduler)scheduler;
+    }
     
     
     /**

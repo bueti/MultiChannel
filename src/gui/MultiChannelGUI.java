@@ -66,6 +66,8 @@ public class MultiChannelGUI {
 	 * Konstruktor
 	 */
 	public MultiChannelGUI() {
+		
+		
 		GUIHandler handler = new GUIHandler();
 		guiHandler = (IGUIHandler)handler;
 		

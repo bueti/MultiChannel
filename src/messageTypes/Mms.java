@@ -1,6 +1,8 @@
 package messageTypes;
 
-public class Mms extends Message {
+
+//TODO: Implement Validator Interface to make it replacable
+public class Mms extends Message implements IValidator{
 
 	@Override
 	public void send() {

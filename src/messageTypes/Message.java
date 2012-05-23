@@ -19,6 +19,7 @@ public abstract class Message {
 	public abstract void sendReminder();
 	public abstract boolean validate() throws EmptyRecipientException, EmptySubjectAndMessageException, IllegalEmailAddressException;
 	
+	//TODO: use primitive datatypes
 	public Boolean getSendReminder() {
 		return sendReminder;
 	}
