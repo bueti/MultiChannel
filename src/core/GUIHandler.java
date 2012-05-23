@@ -1,3 +1,7 @@
+/**
+ * Provides the classes to handle the sending and scheduling mechanisms for the
+ * messages in the MultiChannel project 
+ */
 package core;
 
 import java.util.Date;
@@ -19,12 +23,25 @@ public class GUIHandler implements IGUIHandler {
 
 	// Sofort senden
 	public void sendMessage(List<String> recipientList, String subject, String message, String type) 
-			throws ClassNotFoundException, InstantiationException, IllegalAccessException, EmptyRecipientException, EmptySubjectAndMessageException, IllegalEmailAddressException {
+			throws EmptyRecipientException, EmptySubjectAndMessageException, IllegalEmailAddressException {
 		
-		Class<?> messageType = Class.forName("messageTypes." + type);
+		Class<?> messageType = null;
+		Message msg = null;
+		try {
+			messageType = Class.forName("messageTypes." + type);
+			msg = (Message) messageType.newInstance();
+		} catch (ClassNotFoundException e) {
+			// TODO: Program crashes, need to search a solution
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			// TODO: Program crashes, need to search a solution
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO: Program crashes, need to search a solution
+			e.printStackTrace();
+		}
 		
 		for(String recipient: recipientList){
-			Message msg = (Message) messageType.newInstance();
 			msg.setText(message);
 			msg.setSubject(subject);
 			msg.setRecipient(recipient);
@@ -34,7 +51,12 @@ public class GUIHandler implements IGUIHandler {
 		}
 	}
 	
+<<<<<<< OURS
 	// Send with schedule
+=======
+	// TODO: Später senden
+	// TODO: Maybe change Date type to Calendar
+>>>>>>> THEIRS
 	public void sendMessage(List<String> recipientList, String subject, String message, String type, Date sendTime) 
 			throws ClassNotFoundException, InstantiationException, IllegalAccessException, EmptyRecipientException, EmptySubjectAndMessageException, IllegalEmailAddressException {
 		
@@ -56,7 +78,12 @@ public class GUIHandler implements IGUIHandler {
 		
 	}
 	
+<<<<<<< OURS
 	// send with schedule and reminder
+=======
+	// TODO: Später senden mit reminder
+	// TODO: Reminder und send Later methode vieleicht zusammen führen?
+>>>>>>> THEIRS
 	public void sendMessage(List<String> recipientList, String subject, String message, String type, Date sendTime, Date reminderTime)
 		throws ClassNotFoundException, InstantiationException, IllegalAccessException, EmptyRecipientException, EmptySubjectAndMessageException, IllegalEmailAddressException {
 		

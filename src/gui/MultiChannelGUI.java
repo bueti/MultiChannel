@@ -7,8 +7,10 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -54,6 +56,7 @@ public class MultiChannelGUI {
 	private JTextArea messageBody;
 	private JCheckBox chckbxScheduler;
 	private String selectedItem;
+<<<<<<< OURS
 	private JSpinner timespinner;
 	private JDateChooser dateChooser;
 	private SpinnerModel model;
@@ -62,6 +65,14 @@ public class MultiChannelGUI {
 	private JTextField tFReminderTime;
 	private JCheckBox chckbxReminder;
 	
+=======
+	private JPanel calendarPanel;
+	private JSpinner timespinner;
+	private JDateChooser dateChooser;
+	private SpinnerModel model;
+	private JComponent editor;
+
+>>>>>>> THEIRS
 	/**
 	 * Konstruktor
 	 */
@@ -250,6 +261,7 @@ public class MultiChannelGUI {
 				for (int i = 0; i<addresses.length; i++) {
 					reciepients.add(addresses[i]);
 				}
+<<<<<<< OURS
 				
 				if(!chckbxScheduler.isSelected()){	
 					guiHandler.sendMessage(reciepients, tFSubject.getText(), messageBody.getText(),  selectedItem);
@@ -302,6 +314,25 @@ public class MultiChannelGUI {
 				
 				//TODO: Felder sollten nur gecleart werden wenn keine exception auftritt
 				// Clear fields
+=======
+				if(!checkBox.isSelected()){	
+					guiHandler.sendMessage(test, tFSubject.getText(), messageBody.getText(),  selectedItem);
+				}else{
+				    
+					//TODO: Just for test because timepicker does not work
+				    //Create instance of java.util.Date
+				    java.util.Date utilDate = new Date();
+				    utilDate = dateChooser.getDate();
+				    Date testDate = (Date)timespinner.getValue();
+				    utilDate.setTime(System.currentTimeMillis() + 120000);
+				    java.util.Date utilDate2 = new Date();
+				    utilDate2.setTime(System.currentTimeMillis() + 60000);
+					
+					guiHandler.sendMessage(test, tFSubject.getText(), messageBody.getText(), selectedItem,utilDate);
+				}
+				//TODO: Felder sollten nur gecleart werden wenn keine exception auftritt
+				// Clean fields
+>>>>>>> THEIRS
 				tFRecipient.setText("");
 				tFSubject.setText("");
 				messageBody.setText("");				
