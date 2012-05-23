@@ -51,12 +51,8 @@ public class GUIHandler implements IGUIHandler {
 		}
 	}
 	
-<<<<<<< OURS
+
 	// Send with schedule
-=======
-	// TODO: Später senden
-	// TODO: Maybe change Date type to Calendar
->>>>>>> THEIRS
 	public void sendMessage(List<String> recipientList, String subject, String message, String type, Date sendTime) 
 			throws ClassNotFoundException, InstantiationException, IllegalAccessException, EmptyRecipientException, EmptySubjectAndMessageException, IllegalEmailAddressException {
 		
@@ -78,12 +74,7 @@ public class GUIHandler implements IGUIHandler {
 		
 	}
 	
-<<<<<<< OURS
 	// send with schedule and reminder
-=======
-	// TODO: Später senden mit reminder
-	// TODO: Reminder und send Later methode vieleicht zusammen führen?
->>>>>>> THEIRS
 	public void sendMessage(List<String> recipientList, String subject, String message, String type, Date sendTime, Date reminderTime)
 		throws ClassNotFoundException, InstantiationException, IllegalAccessException, EmptyRecipientException, EmptySubjectAndMessageException, IllegalEmailAddressException {
 		

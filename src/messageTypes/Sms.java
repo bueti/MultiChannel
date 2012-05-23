@@ -9,11 +9,7 @@ public class Sms extends Message {
 	}
 	
 	public void sendReminder() {
-<<<<<<< OURS
 		System.out.println("\"Das ist der Reminder an die Message: " + this.getSubject() + " an den Empfänger: " + this.getRecipient() + " \"");
-=======
-		System.out.println("\"Das ist der Reminder and die Message: " + this.getSubject() + " an den Empfänger: " + this.getRecipient() + " \"");
->>>>>>> THEIRS
 	}
 	
 
