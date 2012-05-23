@@ -243,16 +243,16 @@ public class MultiChannelGUI {
 			try {
 				selectedItem = (String)comboBox.getSelectedItem();
 				// Der Methode muss eine Liste von Recipients übergeben werden
-				List<String> test = new ArrayList<String>(); //Nur zum testen
+				List<String> reciepients = new ArrayList<String>(); //Nur zum testen
 				// TODO: Multi-Split: ",", ";", etc... 
 				String[] addresses = tFRecipient.getText().split("\\s+");
 
 				for (int i = 0; i<addresses.length; i++) {
-					test.add(addresses[i]);
+					reciepients.add(addresses[i]);
 				}
 				
 				if(!chckbxScheduler.isSelected()){	
-					guiHandler.sendMessage(test, tFSubject.getText(), messageBody.getText(),  selectedItem);
+					guiHandler.sendMessage(reciepients, tFSubject.getText(), messageBody.getText(),  selectedItem);
 				} else {
 				    Date scheduleDate = dateChooser.getDate();
 				    Date reminderDate = (Date)timespinner.getValue();
@@ -294,9 +294,9 @@ public class MultiChannelGUI {
 				    
 				    // Nachricht mit oder ohne Reminder Queuen
 				    if(chckbxReminder.isSelected()) {
-				    	guiHandler.sendMessage(test, tFSubject.getText(), messageBody.getText(), selectedItem, scheduleDate, reminderDate );
+				    	guiHandler.sendMessage(reciepients, tFSubject.getText(), messageBody.getText(), selectedItem, scheduleDate, reminderDate );
 				    } else {
-				    	guiHandler.sendMessage(test, tFSubject.getText(), messageBody.getText(), selectedItem, scheduleDate);
+				    	guiHandler.sendMessage(reciepients, tFSubject.getText(), messageBody.getText(), selectedItem, scheduleDate);
 				    }
 				}
 				

@@ -14,12 +14,11 @@ public class Mms extends Message {
 		// TODO: MMS Validierung:
 		// Mehrere Empfänger?
 		// Format Handling: +417uxxxyyzz, 07uxxxyyyzz, 07u'xxx'yy'zz, +41'7u'xxx'yy'zz, 07u xxx yy zz
-		System.out.println("Validated");
 		return true;
 	}
 	
 	public void sendReminder() {
-		System.out.println("\"Das ist der Reminder and die Message: " + this.getSubject() + "and den Empfänger" + this.getRecipient() + "\"");
+		System.out.println("\"Das ist der Reminder an die Message: " + this.getSubject() + " an den Empfänger " + this.getRecipient() + "\"");
 	}
 
 }

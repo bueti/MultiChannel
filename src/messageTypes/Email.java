@@ -41,6 +41,6 @@ public class Email extends Message {
 	}
 
 	public void sendReminder() {
-		System.out.println("\"Das ist der Reminder and die Message: " + this.getSubject() + "and den Empfänger" + this.getRecipient() + "\"");
+		System.out.println("\"Das ist der Reminder an die Message: " + this.getSubject() + " an den Empfänger " + this.getRecipient() + "\"");
 	}
 }

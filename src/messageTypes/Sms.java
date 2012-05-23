@@ -9,7 +9,7 @@ public class Sms extends Message {
 	}
 	
 	public void sendReminder() {
-		System.out.println("\"Das ist der Reminder and die Message: " + this.getSubject() + " an den Empfänger: " + this.getRecipient() + " \"");
+		System.out.println("\"Das ist der Reminder an die Message: " + this.getSubject() + " an den Empfänger: " + this.getRecipient() + " \"");
 	}
 	
 
@@ -19,7 +19,6 @@ public class Sms extends Message {
 		// Mehrere Empfänger?
 		// Format Handling: +417uxxxyyzz, 07uxxxyyyzz, 07u'xxx'yy'zz,
 		// +41'7u'xxx'yy'zz, 07u xxx yy zz
-		System.out.println("validated");
 		return true;
 	}
 
