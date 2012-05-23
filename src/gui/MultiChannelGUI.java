@@ -23,8 +23,6 @@ import javax.swing.SpinnerDateModel;
 import javax.swing.SpinnerModel;
 import javax.swing.SwingConstants;
 
-import org.joda.time.DateTime;
-
 import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
@@ -61,9 +59,6 @@ public class MultiChannelGUI {
 	private JTextField tFReminderTimer;
 	private JCheckBox chckbxReminder;
 	
-	/* Joda Kalendar */
-	private DateTime dt;
-
 	/**
 	 * Konstruktor
 	 */
