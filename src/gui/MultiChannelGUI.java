@@ -269,20 +269,6 @@ public class MultiChannelGUI {
 				    
 				    int reminderTime = convertedMin;
 				    
-				    // Reminder Zeit zusammenstellen
-				    if(chckbxReminder.isSelected()) {
-				    	reminderTime = convertedMin - Integer.parseInt(tFReminderTime.getText());
-				    	String convertedTime = "" + convertedHour + ":" + reminderTime;
-					    
-					    df = new SimpleDateFormat("dd MMMM yyyy HH:mm");
-					    try {
-							reminderDate = df.parse(convertedDate + " " + convertedTime );
-						} catch (ParseException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-				    }
-				    
 				    // Scheduler Zeit zusammenstellen
 				    String convertedTime = "" + convertedHour + ":" + reminderTime;
 				    
@@ -293,6 +279,20 @@ public class MultiChannelGUI {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
+				    
+				    // Reminder Zeit zusammenstellen
+				    if(chckbxReminder.isSelected()) {
+				    	reminderTime = convertedMin - Integer.parseInt(tFReminderTime.getText());
+				    	convertedTime = "" + convertedHour + ":" + reminderTime;
+					    
+					    df = new SimpleDateFormat("dd MMMM yyyy HH:mm");
+					    try {
+							reminderDate = df.parse(convertedDate + " " + convertedTime );
+						} catch (ParseException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+				    }
 				    
 				    // Nachricht mit oder ohne Reminder Queuen
 				    if(chckbxReminder.isSelected()) {
