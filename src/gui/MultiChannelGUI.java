@@ -3,6 +3,9 @@ package gui;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -56,7 +59,7 @@ public class MultiChannelGUI {
 	private SpinnerModel model;
 	private JComponent editor;
 	private JPanel reminderTimePanel;
-	private JTextField tFReminderTimer;
+	private JTextField tFReminderTime;
 	private JCheckBox chckbxReminder;
 	
 	/**
@@ -138,7 +141,7 @@ public class MultiChannelGUI {
 		tFRecipient.setColumns(10);
 		
 		chckbxScheduler = new JCheckBox("Scheduler: ");
-		chckbxScheduler.setToolTipText("Mark if you want to schedule this message.");
+		chckbxScheduler.setToolTipText("Select this if you want to schedule this message.");
 		chckbxScheduler.setHorizontalTextPosition(SwingConstants.LEADING);
 		chckbxScheduler.addActionListener(new SchedulerActionListener());
 		
@@ -152,7 +155,7 @@ public class MultiChannelGUI {
 		calendarPanel.setVisible(false);
 		
 		chckbxReminder = new JCheckBox("Reminder: ");
-		chckbxScheduler.setToolTipText("Mark if you want to recieve a reminder before this message is sent.");
+		chckbxScheduler.setToolTipText("Select this if you want to recieve a reminder before this message is sent.");
 		chckbxReminder.setHorizontalTextPosition(SwingConstants.LEADING);
 		chckbxReminder.addActionListener(new ReminderActionListener());
 		
@@ -188,10 +191,10 @@ public class MultiChannelGUI {
 		reminderTimePanel.setLayout(null);
 		reminderTimePanel.setVisible(false);
 		
-		tFReminderTimer = new JTextField();
-		tFReminderTimer.setBounds(64, 6, 52, 28);
-		reminderTimePanel.add(tFReminderTimer);
-		tFReminderTimer.setColumns(10);
+		tFReminderTime = new JTextField();
+		tFReminderTime.setBounds(64, 6, 52, 28);
+		reminderTimePanel.add(tFReminderTime);
+		tFReminderTime.setColumns(10);
 		
 		JLabel lblMinuten = new JLabel("Minuten:");
 		lblMinuten.setBounds(6, 12, 61, 16);
@@ -251,16 +254,50 @@ public class MultiChannelGUI {
 				if(!chckbxScheduler.isSelected()){	
 					guiHandler.sendMessage(test, tFSubject.getText(), messageBody.getText(),  selectedItem);
 				} else {
-				    Date date = dateChooser.getDate();
-				    Date time = (Date)timespinner.getValue();
+				    Date scheduleDate = dateChooser.getDate();
+				    Date reminderDate = (Date)timespinner.getValue();
 				    
-				    System.out.println(date + " " + time);
+				    // Convert Date to String
+				    DateFormat df = new SimpleDateFormat("dd MMMM yyyy");
+				    String convertedDate = df.format(scheduleDate);
+				    df = new SimpleDateFormat("HH");
+				    int convertedHour = Integer.parseInt( df.format(reminderDate) );
+				    df = new SimpleDateFormat("mm");
+				    int convertedMin = Integer.parseInt( df.format(reminderDate) );
 				    
-//				    if(chckbxReminder.isSelected()) {
-//				    	time = time - Integer.parseInt( tFReminderTimer.getText() );
-//				    }
+				    int reminderTime = convertedMin;
 				    
-				    guiHandler.sendMessage(test, tFSubject.getText(), messageBody.getText(), selectedItem, date, time);
+				    // Reminder Zeit zusammenstellen
+				    if(chckbxReminder.isSelected()) {
+				    	reminderTime = convertedMin - Integer.parseInt(tFReminderTime.getText());
+				    	String convertedTime = "" + convertedHour + ":" + reminderTime;
+					    
+					    df = new SimpleDateFormat("dd MMMM yyyy HH:mm");
+					    try {
+							reminderDate = df.parse(convertedDate + " " + convertedTime );
+						} catch (ParseException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+				    }
+				    
+				    // Scheduler Zeit zusammenstellen
+				    String convertedTime = "" + convertedHour + ":" + reminderTime;
+				    
+				    df = new SimpleDateFormat("dd MMMM yyyy HH:mm");
+				    try {
+						scheduleDate = df.parse(convertedDate + " " + convertedTime );
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				    
+				    // Nachricht mit oder ohne Reminder Queuen
+				    if(chckbxReminder.isSelected()) {
+				    	guiHandler.sendMessage(test, tFSubject.getText(), messageBody.getText(), selectedItem, scheduleDate, reminderDate );
+				    } else {
+				    	guiHandler.sendMessage(test, tFSubject.getText(), messageBody.getText(), selectedItem, scheduleDate);
+				    }
 				}
 				
 				//TODO: Felder sollten nur gecleart werden wenn keine exception auftritt
