@@ -20,8 +20,29 @@ public class GUIHandler implements IGUIHandler {
 	public GUIHandler() {
 		this.handler = MessageProvider.getInstance();
 	}
+	
+	//ONLY USE THIS METHOD TO SEND
+	public boolean sendMessage(List<String> recipientList, String subject, String message, String type, Date sendTime, Date reminderTime){
+		try{
+			for(String recipient: recipientList){
+				
+				Message newMsg = MessageFactory.createNewMessage(subject, recipient, message, type, sendTime, reminderTime);
+				
+				//TODO Add exception handling for message validation errors
+				if (newMsg.validate()) {
+					this.handler.sendMessage(newMsg);
+				}else{
+					//TODO return what was wrong through an exception
+					return false;
+				}
+			}
+		}catch(Exception e){
+			//Log to logger
+		}
+		return true;
+	}
 
-	// Sofort senden
+	// OBSOLETE!!!
 	public void sendMessage(List<String> recipientList, String subject, String message, String type) 
 			throws EmptyRecipientException, EmptySubjectAndMessageException, IllegalEmailAddressException {
 		
@@ -46,13 +67,12 @@ public class GUIHandler implements IGUIHandler {
 			msg.setSubject(subject);
 			msg.setRecipient(recipient);
 			if (msg.validate()) {
-				this.handler.sendMessageNow(msg);
+				//this.handler.sendMessageNow(msg);
 			}
 		}
 	}
 	
-	// TODO: Später senden
-	// TODO: Maybe change Date type to Calendar
+	// OBSOLETE
 	public void sendMessage(List<String> recipientList, String subject, String message, String type, Date sendTime) 
 			throws ClassNotFoundException, InstantiationException, IllegalAccessException, EmptyRecipientException, EmptySubjectAndMessageException, IllegalEmailAddressException {
 		
@@ -68,15 +88,13 @@ public class GUIHandler implements IGUIHandler {
 			msg.setSendLater(true);
 			msg.setSendReminder(false);
 			if (msg.validate()) {
-				this.handler.sendMessageLater(msg);
+				//this.handler.sendMessageLater(msg);
 			}
 		}
 		
 	}
-	
-	// TODO: Später senden mit reminder
-	// TODO: Reminder und send Later methode vieleicht zusammen führen?
-	public void sendMessage(List<String> recipientList, String subject, String message, String type, Date sendTime, Date reminderTime)
+
+	/*public void sendMessage(List<String> recipientList, String subject, String message, String type, Date sendTime, Date reminderTime)
 		throws ClassNotFoundException, InstantiationException, IllegalAccessException, EmptyRecipientException, EmptySubjectAndMessageException, IllegalEmailAddressException {
 		
 		Class<?> messageType = Class.forName("messageTypes." + type);
@@ -96,8 +114,9 @@ public class GUIHandler implements IGUIHandler {
 			}
 		}
 		
-	}
-
+	}*/
+	
+	//TODO: Do we want to delete this?
 	public String[] getAllMessageTypes() {
 		allMessageTypes = new String[] {"Email", "Sms", "Mms", "Print"};
 		return allMessageTypes;

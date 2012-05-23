@@ -5,7 +5,7 @@ import exceptions.EmptySubjectAndMessageException;
 import exceptions.IllegalEmailAddressException;
 
 
-public class Email extends Message {
+public class Email extends Message implements IValidator{
 
 	public void send() {
 		System.out.println("\"" + this.getSubject() + "\" an \"" + this.getRecipient() + "\" geschickt.");

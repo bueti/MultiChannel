@@ -3,7 +3,7 @@ package messageTypes;
 import exceptions.EmptyRecipientException;
 import exceptions.EmptySubjectAndMessageException;
 
-public class Print extends Message {
+public class Print extends Message implements IValidator{
 
 	public void send() {
 		System.out.println("\"" + this.getSubject() + "\" an Drucker \""

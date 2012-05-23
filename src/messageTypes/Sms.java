@@ -1,6 +1,6 @@
 package messageTypes;
 
-public class Sms extends Message {
+public class Sms extends Message implements IValidator{
 
 	@Override
 	public void send() {

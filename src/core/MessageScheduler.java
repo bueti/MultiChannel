@@ -8,6 +8,9 @@ import messageTypes.Message;
 
 public class MessageScheduler implements IMessageScheduler{
 	
+	//TODO: WHAT HAPPENS IF TWO TIMERS ARE CREATED RIGHT AT THE SAME TIME??
+	//REALY IMPORTANT TO CHECK THIS -> checked it one was no error, more tests required
+	
 	Timer timer;
 	
 	public MessageScheduler(){
@@ -15,12 +18,10 @@ public class MessageScheduler implements IMessageScheduler{
 		timer = new Timer();
 	}
 
-	//TODO: Maybe change to Calendar type
 	public void createMessageTimer(Message msg) {
         timer.schedule(new SenderTask(msg), msg.getSendTime());
 	}
 	
-	//TODO: Maybe change to Calendar type
 	public void createReminderTimer(Message msg) {
         timer.schedule(new ReminderTask(msg), msg.getReminderTime());
 	}

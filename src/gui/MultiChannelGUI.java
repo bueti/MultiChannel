@@ -74,6 +74,7 @@ public class MultiChannelGUI {
 		this.initialize();
 
 		// TODO: Ist das am richtigen Ort????
+		// Mal schauen :)
 		MultiChannelLogMonitor mclm = new MultiChannelLogMonitor();
 		
 		this.frame.setVisible(true);
@@ -284,6 +285,7 @@ public class MultiChannelGUI {
 						e.printStackTrace();
 					}
 				    
+				    //TODO: What happens when time is set invalid? ben?
 				    // Reminder Zeit zusammenstellen
 				    if(chckbxReminder.isSelected()) {
 				    	reminderTime = convertedMin - Integer.parseInt(tFReminderTime.getText());

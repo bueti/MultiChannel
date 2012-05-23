@@ -61,25 +61,8 @@ public class MessageProvider {
         return _instance;
     }
     
-    /**
-     * Send a message after the send button is clicked.
-     * The type of the message doesn't matter because this method only
-     * calls the send method of the superclass
-     * <p>
-     *
-     * @param		msg Message to send
-     * @return      tbd
-     * @see         MessageProvider
-     */
-    public String sendMessageNow(Message msg) {
-    	// TODO: Übergabe Empfänger und Nachricht
-    	// TODO: Try catch falls versenden failt
-    	msg.send();
-    	
-    	//TODO: return wirklich nötig?
-    	return null;
-    }
     
+    //TODO: Merge these two comments
     /**
      * This method creates a timer task if a message needs to be send
      * at a specific time. It also checks if a reminder should be sent
@@ -90,8 +73,28 @@ public class MessageProvider {
      * @return      tbd
      * @see         MessageProvider
      */
-    public String sendMessageLater(Message msg){
-    	if(msg.getSendLater()){
+  //TODO: Merge these two comments
+    /**
+     * Send a message after the send button is clicked.
+     * The type of the message doesn't matter because this method only
+     * calls the send method of the superclass
+     * <p>
+     *
+     * @param		msg Message to send
+     * @return      tbd
+     * @see         MessageProvider
+     */
+    public boolean sendMessage(Message msg) {
+    	
+    	if(!msg.getSendLater()){
+    		try{
+    			msg.send();
+    		}catch(Exception e){
+    			//TODO Use Logger to log error
+    			return false;
+    		}
+    	}else{
+    		//TODO: ADD Exception handling
     		this.messageScheduler.createMessageTimer(msg);
     		
     		if(msg.getSendReminder()){
@@ -99,9 +102,7 @@ public class MessageProvider {
     		}
     	}
     	
-    	return null;
-    }
-    
-    
+    	return true;
+    } 
 }
 
