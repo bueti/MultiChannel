@@ -73,9 +73,10 @@ public class MultiChannelGUI {
 		
 		this.initialize();
 
-		this.frame.setVisible(true);
-		
+		// TODO: Ist das am richtigen Ort????
 		MultiChannelLogMonitor mclm = new MultiChannelLogMonitor();
+		
+		this.frame.setVisible(true);
 		
 
 	}
