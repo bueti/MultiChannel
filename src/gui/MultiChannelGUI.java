@@ -74,6 +74,9 @@ public class MultiChannelGUI {
 		this.initialize();
 
 		this.frame.setVisible(true);
+		
+		MultiChannelLogMonitor mclm = new MultiChannelLogMonitor();
+		
 
 	}
 
