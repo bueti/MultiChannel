@@ -13,6 +13,9 @@ public class MessageFactory {
 		msg.setSubject(subject);
 		msg.setRecipient(recipient);
 		
+		msg.setSendLater(false);
+		msg.setSendReminder(false);
+		
 		// TODO: Maybe check for right time
 		if(sendTime!=null){
 			msg.setSendTime(sendTime);

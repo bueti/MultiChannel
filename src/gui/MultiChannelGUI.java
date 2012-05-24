@@ -320,14 +320,14 @@ public class MultiChannelGUI {
 				tFRecipient.setText("");
 				tFSubject.setText("");
 				messageBody.setText("");
-//			} catch (ClassNotFoundException e) {
-//				JOptionPane.showMessageDialog(frame, "Der Nachricht Typ \""
-//						+ selectedItem + "\" ist nicht implementiert!", null,
-//						JOptionPane.ERROR_MESSAGE);
-//			} catch (InstantiationException e) {
-//				JOptionPane.showMessageDialog(frame,
-//						"Konnte Objekt nicht instatieren!", null,
-//						JOptionPane.ERROR_MESSAGE);
+			} catch (ClassNotFoundException e) {
+				JOptionPane.showMessageDialog(frame, "Der Nachricht Typ \""
+						+ selectedItem + "\" ist nicht implementiert!", null,
+						JOptionPane.ERROR_MESSAGE);
+			} catch (InstantiationException e) {
+				JOptionPane.showMessageDialog(frame,
+						"Konnte Objekt nicht instatieren!", null,
+						JOptionPane.ERROR_MESSAGE);
 			} catch (IllegalAccessException e) {
 				JOptionPane.showMessageDialog(frame,
 						"Konnte nicht auf's Objekt zugreifen!", null,
