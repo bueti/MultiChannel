@@ -248,6 +248,7 @@ public class MultiChannelGUI {
 		@Override
 		public void actionPerformed(ActionEvent ae) {
 			Date scheduleDate = null;
+			Date scheduleHour = null;
 			Date reminderDate = null;
 
 			try {
@@ -263,6 +264,7 @@ public class MultiChannelGUI {
 				}
 
 				if (chckbxScheduler.isSelected()) {
+					scheduleHour = (Date)timespinner.getValue();
 					scheduleDate = dateChooser.getDate();
 
 					// Convert Date to String
@@ -270,10 +272,10 @@ public class MultiChannelGUI {
 					String convertedDate = df.format(scheduleDate);
 					df = new SimpleDateFormat("HH");
 					int convertedHour = Integer.parseInt(df
-							.format(scheduleDate));
+							.format(scheduleHour));
 					df = new SimpleDateFormat("mm");
 					int convertedMin = Integer
-							.parseInt(df.format(scheduleDate));
+							.parseInt(df.format(scheduleHour));
 
 					int schedulerTime = convertedMin;
 
@@ -320,14 +322,14 @@ public class MultiChannelGUI {
 				tFRecipient.setText("");
 				tFSubject.setText("");
 				messageBody.setText("");
-			} catch (ClassNotFoundException e) {
-				JOptionPane.showMessageDialog(frame, "Der Nachricht Typ \""
-						+ selectedItem + "\" ist nicht implementiert!", null,
-						JOptionPane.ERROR_MESSAGE);
-			} catch (InstantiationException e) {
-				JOptionPane.showMessageDialog(frame,
-						"Konnte Objekt nicht instatieren!", null,
-						JOptionPane.ERROR_MESSAGE);
+//			} catch (ClassNotFoundException e) {
+//				JOptionPane.showMessageDialog(frame, "Der Nachricht Typ \""
+//						+ selectedItem + "\" ist nicht implementiert!", null,
+//						JOptionPane.ERROR_MESSAGE);
+//			} catch (InstantiationException e) {
+//				JOptionPane.showMessageDialog(frame,
+//						"Konnte Objekt nicht instatieren!", null,
+//						JOptionPane.ERROR_MESSAGE);
 			} catch (IllegalAccessException e) {
 				JOptionPane.showMessageDialog(frame,
 						"Konnte nicht auf's Objekt zugreifen!", null,
