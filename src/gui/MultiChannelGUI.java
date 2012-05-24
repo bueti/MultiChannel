@@ -254,13 +254,13 @@ public class MultiChannelGUI {
 			try {
 				selectedItem = (String) comboBox.getSelectedItem();
 				// Der Methode muss eine Liste von Recipients übergeben werden
-				List<String> reciepients = new ArrayList<String>(); // Nur zum
+				List<String> recipients = new ArrayList<String>(); // Nur zum
 																	// testen
 				// TODO: Multi-Split: ",", ";", etc...
 				String[] addresses = tFRecipient.getText().split("\\s+");
 
 				for (int i = 0; i < addresses.length; i++) {
-					reciepients.add(addresses[i]);
+					recipients.add(addresses[i]);
 				}
 
 				if (chckbxScheduler.isSelected()) {
@@ -312,7 +312,7 @@ public class MultiChannelGUI {
 				}
 
 				// Nachricht Abschicken
-				guiHandler.sendMessage(reciepients, tFSubject.getText(),
+				guiHandler.sendMessage(recipients, tFSubject.getText(),
 						messageBody.getText(), selectedItem, scheduleDate,
 						reminderDate);
 
