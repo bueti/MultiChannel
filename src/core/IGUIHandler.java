@@ -13,6 +13,6 @@ public interface IGUIHandler {
 	//OBSOLETE
 	void sendMessage(List<String> recipient, String subject, String message, String type, Date sendTime) throws ClassNotFoundException, InstantiationException, IllegalAccessException, EmptyRecipientException, EmptySubjectAndMessageException, IllegalEmailAddressException;
 	//ONLY USE THIS MESSAGE TO SEND
-	boolean sendMessage(List<String> recipient, String subject, String message, String type, Date sendTime,Date reminderTime);
+	boolean sendMessage(List<String> recipient, String subject, String message, String type, Date sendTime, Date reminderTime) throws IllegalAccessException, EmptyRecipientException, EmptySubjectAndMessageException, IllegalEmailAddressException;;
 	String[] getAllMessageTypes();
 }
