@@ -37,9 +37,8 @@ public class MessageProvider {
     * Default constructor for <code>MessageProvider</code>
     * Creates <code>MessageScheduler</code> instance with the implemented interface 	
     */
-    private MessageProvider(){
-    	MessageScheduler scheduler = new MessageScheduler();
-    	this.messageScheduler = (IMessageScheduler)scheduler;
+    private MessageProvider(IMessageScheduler pScheduler){
+    	this.messageScheduler = pScheduler;
     }
     
     
@@ -54,9 +53,9 @@ public class MessageProvider {
      * @return      An instance of and object of the <code>MessageProvider</code> class
      * @see         MessageProvider
      */
-    public static MessageProvider getInstance() {
+    public static MessageProvider getInstance(IMessageScheduler scheduler) {
         if (_instance == null) {
-            _instance = new MessageProvider();
+            _instance = new MessageProvider(scheduler);
         }
         return _instance;
     }

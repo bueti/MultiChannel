@@ -16,7 +16,6 @@ public class Sms extends Message implements IValidator{
 	@Override
 	public boolean validate() {
 		// TODO: SMS Validierung:
-		// Mehrere Empfänger?
 		// Format Handling: +417uxxxyyzz, 07uxxxyyyzz, 07u'xxx'yy'zz,
 		// +41'7u'xxx'yy'zz, 07u xxx yy zz
 		return true;

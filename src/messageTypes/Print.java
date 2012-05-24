@@ -1,8 +1,5 @@
 package messageTypes;
 
-import exceptions.EmptyRecipientException;
-import exceptions.EmptySubjectAndMessageException;
-
 public class Print extends Message implements IValidator{
 
 	public void send() {
@@ -16,16 +13,14 @@ public class Print extends Message implements IValidator{
 		System.out.println("\"Das ist der Reminder an die Message: " + this.getSubject() + " an den Empfänger " + this.getRecipient() + "\"");
 	}
 
-	public boolean validate()
-			throws EmptyRecipientException, EmptySubjectAndMessageException {
+	public boolean validate() throws Exception{
 		if (!this.getRecipient().equals("")) {
 			if (this.getSubject().equals("") && this.getText().equals("")) {
-				throw new EmptySubjectAndMessageException();
+				throw new Exception("Subject or Text is empty!");
 			}
-//			System.out.println("Validated");
 			return true;
 		} else {
-			throw new EmptyRecipientException();
+			throw new Exception("Printer address is invalid");
 		}
 	}
 

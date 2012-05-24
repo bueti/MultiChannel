@@ -2,10 +2,6 @@ package messageTypes;
 
 import java.util.Date;
 
-import exceptions.EmptyRecipientException;
-import exceptions.EmptySubjectAndMessageException;
-import exceptions.IllegalEmailAddressException;
-
 public abstract class Message {
 	private Boolean sendReminder;
 	private Date reminderTime;
@@ -17,7 +13,7 @@ public abstract class Message {
 	
 	public abstract void send();
 	public abstract void sendReminder();
-	public abstract boolean validate() throws EmptyRecipientException, EmptySubjectAndMessageException, IllegalEmailAddressException;
+	public abstract boolean validate() throws Exception;
 	
 	public boolean getSendReminder() {
 		return sendReminder;

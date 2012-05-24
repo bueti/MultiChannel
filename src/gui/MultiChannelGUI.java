@@ -32,11 +32,7 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
 import com.toedter.calendar.JDateChooser;
 
-import core.GUIHandler;
 import core.IGUIHandler;
-import exceptions.EmptyRecipientException;
-import exceptions.EmptySubjectAndMessageException;
-import exceptions.IllegalEmailAddressException;
 
 public class MultiChannelGUI {
 
@@ -65,10 +61,9 @@ public class MultiChannelGUI {
 	/**
 	 * Konstruktor
 	 */
-	public MultiChannelGUI() {
+	public MultiChannelGUI(IGUIHandler pGuiHandler) {
 
-		GUIHandler handler = new GUIHandler();
-		guiHandler = (IGUIHandler) handler;
+		guiHandler = pGuiHandler;
 
 		this.initialize();
 
@@ -251,101 +246,76 @@ public class MultiChannelGUI {
 			Date scheduleHour = null;
 			Date reminderDate = null;
 
-			try {
-				selectedItem = (String) comboBox.getSelectedItem();
-				// Der Methode muss eine Liste von Recipients übergeben werden
-				List<String> reciepients = new ArrayList<String>(); // Nur zum
-																	// testen
-				// TODO: Multi-Split: ",", ";", etc...
-				String[] addresses = tFRecipient.getText().split("\\s+");
+		
+			selectedItem = (String) comboBox.getSelectedItem();
+			// Der Methode muss eine Liste von Recipients übergeben werden
+			List<String> recipients = new ArrayList<String>(); // Nur zum
+																// testen
+			// TODO: Multi-Split: ",", ";", etc...
+			String[] addresses = tFRecipient.getText().split("\\s+");
 
-				for (int i = 0; i < addresses.length; i++) {
-					reciepients.add(addresses[i]);
+			for (int i = 0; i < addresses.length; i++) {
+				recipients.add(addresses[i]);
+			}
+
+			if (chckbxScheduler.isSelected()) {
+				scheduleHour = (Date) timespinner.getValue();
+				scheduleDate = dateChooser.getDate();
+
+				// Convert Date to String
+				DateFormat df = new SimpleDateFormat("dd MMMM yyyy");
+				String convertedDate = df.format(scheduleDate);
+				df = new SimpleDateFormat("HH");
+				int convertedHour = Integer.parseInt(df.format(scheduleHour));
+				df = new SimpleDateFormat("mm");
+				int convertedMin = Integer.parseInt(df.format(scheduleHour));
+
+				int schedulerTime = convertedMin;
+
+				// Scheduler Zeit zusammenstellen
+				String convertedTime = "" + convertedHour + ":" + schedulerTime;
+
+				df = new SimpleDateFormat("dd MMMM yyyy HH:mm");
+				try {
+					scheduleDate = df
+							.parse(convertedDate + " " + convertedTime);
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 
-				if (chckbxScheduler.isSelected()) {
-					scheduleHour = (Date)timespinner.getValue();
-					scheduleDate = dateChooser.getDate();
-
-					// Convert Date to String
-					DateFormat df = new SimpleDateFormat("dd MMMM yyyy");
-					String convertedDate = df.format(scheduleDate);
-					df = new SimpleDateFormat("HH");
-					int convertedHour = Integer.parseInt(df
-							.format(scheduleHour));
-					df = new SimpleDateFormat("mm");
-					int convertedMin = Integer
-							.parseInt(df.format(scheduleHour));
-
-					int schedulerTime = convertedMin;
-
-					// Scheduler Zeit zusammenstellen
-					String convertedTime = "" + convertedHour + ":"
-							+ schedulerTime;
+				// TODO: What happens when time is set invalid? ben?
+				// Reminder Zeit zusammenstellen
+				if (chckbxReminder.isSelected()) {
+					reminderDate = (Date) timespinner.getValue();
+					int reminderTime = convertedMin
+							- Integer.parseInt(tFReminderTime.getText());
+					convertedTime = "" + convertedHour + ":" + reminderTime;
 
 					df = new SimpleDateFormat("dd MMMM yyyy HH:mm");
 					try {
-						scheduleDate = df.parse(convertedDate + " "
+						reminderDate = df.parse(convertedDate + " "
 								+ convertedTime);
 					} catch (ParseException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-
-					// TODO: What happens when time is set invalid? ben?
-					// Reminder Zeit zusammenstellen
-					if (chckbxReminder.isSelected()) {
-						reminderDate = (Date) timespinner.getValue();
-						int reminderTime = convertedMin
-								- Integer.parseInt(tFReminderTime.getText());
-						convertedTime = "" + convertedHour + ":" + reminderTime;
-
-						df = new SimpleDateFormat("dd MMMM yyyy HH:mm");
-						try {
-							reminderDate = df.parse(convertedDate + " "
-									+ convertedTime);
-						} catch (ParseException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					}
 				}
+			}
 
-				// Nachricht Abschicken
-				guiHandler.sendMessage(reciepients, tFSubject.getText(),
-						messageBody.getText(), selectedItem, scheduleDate,
-						reminderDate);
-
-				// TODO: Felder sollten nur gecleart werden wenn keine exception
-				// auftritt
-				// Clear fields
-				tFRecipient.setText("");
-				tFSubject.setText("");
-				messageBody.setText("");
-//			} catch (ClassNotFoundException e) {
-//				JOptionPane.showMessageDialog(frame, "Der Nachricht Typ \""
-//						+ selectedItem + "\" ist nicht implementiert!", null,
-//						JOptionPane.ERROR_MESSAGE);
-//			} catch (InstantiationException e) {
-//				JOptionPane.showMessageDialog(frame,
-//						"Konnte Objekt nicht instatieren!", null,
-//						JOptionPane.ERROR_MESSAGE);
-			} catch (IllegalAccessException e) {
-				JOptionPane.showMessageDialog(frame,
-						"Konnte nicht auf's Objekt zugreifen!", null,
-						JOptionPane.ERROR_MESSAGE);
-			} catch (EmptyRecipientException e) {
-				JOptionPane.showMessageDialog(frame,
-						"Kein Empfänger angegeben!", null,
-						JOptionPane.ERROR_MESSAGE);
-			} catch (EmptySubjectAndMessageException e) {
-				JOptionPane.showMessageDialog(frame,
-						"Kein Betrefft und keine Nachricht angegeben", null,
-						JOptionPane.ERROR_MESSAGE);
-			} catch (IllegalEmailAddressException e) {
-				JOptionPane.showMessageDialog(frame,
-						"Ungültige Email Adresse!", null,
-						JOptionPane.ERROR_MESSAGE);
+			// Nachricht Abschicken
+			try {
+				boolean successfull = guiHandler.sendMessage(recipients, tFSubject.getText(),messageBody.getText(), selectedItem, scheduleDate,reminderDate);
+				if(!successfull){
+					//TODO: Texte Deutsch oder Englisch?
+					JOptionPane.showMessageDialog(frame, "Message versenden fehlgeschlagen! Mehr Informationen im Log-Window");
+				}else{
+					tFRecipient.setText("");
+					tFSubject.setText("");
+					messageBody.setText("");
+				}
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(frame, e.getMessage());
 			}
 		}
 	}

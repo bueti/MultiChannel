@@ -3,10 +3,6 @@ package messageTypes;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import exceptions.EmptyRecipientException;
-import exceptions.EmptySubjectAndMessageException;
-import exceptions.IllegalEmailAddressException;
-
 public class Email extends Message implements IValidator {
 
 	public void send() {
@@ -16,14 +12,13 @@ public class Email extends Message implements IValidator {
 		System.out.println(this.getText());
 	}
 
-	public boolean validate() throws EmptyRecipientException,
-			EmptySubjectAndMessageException, IllegalEmailAddressException {
+	public boolean validate() throws Exception{
 		if (isValidEmailAddress(this.getRecipient())) {
 			if (this.getSubject().equals("") && this.getText().equals("")) {
-				throw new EmptySubjectAndMessageException();
+				throw new Exception("Subject or Text is empty!");
 			}
 		} else {
-			throw new IllegalEmailAddressException();
+			throw new Exception("Email address is invalid");
 		}
 		return true;
 	}
