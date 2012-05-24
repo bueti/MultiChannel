@@ -245,15 +245,14 @@ public class MultiChannelGUI {
 			Date scheduleDate = null;
 			Date scheduleHour = null;
 			Date reminderDate = null;
-
-		
+			
 			selectedItem = (String) comboBox.getSelectedItem();
 			// Der Methode muss eine Liste von Recipients übergeben werden
 			List<String> recipients = new ArrayList<String>(); // Nur zum
 																// testen
 			// TODO: Multi-Split: ",", ";", etc...
 			String[] addresses = tFRecipient.getText().split("\\s+");
-
+			
 			for (int i = 0; i < addresses.length; i++) {
 				recipients.add(addresses[i]);
 			}
@@ -302,7 +301,6 @@ public class MultiChannelGUI {
 					}
 				}
 			}
-
 			// Nachricht Abschicken
 			try {
 				boolean successfull = guiHandler.sendMessage(recipients, tFSubject.getText(),messageBody.getText(), selectedItem, scheduleDate,reminderDate);
