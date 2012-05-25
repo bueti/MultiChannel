@@ -250,8 +250,8 @@ public class MultiChannelGUI {
 			// Der Methode muss eine Liste von Recipients übergeben werden
 			List<String> recipients = new ArrayList<String>(); // Nur zum
 																// testen
-			// TODO: Multi-Split: ",", ";", etc...
-			String[] addresses = tFRecipient.getText().split("\\s+");
+			// Split the address input field into single addresses
+			String[] addresses = tFRecipient.getText().split("[\\s,;]+");
 			
 			for (int i = 0; i < addresses.length; i++) {
 				recipients.add(addresses[i]);
