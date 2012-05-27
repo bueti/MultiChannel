@@ -9,6 +9,8 @@ public class Sms extends Message implements IValidator{
 	public void send() {
 		// TODO: Schöner Output
 		System.out.println("SMS abgeschickt!");
+		System.out.println(getRecipient());
+		System.out.println(getText());
 	}
 	
 	public void sendReminder() {
@@ -17,9 +19,9 @@ public class Sms extends Message implements IValidator{
 	
 
 	@Override
-	// TODO: Leezeichen für Stringprüfung eliminieren
-	// Aktuell wird pro String-Gruppe 1 SMS geschickt 
-	// also 079 555 55 55 = 4 sms...   :-o
+	/** Prüfung ob SMS-Nummer gültig ist oder nicht.
+	 * Falls Nummer ungültig, wird Benutzer Meldung angezeigt
+	 */
 	public boolean validate() throws Exception {
 		if (isValidPhoneNumber(this.getRecipient())) {
 			if (this.getSubject().equals("") && this.getText().equals("")) {
@@ -28,14 +30,16 @@ public class Sms extends Message implements IValidator{
 		} else {
 			throw new Exception("Telephone-Number is invalid");
 		}
-		// Format Handling: +417uxxxyyzz, 07uxxxyyyzz, 07u'xxx'yy'zz,
-		// +41'7u'xxx'yy'zz, 07u xxx yy zz
+
 		return true;
 	}
 	
 	
 	// RegEx für SMS-Number
+	// Format Handling: +lluuxxxyyzz, 07uxxxyyyzz, 0uu / xxx yy zz,
+	// +ll uu xxx yy zz, 0uu xxx yy zz, 0uu/xxx yy zz
 		public boolean isValidPhoneNumber(String smsNumber) {
+			//Vorgängig alle Leerschläge entfernen in smsNumber
 			String smsNumberStripSpaces = smsNumber.replaceAll("\\s","");
 			//String expression = (\+|0)?\d([/ -]?\d)+;
 			String expression = "(\\+|0)?\\d([/ -]?\\d)+";
