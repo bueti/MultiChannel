@@ -251,7 +251,7 @@ public class MultiChannelGUI {
 			List<String> recipients = new ArrayList<String>(); // Nur zum
 																// testen
 			// Split the address input field into single addresses
-			String[] addresses = tFRecipient.getText().split("[\\s,;]+");
+			String[] addresses = tFRecipient.getText().split("[,;]+");
 			
 			for (int i = 0; i < addresses.length; i++) {
 				recipients.add(addresses[i]);
