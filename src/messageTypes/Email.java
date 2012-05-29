@@ -14,7 +14,7 @@ public class Email extends Message implements IValidator {
 
 	public boolean validate() throws Exception{
 		if (isValidEmailAddress(this.getRecipient())) {
-			if (this.getSubject().equals("") && this.getText().equals("")) {
+			if (this.getSubject().equals("") || this.getText().equals("")) {
 				throw new Exception("Subject or Text is empty!");
 			}
 		} else {
@@ -22,7 +22,8 @@ public class Email extends Message implements IValidator {
 		}
 		return true;
 	}
-
+	
+	// TODO maybe use this vor Validation
 	// RegEx für Email addresse
 	public boolean isValidEmailAddress(String emailAddress) {
 		//String expression = "^[\\w\\-]([\\.\\w])+[\\w]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";

@@ -296,7 +296,7 @@ public class MultiChannelGUI {
 						reminderDate = df.parse(convertedDate + " "
 								+ convertedTime);
 					} catch (ParseException e) {
-						// TODO Auto-generated catch block
+						// TODO Write to Log window!
 						e.printStackTrace();
 					}
 				}

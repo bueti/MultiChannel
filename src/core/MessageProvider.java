@@ -6,7 +6,6 @@ package core;
 
 import messageTypes.Message;
 
-
 /**
  * Class representing the handler for all sent messages, each message composed in
  * the gui will be handled by the <code>MessageProvider</code> class. If a message should be sent
@@ -60,24 +59,9 @@ public class MessageProvider {
         return _instance;
     }
     
-    
-    //TODO: Merge these two comments
-    /**
-     * This method creates a timer task if a message needs to be send
-     * at a specific time. It also checks if a reminder should be sent
-     * before the original message.
-     * <p>
-     *
-     * @param		msg Message to send
-     * @return      tbd
-     * @see         MessageProvider
-     */
-  //TODO: Merge these two comments
-    /**
-     * Send a message after the send button is clicked.
-     * The type of the message doesn't matter because this method only
-     * calls the send method of the superclass
-     * <p>
+    /** This method is used to send a message, if it needs to be send right now
+     * it just calls the send method of the super class, if it should be sent at a specific
+     * time the <code>MessageProvider</code> creates a new TimerTask with the <code>MessageScheduler</code>
      *
      * @param		msg Message to send
      * @return      tbd
@@ -88,16 +72,20 @@ public class MessageProvider {
     	if(!msg.getSendLater()){
     		try{
     			msg.send();
+    			//TODO use logger to say that message is sent successfully
     		}catch(Exception e){
     			//TODO Use Logger to log error
     			return false;
     		}
     	}else{
-    		//TODO: ADD Exception handling
-    		this.messageScheduler.createMessageTimer(msg);
+    		if(!this.messageScheduler.createMessageTimer(msg)){
+    			return false;
+    		}
     		
     		if(msg.getSendReminder()){
-    			this.messageScheduler.createReminderTimer(msg);
+    			if(!this.messageScheduler.createReminderTimer(msg)){
+    				return false;
+    			}
     		}
     	}
     	

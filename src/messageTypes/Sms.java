@@ -24,7 +24,7 @@ public class Sms extends Message implements IValidator{
 	 */
 	public boolean validate() throws Exception {
 		if (isValidPhoneNumber(this.getRecipient())) {
-			if (this.getSubject().equals("") && this.getText().equals("")) {
+			if (this.getSubject().equals("") || this.getText().equals("")) {
 				throw new Exception("Subject or Text is empty!");
 			}
 		} else {

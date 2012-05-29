@@ -9,15 +9,43 @@ import java.util.List;
 
 import messageTypes.Message;
 
+/**
+ * The GUIHandler class is used to encapsulate the businesslogic from the GUI.
+ * It implements the interface <code>IGUIHandler</code> to make it easy replaceable
+ * by another handler.
+ *
+ * @author  Yannik Kopp
+ * @version 1.0
+ * @see core.IGUIHandler
+ */
 public class GUIHandler implements IGUIHandler {
-
-	MessageProvider handler;
+	
+    /**
+     * Instance of <code>MessageProvider</code> class, which is used to
+     * send the message immediately or at a specific time
+     *
+     * @see MessageProvider
+     */
+	MessageProvider provider;
+	
+    /**
+     * Represents all available message types
+     *
+     */
 	String[] allMessageTypes;
-
+	
+    /** 	
+    * Default constructor for <code>GUIHandler</code>. 
+    * Creates a <code>MessageScheduler</code> instance to initiate <code>MessageProvider</code>
+    * 
+    * @See MessageScheduler
+    * @See MessageProvider
+    */
 	public GUIHandler() {
-		MessageScheduler scheduler = new MessageScheduler();
-		this.handler = MessageProvider.getInstance(scheduler);
+		IMessageScheduler scheduler = new MessageScheduler();
+		this.provider = MessageProvider.getInstance(scheduler);
 	}
+	
 	
 	public boolean sendMessage(List<String> recipientList, String subject, String message, String type, Date sendTime, Date reminderTime) throws Exception{
 		
@@ -40,8 +68,9 @@ public class GUIHandler implements IGUIHandler {
 				throw new Exception(ex.getMessage());
 			}
 			
-			//TODO: Exception Handling für send message
-			this.handler.sendMessage(newMsg);
+			if(!this.provider.sendMessage(newMsg)){
+				return false;
+			}
 		}
 		return true;
 	}

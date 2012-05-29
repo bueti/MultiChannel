@@ -15,7 +15,7 @@ public class Print extends Message implements IValidator{
 
 	public boolean validate() throws Exception{
 		if (!this.getRecipient().equals("")) {
-			if (this.getSubject().equals("") && this.getText().equals("")) {
+			if (this.getSubject().equals("") || this.getText().equals("")) {
 				throw new Exception("Subject or Text is empty!");
 			}
 			return true;

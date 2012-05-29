@@ -9,7 +9,7 @@ import messageTypes.Message;
 public class MessageScheduler implements IMessageScheduler{
 	
 	//TODO: WHAT HAPPENS IF TWO TIMERS ARE CREATED RIGHT AT THE SAME TIME??
-	//REALY IMPORTANT TO CHECK THIS -> checked it one was no error, more tests required
+	//REALY IMPORTANT TO CHECK THIS -> checked it once was no error, more tests required
 	
 	Timer timer;
 	
@@ -18,12 +18,34 @@ public class MessageScheduler implements IMessageScheduler{
 		timer = new Timer();
 	}
 
-	public void createMessageTimer(Message msg) {
-        timer.schedule(new SenderTask(msg), msg.getSendTime());
+	public boolean createMessageTimer(Message msg) {
+		try{
+			timer.schedule(new SenderTask(msg), msg.getSendTime());
+		}
+		catch(IllegalArgumentException ex){
+			//TODO Log to logger
+			return false;
+		}
+		catch(IllegalStateException ex){
+			//TODO Log to logger
+			return false;
+		}
+		return true;
 	}
 	
-	public void createReminderTimer(Message msg) {
-        timer.schedule(new ReminderTask(msg), msg.getReminderTime());
+	public boolean createReminderTimer(Message msg) {
+		try{
+			timer.schedule(new ReminderTask(msg), msg.getReminderTime());
+		}
+		catch(IllegalArgumentException ex){
+			//TODO Log to logger
+			return false;
+		}
+		catch(IllegalStateException ex){
+			//TODO Log to logger
+			return false;
+		}
+		return true;
 	}
 	
 	class SenderTask extends TimerTask {
@@ -36,7 +58,11 @@ public class MessageScheduler implements IMessageScheduler{
 		}
 		
 	    public void run() {
-	        this.msg.send();
+	    	try{
+	    		this.msg.send();
+	    	}catch(Exception ex){
+	    		//TODO Log to error console
+	    	}
 	    }
 	}
 	
@@ -50,7 +76,11 @@ public class MessageScheduler implements IMessageScheduler{
 		}
 		
 	    public void run() {
-	        this.msg.sendReminder();
+	        try{
+	        	this.msg.sendReminder();
+	        }catch(Exception ex){
+	        	//TODO Log to error console
+	        }
 	    }
 	}
 	
