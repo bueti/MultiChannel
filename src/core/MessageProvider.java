@@ -74,7 +74,7 @@ public class MessageProvider {
     		try{
     			msg.send();
     			//TODO use logger to say that message is sent successfully
-    			MultiChannelLogMonitor.getInstance().writeLogEntry("Message send Successfully",1);
+    			MultiChannelLogMonitor.getInstance().logInformation("Message send Successfully",1);
     		}catch(Exception e){
     			//TODO Use Logger to log error
     			return false;

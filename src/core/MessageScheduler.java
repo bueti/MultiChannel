@@ -1,5 +1,7 @@
 package core;
 
+import gui.MultiChannelLogMonitor;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -61,7 +63,7 @@ public class MessageScheduler implements IMessageScheduler{
 	    	try{
 	    		this.msg.send();
 	    	}catch(Exception ex){
-	    		//TODO Log to error console
+	    		//MultiChannelLogMonitor.getInstance().writeLogEntry(, status)
 	    	}
 	    }
 	}

@@ -58,8 +58,13 @@ public class MultiChannelLogMonitor extends JFrame {
 		this.frame.setVisible(true);
 	}
 	
-	public void writeLogEntry(String text,int status){
+	public void logInformation(String text,int status){
 		this.area.append(text + "/n");
+	}
+	
+	public void logException(Exception exception){
+		//TODO Message schön ausgeben
+		this.area.append(exception.getMessage() + "/n");
 	}
 
 }

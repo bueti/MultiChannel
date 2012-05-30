@@ -69,11 +69,7 @@ public class MultiChannelGUI {
 		guiHandler = pGuiHandler;
 
 		this.initialize();
-
-		// TODO: Ist das am richtigen Ort????
-		// Mal schauen :)
 		
-
 		this.frame.setVisible(true);
 	}
 
