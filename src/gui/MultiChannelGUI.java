@@ -1,6 +1,9 @@
 package gui;
 
 import java.awt.Component;
+import java.awt.Container;
+import java.awt.FocusTraversalPolicy;
+import java.awt.KeyboardFocusManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -9,8 +12,12 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.Vector;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -23,8 +30,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.JTextPane;
+import javax.swing.KeyStroke;
 import javax.swing.SpinnerDateModel;
 import javax.swing.SpinnerModel;
 import javax.swing.SwingConstants;
@@ -52,7 +60,7 @@ public class MultiChannelGUI {
 	private JComboBox comboBox;
 	private JTextField tFRecipient;
 	private JTextField tFSubject;
-	private JTextArea messageBody;
+	private JTextPane messageBody;
 	private JCheckBox chckbxScheduler;
 	private String selectedItem;
 	private JPanel reminderTimePanel;
@@ -67,6 +75,7 @@ public class MultiChannelGUI {
 	private JButton btnDurchsuchen;
 	private File file;
 	private JLabel filePathLabel;
+	static TabFocusPolicy tabPolicy;
 
 	/**
 	 * Konstruktor
@@ -75,9 +84,9 @@ public class MultiChannelGUI {
 
 		guiHandler = pGuiHandler;
 
-		this.initialize();
+		initialize();
 		
-		this.frame.setVisible(true);
+		frame.setVisible(true);
 	}
 
 	/**
@@ -140,13 +149,28 @@ public class MultiChannelGUI {
 				FormFactory.DEFAULT_ROWSPEC,
 				FormFactory.PREF_ROWSPEC,}));
 
-		JLabel lblReciever = new JLabel("Empfänger:");
-		frame.getContentPane().add(lblReciever, "2, 2");
-
+		// Empfänger
+		JLabel lblRecipient = new JLabel("Empfänger:");
 		tFRecipient = new JTextField();
-		frame.getContentPane().add(tFRecipient, "4, 2, 25, 1, fill, default");
 		tFRecipient.setColumns(10);
 
+		// Betrefft
+		JLabel lblSubject = new JLabel("Betreff:");
+		tFSubject = new JTextField();
+		tFSubject.setColumns(10);
+
+		// Nachrichtfeld
+		JLabel lblMessage = new JLabel("Nachricht:");
+		messageBody = new JTextPane();
+		patch(messageBody);
+
+		// Combobox zur Auswahl des Typs
+		comboBox = new JComboBox();
+		comboBox.addActionListener(new ComboboxActionLister());
+		comboBox.setModel(new DefaultComboBoxModel(guiHandler
+				.getAllMessageTypes()));
+		
+		// Scheduler
 		chckbxScheduler = new JCheckBox("Scheduler: ");
 		chckbxScheduler
 				.setToolTipText("Select this if you want to schedule this message.");
@@ -155,66 +179,65 @@ public class MultiChannelGUI {
 
 		schedulerPanel = new JPanel();
 		schedulerPanel.add(chckbxScheduler);
-		schedulerPanel.setVisible(false);
 		schedulerPanel.setVisible(true);
-		frame.getContentPane().add(schedulerPanel, "30, 2, left, fill");
-
+		
+		// Kalender anzeige
 		calendarPanel = datePicker(null, new Date());
-		calendarPanel.setVisible(false);
-
+		calendarPanel.setVisible(false); // Nur Anzeigen wenn Schedule ausgewählt wird
+		
+		// Reminder
 		chckbxReminder = new JCheckBox("Reminder: ");
-		chckbxScheduler
+		chckbxReminder
 				.setToolTipText("Select this if you want to recieve a reminder before this message is sent.");
 		chckbxReminder.setHorizontalTextPosition(SwingConstants.LEADING);
 		chckbxReminder.addActionListener(new ReminderActionListener());
 
 		reminderPanel = new JPanel();
 		reminderPanel.add(chckbxReminder);
-		reminderPanel.setVisible(false);
-		frame.getContentPane().add(reminderPanel, "30, 4, left, fill");
+		reminderPanel.setVisible(false); // Nur Anzeigen wenn Schedule ausgewählt wird
 		
-		//TODO: Get MessageTypes from AllMessageTypesEnum
-		comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(guiHandler
-				.getAllMessageTypes()));
-		comboBox.addActionListener(new ComboboxActionLister());
-		frame.getContentPane().add(comboBox, "30, 6, fill, default");
-
-		frame.getContentPane().add(calendarPanel, "30, 10, fill, default");
-
-		JLabel lblSubject = new JLabel("Betreff:");
-		frame.getContentPane().add(lblSubject, "2, 4");
-
-		tFSubject = new JTextField();
-		frame.getContentPane().add(tFSubject, "4, 4, 25, 1, fill, default");
-		tFSubject.setColumns(10);
-
-		JLabel lblMessage = new JLabel("Nachricht:");
-		frame.getContentPane().add(lblMessage, "2, 6");
-
-		messageBody = new JTextArea();
-		frame.getContentPane().add(messageBody, "2, 8, 27, 7, fill, fill");
-
-		JButton btnSend = new JButton("Abschicken");
-		btnSend.addActionListener(new SendActionListener());
-
+		// Das Panel zur Reminder Zeit eingabe
 		reminderTimePanel = new JPanel();
-		frame.getContentPane().add(reminderTimePanel, "30, 12, fill, fill");
 		reminderTimePanel.setLayout(null);
 		reminderTimePanel.setVisible(false);
-
 		tFReminderTime = new JTextField();
 		tFReminderTime.setBounds(64, 6, 52, 28);
 		reminderTimePanel.add(tFReminderTime);
 		tFReminderTime.setColumns(10);
-
+		
 		JLabel lblMinuten = new JLabel("Minuten:");
 		lblMinuten.setBounds(6, 12, 61, 16);
 		reminderTimePanel.add(lblMinuten);
-
+		
+		// Absenden Button
+		JButton btnSend = new JButton("Abschicken");
+		btnSend.addActionListener(new SendActionListener());
+		
+		// Alles dem frame hinzfügen
+		frame.getContentPane().add(lblRecipient, "2, 2");
+		frame.getContentPane().add(tFRecipient, "4, 2, 25, 1, fill, default");
+		frame.getContentPane().add(lblSubject, "2, 4");
+		frame.getContentPane().add(tFSubject, "4, 4, 25, 1, fill, default");
+		frame.getContentPane().add(lblMessage, "2, 6");
+		frame.getContentPane().add(messageBody, "2, 8, 27, 7, fill, fill");
+		frame.getContentPane().add(comboBox, "30, 6, fill, default");
+		frame.getContentPane().add(schedulerPanel, "30, 2, left, fill");
+		frame.getContentPane().add(reminderPanel, "30, 4, left, fill");
+		frame.getContentPane().add(calendarPanel, "30, 10, fill, default");
+		frame.getContentPane().add(reminderTimePanel, "30, 12, fill, fill");
 		frame.getContentPane().add(btnSend, "30, 14, fill, fill");
 		
 		createAttachmentPanel();
+		
+		// Tab Reihenfolge festlegen
+		Vector<Component> order = new Vector<Component>(7);
+        order.add(tFRecipient);
+        order.add(tFSubject);
+        order.add(messageBody);
+        order.add(chckbxScheduler);
+        order.add(btnSend);
+        tabPolicy = new TabFocusPolicy(order);
+        frame.setFocusTraversalPolicy(tabPolicy);
 		
 	}
 	
@@ -262,6 +285,19 @@ public class MultiChannelGUI {
 
 		return datePanel;
 	}
+	
+	/**
+	 * Patch the JTextArea so we can leave the TextArea with Tab
+	 * @author bbu
+	 *
+	 */
+	public static void patch(Component c) {
+        Set<KeyStroke> 
+        strokes = new HashSet<KeyStroke>(Arrays.asList(KeyStroke.getKeyStroke("pressed TAB")));
+        c.setFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, strokes);
+        strokes = new HashSet<KeyStroke>(Arrays.asList(KeyStroke.getKeyStroke("shift pressed TAB")));
+        c.setFocusTraversalKeys(KeyboardFocusManager.BACKWARD_TRAVERSAL_KEYS, strokes);
+    }
 
 	/*
 	 * ActionListeners
@@ -426,5 +462,46 @@ public class MultiChannelGUI {
 			}
 		}
 	}
+	
+	/**
+	 * Anonyme innere Klasse zur Tab-Reihenfolge
+	 * @author bbu
+	 *
+	 */
+	public static class TabFocusPolicy extends FocusTraversalPolicy {
+		Vector<Component> order;
+
+		public TabFocusPolicy(Vector<Component> order) {
+			this.order = new Vector<Component>(order.size());
+			this.order.addAll(order);
+		}
+
+		public Component getComponentAfter(Container focusCycleRoot,
+				Component aComponent) {
+			int idx = (order.indexOf(aComponent) + 1) % order.size();
+			return order.get(idx);
+		}
+
+		public Component getComponentBefore(Container focusCycleRoot,
+				Component aComponent) {
+			int idx = order.indexOf(aComponent) - 1;
+			if (idx < 0) {
+				idx = order.size() - 1;
+			}
+			return order.get(idx);
+		}
+
+		public Component getDefaultComponent(Container focusCycleRoot) {
+			return order.get(0);
+		}
+
+		public Component getLastComponent(Container focusCycleRoot) {
+			return order.lastElement();
+		}
+
+		public Component getFirstComponent(Container focusCycleRoot) {
+			return order.get(0);
+		}
+}
 
 }
