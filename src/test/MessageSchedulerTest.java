@@ -21,12 +21,7 @@ public class MessageSchedulerTest {
 	@Before
 	public void setUp() throws Exception {
 		this.testScheduler = new MessageScheduler();
-		this.testEmail = new Email();
-		this.testEmail.setRecipient("test@test.com");
-		this.testEmail.setSubject("Test");
-		this.testEmail.setText("This is a test email");
-		this.testEmail.setSendTime(new Date(System.currentTimeMillis() + 1000));
-		this.testEmail.setReminderTime(new Date(System.currentTimeMillis() + 1000));
+		this.testEmail = new Email("test@test.com","Test","This is a test email",new Date(System.currentTimeMillis() + 1000),new Date(System.currentTimeMillis() + 1000),null);
 	}
 	
 	@After

@@ -53,17 +53,11 @@ public class GUIHandler implements IGUIHandler {
 			Message newMsg;
 
 			try {
-				newMsg = MessageFactory.createNewMessage(subject, recipient,message, type, sendTime, reminderTime);
+				newMsg = MessageFactory.createNewMessage(recipient,subject,message, type, sendTime, reminderTime, null);
+				if(newMsg == null){
+					return false;
+				}
 				newMsg.validate();
-			} catch (ClassNotFoundException e) {
-				//TODO: Log error
-				return false;
-			} catch (InstantiationException e) {
-				//TODO: Log error
-				return false;
-			} catch (IllegalAccessException e) {
-				//TODO: Log error
-				return false;
 			} catch (Exception ex) {
 				throw new Exception(ex.getMessage());
 			}

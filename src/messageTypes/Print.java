@@ -1,6 +1,13 @@
 package messageTypes;
 
+import java.io.File;
+import java.util.Date;
+
 public class Print extends Message implements IValidator{
+	
+	public Print(String pRecipient,String pSubject, String pMessage, Date pSendTime, Date pReminderTime){
+		super(pRecipient, pSubject, pMessage, pSendTime, pReminderTime);
+	}
 
 	public void send() {
 		System.out.println("\"" + this.getSubject() + "\" an Drucker \""

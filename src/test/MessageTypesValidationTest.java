@@ -19,20 +19,11 @@ public class MessageTypesValidationTest {
 	private Print testPrint;
 	@Before
 	public void setUp() throws Exception {
-		this.testEmail = new Email();
-		this.testEmail.setRecipient("test@test.com");
-		this.testEmail.setSubject("Test");
-		this.testEmail.setText("This is a test email");
+		this.testEmail = new Email("test@test.com","Test","This is a test email",null,null,null);
 		
-		this.testSms = new Sms();
-		this.testSms.setRecipient("0791234567");
-		this.testSms.setSubject("Test");
-		this.testSms.setText("This is a test sms");
+		this.testSms = new Sms("0791234567","Test","This is a test sms",null,null);
 		
-		this.testPrint = new Print();
-		this.testPrint.setRecipient("PRT 123");
-		this.testPrint.setSubject("Test");
-		this.testPrint.setText("This is a test print");
+		this.testPrint = new Print("PRT 123","Test","This is a test print",null,null);
 	}
 
 	@Test

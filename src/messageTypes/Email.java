@@ -1,9 +1,21 @@
 package messageTypes;
 
+import java.io.File;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Email extends Message implements IValidator {
+	
+	private File attachment;
+	
+	public Email(String pRecipient,String pSubject, String pMessage, Date pSendTime, Date pReminderTime, File pAttachment){
+		super(pRecipient, pSubject, pMessage, pSendTime, pReminderTime);
+		
+		if(pAttachment!=null){
+			this.setAttachment(pAttachment);
+		}
+	}
 
 	public void send() {
 		System.out.println("\"" + this.getSubject() + "\" an \""
@@ -39,5 +51,13 @@ public class Email extends Message implements IValidator {
 		System.out.println("\"Das ist der Reminder an die Message: "
 				+ this.getSubject() + "an den Empfänger" + this.getRecipient()
 				+ "\"");
+	}
+
+	public File getAttachment() {
+		return attachment;
+	}
+
+	public void setAttachment(File attachment) {
+		this.attachment = attachment;
 	}
 }

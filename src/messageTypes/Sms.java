@@ -1,9 +1,14 @@
 package messageTypes;
 
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Sms extends Message implements IValidator{
+	
+	public Sms(String pRecipient,String pSubject, String pMessage, Date pSendTime, Date pReminderTime){
+		super(pRecipient, pSubject, pMessage, pSendTime, pReminderTime);
+	}
 
 	@Override
 	public void send() {

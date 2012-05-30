@@ -1,9 +1,20 @@
 package messageTypes;
 
+import java.io.File;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Mms extends Message implements IValidator {
+	
+	private File attachment;
+	
+	public Mms(String pRecipient,String pSubject, String pMessage, Date pSendTime, Date pReminderTime, File pAttachment){
+		super(pRecipient, pSubject, pMessage, pSendTime, pReminderTime);
+		if(attachment != null){
+			this.setAttachment(pAttachment);
+		}
+	}
 
 	@Override
 	public void send() {
@@ -49,6 +60,14 @@ public class Mms extends Message implements IValidator {
 	
 	public void sendReminder() {
 		System.out.println("\"Das ist der Reminder an die Message: " + this.getSubject() + " an den Empfänger " + this.getRecipient() + "\"");
+	}
+	
+	public File getAttachment() {
+		return attachment;
+	}
+
+	public void setAttachment(File attachment) {
+		this.attachment = attachment;
 	}
 
 }
