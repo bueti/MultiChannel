@@ -57,6 +57,9 @@ public class MultiChannelGUI {
 	private JDateChooser dateChooser;
 	private SpinnerModel model;
 	private JComponent editor;
+	private JTextField tFAttachment;
+	private JLabel lblAttachment;
+	private JButton btnDurchsuchen;
 
 	/**
 	 * Konstruktor
@@ -79,58 +82,60 @@ public class MultiChannelGUI {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 526, 300);
+		frame.setBounds(100, 100, 526, 350);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(
 				new FormLayout(new ColumnSpec[] {
-						FormFactory.RELATED_GAP_COLSPEC,
-						FormFactory.MIN_COLSPEC,
-						FormFactory.RELATED_GAP_COLSPEC,
-						ColumnSpec.decode("default:grow"),
-						FormFactory.RELATED_GAP_COLSPEC,
-						ColumnSpec.decode("default:grow"),
-						FormFactory.RELATED_GAP_COLSPEC,
-						FormFactory.DEFAULT_COLSPEC,
-						FormFactory.RELATED_GAP_COLSPEC,
-						FormFactory.DEFAULT_COLSPEC,
-						FormFactory.RELATED_GAP_COLSPEC,
-						FormFactory.DEFAULT_COLSPEC,
-						FormFactory.RELATED_GAP_COLSPEC,
-						FormFactory.DEFAULT_COLSPEC,
-						FormFactory.RELATED_GAP_COLSPEC,
-						FormFactory.DEFAULT_COLSPEC,
-						FormFactory.RELATED_GAP_COLSPEC,
-						FormFactory.DEFAULT_COLSPEC,
-						FormFactory.RELATED_GAP_COLSPEC,
-						FormFactory.DEFAULT_COLSPEC,
-						FormFactory.RELATED_GAP_COLSPEC,
-						FormFactory.DEFAULT_COLSPEC,
-						FormFactory.RELATED_GAP_COLSPEC,
-						FormFactory.DEFAULT_COLSPEC,
-						FormFactory.RELATED_GAP_COLSPEC,
-						FormFactory.DEFAULT_COLSPEC,
-						FormFactory.RELATED_GAP_COLSPEC,
-						ColumnSpec.decode("min:grow"),
-						FormFactory.RELATED_GAP_COLSPEC,
-						FormFactory.MIN_COLSPEC,
-						FormFactory.RELATED_GAP_COLSPEC,
-						FormFactory.MIN_COLSPEC, }, new RowSpec[] {
-						FormFactory.RELATED_GAP_ROWSPEC,
-						FormFactory.DEFAULT_ROWSPEC,
-						FormFactory.NARROW_LINE_GAP_ROWSPEC,
-						FormFactory.DEFAULT_ROWSPEC,
-						FormFactory.RELATED_GAP_ROWSPEC,
-						FormFactory.DEFAULT_ROWSPEC,
-						FormFactory.RELATED_GAP_ROWSPEC,
-						FormFactory.DEFAULT_ROWSPEC,
-						FormFactory.RELATED_GAP_ROWSPEC,
-						RowSpec.decode("fill:max(46dlu;default)"),
-						FormFactory.RELATED_GAP_ROWSPEC,
-						RowSpec.decode("bottom:max(22dlu;default):grow"),
-						FormFactory.RELATED_GAP_ROWSPEC,
-						RowSpec.decode("fill:default"),
-						FormFactory.RELATED_GAP_ROWSPEC,
-						FormFactory.DEFAULT_ROWSPEC, }));
+				FormFactory.RELATED_GAP_COLSPEC,
+				FormFactory.MIN_COLSPEC,
+				FormFactory.RELATED_GAP_COLSPEC,
+				ColumnSpec.decode("default:grow"),
+				FormFactory.RELATED_GAP_COLSPEC,
+				ColumnSpec.decode("default:grow"),
+				FormFactory.RELATED_GAP_COLSPEC,
+				FormFactory.DEFAULT_COLSPEC,
+				FormFactory.RELATED_GAP_COLSPEC,
+				FormFactory.DEFAULT_COLSPEC,
+				FormFactory.RELATED_GAP_COLSPEC,
+				FormFactory.DEFAULT_COLSPEC,
+				FormFactory.RELATED_GAP_COLSPEC,
+				FormFactory.DEFAULT_COLSPEC,
+				FormFactory.RELATED_GAP_COLSPEC,
+				FormFactory.DEFAULT_COLSPEC,
+				FormFactory.RELATED_GAP_COLSPEC,
+				FormFactory.DEFAULT_COLSPEC,
+				FormFactory.RELATED_GAP_COLSPEC,
+				FormFactory.DEFAULT_COLSPEC,
+				FormFactory.RELATED_GAP_COLSPEC,
+				FormFactory.DEFAULT_COLSPEC,
+				FormFactory.RELATED_GAP_COLSPEC,
+				FormFactory.DEFAULT_COLSPEC,
+				FormFactory.RELATED_GAP_COLSPEC,
+				FormFactory.DEFAULT_COLSPEC,
+				FormFactory.RELATED_GAP_COLSPEC,
+				ColumnSpec.decode("min:grow"),
+				FormFactory.RELATED_GAP_COLSPEC,
+				FormFactory.MIN_COLSPEC,
+				FormFactory.RELATED_GAP_COLSPEC,
+				FormFactory.MIN_COLSPEC,},
+			new RowSpec[] {
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.NARROW_LINE_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.RELATED_GAP_ROWSPEC,
+				RowSpec.decode("fill:max(46dlu;default)"),
+				FormFactory.RELATED_GAP_ROWSPEC,
+				RowSpec.decode("bottom:max(22dlu;default):grow"),
+				FormFactory.RELATED_GAP_ROWSPEC,
+				RowSpec.decode("fill:default"),
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.PREF_ROWSPEC,}));
 
 		JLabel lblReciever = new JLabel("Empfänger:");
 		frame.getContentPane().add(lblReciever, "2, 2");
@@ -185,8 +190,8 @@ public class MultiChannelGUI {
 		messageBody = new JTextArea();
 		frame.getContentPane().add(messageBody, "2, 8, 27, 7, fill, fill");
 
-		JButton button = new JButton("Abschicken");
-		button.addActionListener(new SendActionListener());
+		JButton btnSend = new JButton("Abschicken");
+		btnSend.addActionListener(new SendActionListener());
 
 		reminderTimePanel = new JPanel();
 		frame.getContentPane().add(reminderTimePanel, "30, 12, fill, fill");
@@ -202,7 +207,24 @@ public class MultiChannelGUI {
 		lblMinuten.setBounds(6, 12, 61, 16);
 		reminderTimePanel.add(lblMinuten);
 
-		frame.getContentPane().add(button, "30, 14, fill, fill");
+		frame.getContentPane().add(btnSend, "30, 14, fill, fill");
+		
+		createAttachmentPanel();
+		
+	}
+	
+	public void createAttachmentPanel() {
+		lblAttachment = new JLabel("Attachment:");
+		frame.getContentPane().add(lblAttachment, "2, 16, right, default");
+		
+		tFAttachment = new JTextField();
+		tFAttachment.setEditable(false);
+		frame.getContentPane().add(tFAttachment, "4, 16, 25, 1, fill, default");
+		tFAttachment.setColumns(10);
+		
+		btnDurchsuchen = new JButton("Durchsuchen");
+		frame.getContentPane().add(btnDurchsuchen, "30, 16");
+		//frame.pack();
 	}
 
 	/*
