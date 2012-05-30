@@ -20,6 +20,9 @@ public class Mms extends Message implements IValidator {
 		System.out.println("\"" + this.getSubject() + "\" an \"" + this.getRecipient() + "\" geschickt.");
 		System.out.println("Nachricht:");
 		System.out.println(this.getText());
+		if(!getAttachment().equals(null)) {
+			System.out.println("Attachment: " + getAttachment());
+		}
 	}
 
 	@Override

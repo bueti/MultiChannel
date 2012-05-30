@@ -22,6 +22,9 @@ public class Email extends Message implements IValidator {
 				+ this.getRecipient() + "\" geschickt.");
 		System.out.println("Nachricht:");
 		System.out.println(this.getText());
+		if(!getAttachment().equals(null)) {
+			System.out.println("Attachment: " + getAttachment());
+		}
 	}
 
 	@Override
