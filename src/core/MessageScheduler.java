@@ -1,7 +1,5 @@
 package core;
 
-import gui.MultiChannelLogMonitor;
-
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -39,11 +37,11 @@ public class MessageScheduler implements IMessageScheduler{
 		try{
 			timer.schedule(new ReminderTask(msg), msg.getReminderTime());
 		}
-		catch(IllegalArgumentException ex){
+		catch(IllegalArgumentException ex) {
 			//TODO Log to logger
 			return false;
 		}
-		catch(IllegalStateException ex){
+		catch(IllegalStateException ex) {
 			//TODO Log to logger
 			return false;
 		}
@@ -62,7 +60,7 @@ public class MessageScheduler implements IMessageScheduler{
 	    public void run() {
 	    	try{
 	    		this.msg.send();
-	    	}catch(Exception ex){
+	    	}catch(Exception ex) {
 	    		//MultiChannelLogMonitor.getInstance().writeLogEntry(, status)
 	    	}
 	    }
@@ -77,12 +75,12 @@ public class MessageScheduler implements IMessageScheduler{
 			this.msg = pmsg;	
 		}
 		
-	    public void run() {
-	        try{
-	        	this.msg.sendReminder();
-	        }catch(Exception ex){
-	        	//TODO Log to error console
-	        }
+		public void run() {
+			try {
+				this.msg.sendReminder();
+			} catch (Exception ex) {
+				// TODO Log to error console
+			}
 	    }
 	}
 	

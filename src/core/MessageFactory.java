@@ -12,22 +12,22 @@ import messageTypes.Sms;
 
 public class MessageFactory {
 	
-	public static Message createNewMessage(String recipient,String subject, String message, String type, Date sendTime, Date reminderTime, File attachment)
+	public static Message createNewMessage(String recipient, String subject, String message, String type, Date sendTime, Date reminderTime, String attachment)
 	{
 		Message msg = null;
 		try{
 			switch (AllMessageTypes.valueOf(type)){
 				case Email:
-					msg = new Email(recipient,subject,message,sendTime,reminderTime,attachment);
+					msg = new Email(recipient, subject, message, sendTime, reminderTime, attachment);
 					break;
 				case Sms:
-					msg = new Sms(recipient,subject,message,sendTime,reminderTime);
+					msg = new Sms(recipient, subject, message, sendTime, reminderTime);
 					break;
 				case Mms:
-					msg = new Mms(recipient,subject,message,sendTime,reminderTime,attachment);
+					msg = new Mms(recipient, subject,message, sendTime, reminderTime, attachment);
 					break;
 				case Print:
-					msg = new Print(recipient,subject,message,sendTime,reminderTime);
+					msg = new Print(recipient, subject, message, sendTime, reminderTime);
 					break;
 			}
 		}catch(IllegalArgumentException ex){

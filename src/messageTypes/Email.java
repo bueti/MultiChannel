@@ -7,9 +7,9 @@ import java.util.regex.Pattern;
 
 public class Email extends Message implements IValidator {
 	
-	private File attachment;
+	private String attachment;
 	
-	public Email(String pRecipient,String pSubject, String pMessage, Date pSendTime, Date pReminderTime, File pAttachment){
+	public Email(String pRecipient,String pSubject, String pMessage, Date pSendTime, Date pReminderTime, String pAttachment) {
 		super(pRecipient, pSubject, pMessage, pSendTime, pReminderTime);
 		
 		if(pAttachment!=null){
@@ -52,11 +52,11 @@ public class Email extends Message implements IValidator {
 				+ "\"");
 	}
 
-	public File getAttachment() {
+	public String getAttachment() {
 		return attachment;
 	}
 
-	public void setAttachment(File attachment) {
+	public void setAttachment(String attachment) {
 		this.attachment = attachment;
 	}
 }

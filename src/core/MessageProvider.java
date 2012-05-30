@@ -71,21 +71,21 @@ public class MessageProvider {
     public boolean sendMessage(Message msg) {
     	
     	if(!msg.getSendLater()){
-    		try{
+    		try {
     			msg.send();
     			//TODO use logger to say that message is sent successfully
     			MultiChannelLogMonitor.getInstance().logInformation("Message send Successfully",1);
-    		}catch(Exception e){
+    		} catch(Exception e){
     			//TODO Use Logger to log error
     			return false;
     		}
-    	}else{
-    		if(!this.messageScheduler.createMessageTimer(msg)){
+    	} else {
+    		if(!this.messageScheduler.createMessageTimer(msg)) {
     			return false;
     		}
     		
     		if(msg.getSendReminder()){
-    			if(!this.messageScheduler.createReminderTimer(msg)){
+    			if(!this.messageScheduler.createReminderTimer(msg)) {
     				return false;
     			}
     		}

@@ -49,7 +49,7 @@ public class GUIHandler implements IGUIHandler {
 	}
 	
 	//TODO: Maybe us Dictionary for all these parameters
-	public boolean sendMessage(List<String> recipientList, String subject, String message, String type, Date sendTime, Date reminderTime, File attachment) throws Exception{
+	public boolean sendMessage(List<String> recipientList, String subject, String message, String type, Date sendTime, Date reminderTime, String attachment) throws Exception {
 		
 		for (String recipient : recipientList) {
 			Message newMsg;

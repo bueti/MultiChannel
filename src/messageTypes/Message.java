@@ -15,7 +15,7 @@ public abstract class Message {
 	public abstract void sendReminder();
 	public abstract boolean validate() throws Exception;
 	
-	public Message(String pRecipient,String pSubject, String pMessage, Date pSendTime, Date pReminderTime){
+	public Message(String pRecipient,String pSubject, String pMessage, Date pSendTime, Date pReminderTime) {
 		this.setRecipient(pRecipient);
 		this.setSubject(pSubject);
 		this.setText(pMessage);
@@ -23,11 +23,11 @@ public abstract class Message {
 		this.setSendLater(false);
 		this.setSendReminder(false);
 		
-		if(pSendTime!=null){
+		if(pSendTime!=null) {
 			this.setSendTime(pSendTime);
 			this.setSendLater(true);
 		}
-		if(pReminderTime!=null){
+		if(pReminderTime!=null) {
 			this.setSendReminder(true);
 			this.setReminderTime(pReminderTime);
 		}

@@ -3,6 +3,9 @@ package gui;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -15,6 +18,7 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -60,6 +64,8 @@ public class MultiChannelGUI {
 	private JTextField tFAttachment;
 	private JLabel lblAttachment;
 	private JButton btnDurchsuchen;
+	private String filePath;
+	private JLabel filePathLabel;
 
 	/**
 	 * Konstruktor
@@ -219,6 +225,7 @@ public class MultiChannelGUI {
 		tFAttachment.setColumns(10);
 		
 		btnDurchsuchen = new JButton("Durchsuchen");
+		btnDurchsuchen.addActionListener(new AttachmentActionListener());
 		frame.getContentPane().add(btnDurchsuchen, "30, 16");
 		//frame.pack();
 	}
@@ -321,7 +328,7 @@ public class MultiChannelGUI {
 			}
 			// Nachricht Abschicken
 			try {
-				boolean successfull = guiHandler.sendMessage(recipients, tFSubject.getText(),messageBody.getText(), selectedItem, scheduleDate,reminderDate,null);
+				boolean successfull = guiHandler.sendMessage(recipients, tFSubject.getText(),messageBody.getText(), selectedItem, scheduleDate, reminderDate, filePath);
 				if(!successfull){
 					//TODO: Texte Deutsch oder Englisch?
 					JOptionPane.showMessageDialog(frame, "Message versenden fehlgeschlagen! Mehr Informationen im Log-Window");
@@ -329,6 +336,7 @@ public class MultiChannelGUI {
 					tFRecipient.setText("");
 					tFSubject.setText("");
 					messageBody.setText("");
+					tFAttachment.setText("");
 				}
 			} catch (Exception e) {
 				JOptionPane.showMessageDialog(frame, e.getMessage());
@@ -362,6 +370,26 @@ public class MultiChannelGUI {
 				reminderTimePanel.setVisible(false);
 			}
 
+		}
+	}
+	
+	private class AttachmentActionListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent ae) {
+			// Create Load Dialog
+			JFileChooser loadDialog = new JFileChooser();
+
+			// open load dialog
+			int returnVal = loadDialog.showOpenDialog(frame);
+			if (returnVal == JFileChooser.APPROVE_OPTION) {
+				try {
+					filePath = loadDialog.getSelectedFile().getCanonicalPath();
+					tFAttachment.setText(filePath);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 
