@@ -4,6 +4,7 @@
  */
 package core;
 
+import java.io.File;
 import java.util.Date;
 import java.util.List;
 
@@ -49,7 +50,7 @@ public class GUIHandler implements IGUIHandler {
 	
 	//TODO: Maybe us Dictionary for all these parameters
 	@Override
-	public boolean sendMessage(List<String> recipientList, String subject, String message, String type, Date sendTime, Date reminderTime, String attachment) throws Exception {
+	public boolean sendMessage(List<String> recipientList, String subject, String message, String type, Date sendTime, Date reminderTime, File attachment) throws Exception {
 		
 		for (String recipient : recipientList) {
 			Message newMsg;
@@ -71,7 +72,7 @@ public class GUIHandler implements IGUIHandler {
 		return true;
 	}
 	
-	//TODO: Do we want to delete this?
+	//TODO: OBSOLETE!!
 	@Override
 	public String[] getAllMessageTypes() {
 		allMessageTypes = new String[] {"Email", "Sms", "Mms", "Print"};

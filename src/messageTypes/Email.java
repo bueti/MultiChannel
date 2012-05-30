@@ -1,14 +1,15 @@
 package messageTypes;
 
+import java.io.File;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Email extends Message implements IValidator {
 	
-	private String attachment;
+	private File attachment;
 	
-	public Email(String pRecipient,String pSubject, String pMessage, Date pSendTime, Date pReminderTime, String pAttachment) {
+	public Email(String pRecipient,String pSubject, String pMessage, Date pSendTime, Date pReminderTime, File pAttachment) {
 		super(pRecipient, pSubject, pMessage, pSendTime, pReminderTime);
 		
 		if(pAttachment!=null){
@@ -22,8 +23,8 @@ public class Email extends Message implements IValidator {
 				+ this.getRecipient() + "\" geschickt.");
 		System.out.println("Nachricht:");
 		System.out.println(this.getText());
-		if(!getAttachment().equals(null)) {
-			System.out.println("Attachment: " + getAttachment());
+		if(this.getAttachment()!=null) {
+			System.out.println("Attachment: " + this.getAttachment().getAbsolutePath());
 		}
 	}
 
@@ -57,11 +58,11 @@ public class Email extends Message implements IValidator {
 				+ "\"");
 	}
 
-	public String getAttachment() {
+	public File getAttachment() {
 		return attachment;
 	}
 
-	public void setAttachment(String attachment) {
+	public void setAttachment(File attachment) {
 		this.attachment = attachment;
 	}
 }

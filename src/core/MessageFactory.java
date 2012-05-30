@@ -1,5 +1,6 @@
 package core;
 
+import java.io.File;
 import java.util.Date;
 
 import messageTypes.AllMessageTypes;
@@ -11,7 +12,7 @@ import messageTypes.Sms;
 
 public class MessageFactory {
 	
-	public static Message createNewMessage(String recipient, String subject, String message, String type, Date sendTime, Date reminderTime, String attachment)
+	public static Message createNewMessage(String recipient, String subject, String message, String type, Date sendTime, Date reminderTime, File attachment)
 	{
 		Message msg = null;
 		try{

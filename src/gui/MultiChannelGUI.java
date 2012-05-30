@@ -3,6 +3,7 @@ package gui;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -27,6 +28,8 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerDateModel;
 import javax.swing.SpinnerModel;
 import javax.swing.SwingConstants;
+
+import messageTypes.AllMessageTypes;
 
 import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.ColumnSpec;
@@ -62,7 +65,7 @@ public class MultiChannelGUI {
 	private JTextField tFAttachment;
 	private JLabel lblAttachment;
 	private JButton btnDurchsuchen;
-	private String filePath;
+	private File file;
 	private JLabel filePathLabel;
 
 	/**
@@ -169,10 +172,12 @@ public class MultiChannelGUI {
 		reminderPanel.add(chckbxReminder);
 		reminderPanel.setVisible(false);
 		frame.getContentPane().add(reminderPanel, "30, 4, left, fill");
-
+		
+		//TODO: Get MessageTypes from AllMessageTypesEnum
 		comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(guiHandler
 				.getAllMessageTypes()));
+		comboBox.addActionListener(new ComboboxActionLister());
 		frame.getContentPane().add(comboBox, "30, 6, fill, default");
 
 		frame.getContentPane().add(calendarPanel, "30, 10, fill, default");
@@ -326,7 +331,7 @@ public class MultiChannelGUI {
 			}
 			// Nachricht Abschicken
 			try {
-				boolean successfull = guiHandler.sendMessage(recipients, tFSubject.getText(),messageBody.getText(), selectedItem, scheduleDate, reminderDate, filePath);
+				boolean successfull = guiHandler.sendMessage(recipients, tFSubject.getText(),messageBody.getText(), selectedItem, scheduleDate, reminderDate, file);
 				if(!successfull){
 					//TODO: Texte Deutsch oder Englisch?
 					JOptionPane.showMessageDialog(frame, "Message versenden fehlgeschlagen! Mehr Informationen im Log-Window");
@@ -371,6 +376,37 @@ public class MultiChannelGUI {
 		}
 	}
 	
+	private class ComboboxActionLister implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			JComboBox cb = (JComboBox)e.getSource();
+
+			switch (AllMessageTypes.valueOf((String)cb.getSelectedItem())){
+				case Email:
+					tFAttachment.setVisible(true);
+					lblAttachment.setVisible(true);
+					btnDurchsuchen.setVisible(true);
+					break;
+				case Mms:
+					tFAttachment.setVisible(true);
+					lblAttachment.setVisible(true);
+					btnDurchsuchen.setVisible(true);
+					break;
+				case Sms:
+					tFAttachment.setVisible(false);
+					lblAttachment.setVisible(false);
+					btnDurchsuchen.setVisible(false);
+					break;
+				case Print:
+					tFAttachment.setVisible(false);
+					lblAttachment.setVisible(false);
+					btnDurchsuchen.setVisible(false);
+					break;
+			}
+		}
+	}
+	
 	private class AttachmentActionListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent ae) {
@@ -381,8 +417,8 @@ public class MultiChannelGUI {
 			int returnVal = loadDialog.showOpenDialog(frame);
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
 				try {
-					filePath = loadDialog.getSelectedFile().getCanonicalPath();
-					tFAttachment.setText(filePath);
+					file = loadDialog.getSelectedFile();
+					tFAttachment.setText(file.getCanonicalPath());
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

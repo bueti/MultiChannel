@@ -33,12 +33,15 @@ public class MessageProvider {
      */
     private IMessageScheduler messageScheduler;
     
+    private MultiChannelLogMonitor logMonitor;
+    
     /** 	
     * Default constructor for <code>MessageProvider</code>
     * Creates <code>MessageScheduler</code> instance with the implemented interface 	
     */
     private MessageProvider(IMessageScheduler pScheduler){
     	this.messageScheduler = pScheduler;
+    	this.logMonitor = MultiChannelLogMonitor.getInstance();
     }
     
     
@@ -65,7 +68,7 @@ public class MessageProvider {
      * time the <code>MessageProvider</code> creates a new TimerTask with the <code>MessageScheduler</code>
      *
      * @param		msg Message to send
-     * @return      tbd
+     * @return      Boolean if message sending was successfully
      * @see         MessageProvider
      */
     public boolean sendMessage(Message msg) {
@@ -73,10 +76,9 @@ public class MessageProvider {
     	if(!msg.getSendLater()){
     		try {
     			msg.send();
-    			//TODO use logger to say that message is sent successfully
-    			MultiChannelLogMonitor.getInstance().logInformation("Message send Successfully",1);
+    			this.logMonitor.logInformation("Message send Successfully",1);
     		} catch(Exception e){
-    			//TODO Use Logger to log error
+    			this.logMonitor.logException(e);
     			return false;
     		}
     	} else {
