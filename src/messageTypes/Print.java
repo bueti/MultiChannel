@@ -1,6 +1,5 @@
 package messageTypes;
 
-import java.io.File;
 import java.util.Date;
 
 public class Print extends Message implements IValidator{

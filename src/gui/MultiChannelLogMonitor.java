@@ -9,8 +9,8 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-import core.GUIHandler;
-import core.IGUIHandler;
+import core.IMessageScheduler;
+import core.MessageProvider;
 
 public class MultiChannelLogMonitor extends JFrame {
 
@@ -19,15 +19,21 @@ public class MultiChannelLogMonitor extends JFrame {
 	private JLabel label;
 	private JTextArea area;
 	private JScrollPane bildlauf;
+	private static MultiChannelLogMonitor _instance = null;
 
 	// Konstruktor
+	
+    public static MultiChannelLogMonitor getInstance() {
+        if (_instance == null) {
+            _instance = new MultiChannelLogMonitor();
+        }
+        return _instance;
+    }
 
-	public MultiChannelLogMonitor() {
-
+	private MultiChannelLogMonitor() {
 		logMonitor();
-
 	}
-
+	
 	private void logMonitor() {
 		frame = new JFrame("MultiChannel-LogMonitor");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -50,6 +56,10 @@ public class MultiChannelLogMonitor extends JFrame {
 		frame.getContentPane().add(area, BorderLayout.CENTER);
 
 		this.frame.setVisible(true);
+	}
+	
+	public void writeLogEntry(String text,int status){
+		this.area.append(text + "/n");
 	}
 
 }

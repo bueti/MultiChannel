@@ -35,7 +35,6 @@ public class Email extends Message implements IValidator {
 		return true;
 	}
 	
-	// TODO maybe use this vor Validation
 	// RegEx für Email addresse
 	public boolean isValidEmailAddress(String emailAddress) {
 		//String expression = "^[\\w\\-]([\\.\\w])+[\\w]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
@@ -49,7 +48,7 @@ public class Email extends Message implements IValidator {
 
 	public void sendReminder() {
 		System.out.println("\"Das ist der Reminder an die Message: "
-				+ this.getSubject() + "an den Empfänger" + this.getRecipient()
+				+ this.getSubject() + " an den Empfänger " + this.getRecipient()
 				+ "\"");
 	}
 

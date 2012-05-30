@@ -72,7 +72,7 @@ public class MultiChannelGUI {
 
 		// TODO: Ist das am richtigen Ort????
 		// Mal schauen :)
-		MultiChannelLogMonitor mclm = new MultiChannelLogMonitor();
+		
 
 		this.frame.setVisible(true);
 	}
@@ -301,7 +301,7 @@ public class MultiChannelGUI {
 					scheduleDate = df
 							.parse(convertedDate + " " + convertedTime);
 				} catch (ParseException e) {
-					// TODO Auto-generated catch block
+					// TODO Handle this error
 					e.printStackTrace();
 				}
 
@@ -325,7 +325,7 @@ public class MultiChannelGUI {
 			}
 			// Nachricht Abschicken
 			try {
-				boolean successfull = guiHandler.sendMessage(recipients, tFSubject.getText(),messageBody.getText(), selectedItem, scheduleDate,reminderDate);
+				boolean successfull = guiHandler.sendMessage(recipients, tFSubject.getText(),messageBody.getText(), selectedItem, scheduleDate,reminderDate,null);
 				if(!successfull){
 					//TODO: Texte Deutsch oder Englisch?
 					JOptionPane.showMessageDialog(frame, "Message versenden fehlgeschlagen! Mehr Informationen im Log-Window");

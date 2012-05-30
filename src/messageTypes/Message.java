@@ -3,9 +3,9 @@ package messageTypes;
 import java.util.Date;
 
 public abstract class Message {
-	private Boolean sendReminder;
+	private boolean sendReminder;
 	private Date reminderTime;
-	private Boolean sendLater;
+	private boolean sendLater;
 	private Date sendTime;
 	private String recipient;
 	private String subject;
@@ -36,7 +36,7 @@ public abstract class Message {
 	public boolean getSendReminder() {
 		return sendReminder;
 	}
-	public void setSendReminder(Boolean sendReminder) {
+	public void setSendReminder(boolean sendReminder) {
 		this.sendReminder = sendReminder;
 	}
 	public Date getReminderTime() {
@@ -45,10 +45,10 @@ public abstract class Message {
 	public void setReminderTime(Date reminderTime) {
 		this.reminderTime = reminderTime;
 	}
-	public Boolean getSendLater() {
+	public boolean getSendLater() {
 		return sendLater;
 	}
-	public void setSendLater(Boolean sendLater) {
+	public void setSendLater(boolean sendLater) {
 		this.sendLater = sendLater;
 	}
 	public Date getSendTime() {

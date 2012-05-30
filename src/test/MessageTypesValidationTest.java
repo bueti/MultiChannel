@@ -2,16 +2,12 @@ package test;
 
 import static org.junit.Assert.*;
 
-import java.util.Date;
-
 import messageTypes.Email;
 import messageTypes.Print;
 import messageTypes.Sms;
 
 import org.junit.Before;
 import org.junit.Test;
-
-import core.MessageScheduler;
 
 public class MessageTypesValidationTest {
 	private Email testEmail;

@@ -4,6 +4,7 @@
  */
 package core;
 
+import java.io.File;
 import java.util.Date;
 import java.util.List;
 
@@ -36,7 +37,8 @@ public class GUIHandler implements IGUIHandler {
 	
     /** 	
     * Default constructor for <code>GUIHandler</code>. 
-    * Creates a <code>MessageScheduler</code> instance to initiate <code>MessageProvider</code>
+    * Creates a <code>MessageScheduler</code> instance to initiate <code>MessageProvider</code>,
+    * after it gets a <code>MessageProvider</code> instance through the singleton.
     * 
     * @See MessageScheduler
     * @See MessageProvider
@@ -46,14 +48,14 @@ public class GUIHandler implements IGUIHandler {
 		this.provider = MessageProvider.getInstance(scheduler);
 	}
 	
-	
-	public boolean sendMessage(List<String> recipientList, String subject, String message, String type, Date sendTime, Date reminderTime) throws Exception{
+	//TODO: Maybe us Dictionary for all these parameters
+	public boolean sendMessage(List<String> recipientList, String subject, String message, String type, Date sendTime, Date reminderTime, File attachment) throws Exception{
 		
 		for (String recipient : recipientList) {
 			Message newMsg;
 
 			try {
-				newMsg = MessageFactory.createNewMessage(recipient,subject,message, type, sendTime, reminderTime, null);
+				newMsg = MessageFactory.createNewMessage(recipient,subject,message, type, sendTime, reminderTime, attachment);
 				if(newMsg == null){
 					return false;
 				}
