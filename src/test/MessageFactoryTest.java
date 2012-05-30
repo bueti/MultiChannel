@@ -18,6 +18,7 @@ public class MessageFactoryTest extends TestCase
 	private Mms testMms;
 	private Print testPrint;
 	
+	@Override
 	public void setUp(){
 		this.testEmail = new Email("test@test.com","test","test",null,null,null);
 		this.testSms = new Sms("0791234567","test","test",null,null);

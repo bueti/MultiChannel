@@ -18,6 +18,7 @@ public class Sms extends Message implements IValidator{
 		System.out.println(getText());
 	}
 	
+	@Override
 	public void sendReminder() {
 		System.out.println("\"Das ist der Reminder an die Message: " + this.getSubject() + " an den Empfänger: " + this.getRecipient() + " \"");
 	}

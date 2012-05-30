@@ -18,6 +18,7 @@ public class MessageScheduler implements IMessageScheduler{
 		timer = new Timer();
 	}
 
+	@Override
 	public boolean createMessageTimer(Message msg) {
 		try{
 			timer.schedule(new SenderTask(msg), msg.getSendTime());
@@ -33,6 +34,7 @@ public class MessageScheduler implements IMessageScheduler{
 		return true;
 	}
 	
+	@Override
 	public boolean createReminderTimer(Message msg) {
 		try{
 			timer.schedule(new ReminderTask(msg), msg.getReminderTime());
@@ -57,7 +59,8 @@ public class MessageScheduler implements IMessageScheduler{
 			this.msg = pmsg;
 		}
 		
-	    public void run() {
+	    @Override
+		public void run() {
 	    	try{
 	    		this.msg.send();
 	    	}catch(Exception ex) {
@@ -75,6 +78,7 @@ public class MessageScheduler implements IMessageScheduler{
 			this.msg = pmsg;	
 		}
 		
+		@Override
 		public void run() {
 			try {
 				this.msg.sendReminder();

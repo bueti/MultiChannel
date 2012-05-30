@@ -1,6 +1,5 @@
 package core;
 
-import java.io.File;
 import java.util.Date;
 
 import messageTypes.AllMessageTypes;

@@ -9,9 +9,6 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-import core.IMessageScheduler;
-import core.MessageProvider;
-
 public class MultiChannelLogMonitor extends JFrame {
 
 	private static final long serialVersionUID = 1L;

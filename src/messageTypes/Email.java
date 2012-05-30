@@ -1,6 +1,5 @@
 package messageTypes;
 
-import java.io.File;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -17,6 +16,7 @@ public class Email extends Message implements IValidator {
 		}
 	}
 
+	@Override
 	public void send() {
 		System.out.println("\"" + this.getSubject() + "\" an \""
 				+ this.getRecipient() + "\" geschickt.");
@@ -24,6 +24,7 @@ public class Email extends Message implements IValidator {
 		System.out.println(this.getText());
 	}
 
+	@Override
 	public boolean validate() throws Exception{
 		if (isValidEmailAddress(this.getRecipient())) {
 			if (this.getSubject().equals("") || this.getText().equals("")) {
@@ -46,6 +47,7 @@ public class Email extends Message implements IValidator {
 
 	}
 
+	@Override
 	public void sendReminder() {
 		System.out.println("\"Das ist der Reminder an die Message: "
 				+ this.getSubject() + " an den Empfänger " + this.getRecipient()

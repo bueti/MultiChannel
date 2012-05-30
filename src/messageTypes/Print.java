@@ -8,6 +8,7 @@ public class Print extends Message implements IValidator{
 		super(pRecipient, pSubject, pMessage, pSendTime, pReminderTime);
 	}
 
+	@Override
 	public void send() {
 		System.out.println("\"" + this.getSubject() + "\" an Drucker \""
 				+ this.getRecipient() + "\" geschickt.");
@@ -15,10 +16,12 @@ public class Print extends Message implements IValidator{
 		System.out.println(this.getText());
 	}
 	
+	@Override
 	public void sendReminder() {
 		System.out.println("\"Das ist der Reminder an die Message: " + this.getSubject() + " an den Empfänger " + this.getRecipient() + "\"");
 	}
 
+	@Override
 	public boolean validate() throws Exception{
 		if (!this.getRecipient().equals("")) {
 			if (this.getSubject().equals("") || this.getText().equals("")) {

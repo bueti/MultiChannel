@@ -1,6 +1,5 @@
 package messageTypes;
 
-import java.io.File;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -58,6 +57,7 @@ public class Mms extends Message implements IValidator {
 		}
 
 	
+	@Override
 	public void sendReminder() {
 		System.out.println("\"Das ist der Reminder an die Message: " + this.getSubject() + " an den Empfänger " + this.getRecipient() + "\"");
 	}
