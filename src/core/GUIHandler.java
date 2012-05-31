@@ -63,8 +63,9 @@ public class GUIHandler implements IGUIHandler {
 					errorMsg = "Message versenden fehlgeschlagen!";
 				}
 			}
-			
-			errorList.add(errorMsg);
+			if(!errorMsg.isEmpty()){
+				errorList.add(errorMsg);
+			}
 		}
 		return errorList;
 	}
