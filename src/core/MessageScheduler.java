@@ -8,9 +8,6 @@ import messageTypes.Message;
 
 public class MessageScheduler implements IMessageScheduler{
 	
-	//TODO: WHAT HAPPENS IF TWO TIMERS ARE CREATED RIGHT AT THE SAME TIME??
-	//REALY IMPORTANT TO CHECK THIS -> checked it once was no error, more tests required
-	
 	Timer timer;
 	
 	public MessageScheduler(){

@@ -4,8 +4,7 @@
  */
 package core;
 
-import java.io.File;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import messageTypes.Message;
@@ -27,56 +26,47 @@ public class GUIHandler implements IGUIHandler {
      *
      * @see MessageProvider
      */
-	MessageProvider provider;
-	
-    /**
-     * Represents all available message types
-     *
-     */
-	String[] allMessageTypes;
+	IMessageProvider provider;
 	
     /** 	
-    * Default constructor for <code>GUIHandler</code>. 
-    * Creates a <code>MessageScheduler</code> instance to initiate <code>MessageProvider</code>,
-    * after it gets a <code>MessageProvider</code> instance through the singleton.
-    * 
-    * @See MessageScheduler
+    * Default constructor for <code>GUIHandler</code>.  
+    * @param pProvider Instance of a <code>IMessageProvider</code> object
     * @See MessageProvider
+    * @see IMessageProvider
     */
-	public GUIHandler() {
-		IMessageScheduler scheduler = new MessageScheduler();
-		this.provider = MessageProvider.getInstance(scheduler);
+	public GUIHandler(IMessageProvider pProvider) {
+		this.provider = pProvider;
 	}
 	
-	//TODO: Maybe us Dictionary for all these parameters
 	@Override
-	public boolean sendMessage(List<String> recipientList, String subject, String message, String type, Date sendTime, Date reminderTime, File attachment) throws Exception {
+	public ArrayList<String> sendMessage(MessageInfo info) throws Exception {
+		//TODO ANALYZE THIS!!
+		ArrayList<String> errorList=new ArrayList<String>();
 		
-		for (String recipient : recipientList) {
-			Message newMsg;
-
+		for (String recipient : info.getRecipients()) {
+			Message newMsg = null;
+			String errorMsg = "";
+			//TODO:Was passiert bei mehreren Empfängern und nur einer ist falsch ist!!!!!!
 			try {
-				newMsg = MessageFactory.createNewMessage(recipient,subject,message, type, sendTime, reminderTime, attachment);
+				newMsg = MessageFactory.createNewMessage(recipient,info);
 				if(newMsg == null){
-					return false;
+					errorMsg = "Ungültiger MessageType gewählt!";
 				}
 				newMsg.validate();
 			} catch (Exception ex) {
-				throw new Exception(ex.getMessage());
+				errorMsg = ex.getMessage();
+				//throw new Exception(ex.getMessage());
 			}
 			
-			if(!this.provider.sendMessage(newMsg)){
-				return false;
+			if(errorMsg.isEmpty()){
+				if(!this.provider.sendMessage(newMsg)){
+					errorMsg = "Message versenden fehlgeschlagen!";
+				}
 			}
+			
+			errorList.add(errorMsg);
 		}
-		return true;
-	}
-	
-	//TODO: OBSOLETE!!
-	@Override
-	public String[] getAllMessageTypes() {
-		allMessageTypes = new String[] {"Email", "Sms", "Mms", "Print"};
-		return allMessageTypes;
+		return errorList;
 	}
 
 }

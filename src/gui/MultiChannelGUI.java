@@ -46,6 +46,7 @@ import com.jgoodies.forms.layout.RowSpec;
 import com.toedter.calendar.JDateChooser;
 
 import core.IGUIHandler;
+import core.MessageInfo;
 
 public class MultiChannelGUI {
 
@@ -167,8 +168,7 @@ public class MultiChannelGUI {
 		// Combobox zur Auswahl des Typs
 		comboBox = new JComboBox();
 		comboBox.addActionListener(new ComboboxActionLister());
-		comboBox.setModel(new DefaultComboBoxModel(guiHandler
-				.getAllMessageTypes()));
+		comboBox.setModel(new DefaultComboBoxModel(AllMessageTypes.values()));
 		
 		// Scheduler
 		chckbxScheduler = new JCheckBox("Scheduler: ");
@@ -310,7 +310,9 @@ public class MultiChannelGUI {
 			Date scheduleHour = null;
 			Date reminderDate = null;
 			
-			selectedItem = (String) comboBox.getSelectedItem();
+			//selectedItem = (String) comboBox.getSelectedItem();
+			AllMessageTypes enums = (AllMessageTypes) comboBox.getSelectedItem();
+			selectedItem = enums.toString();
 			// Der Methode muss eine Liste von Recipients übergeben werden
 			List<String> recipients = new ArrayList<String>(); // Nur zum
 																// testen
@@ -349,6 +351,7 @@ public class MultiChannelGUI {
 
 				// TODO: What happens when time is set invalid? ben?
 				// Reminder Zeit zusammenstellen
+				// TODO: Wenn kei Reminder eingegeben wird -> CRASH!!!!
 				if (chckbxReminder.isSelected()) {
 					reminderDate = (Date) timespinner.getValue();
 					int reminderTime = convertedMin
@@ -367,9 +370,10 @@ public class MultiChannelGUI {
 			}
 			// Nachricht Abschicken
 			try {
-				boolean successfull = guiHandler.sendMessage(recipients, tFSubject.getText(),messageBody.getText(), selectedItem, scheduleDate, reminderDate, file);
-				if(!successfull){
-					//TODO: Texte Deutsch oder Englisch?
+				MessageInfo newInfo = new MessageInfo(recipients, tFSubject.getText(),messageBody.getText(), selectedItem, scheduleDate, reminderDate, file);
+				ArrayList<String> errorList = guiHandler.sendMessage(newInfo);
+				if(!errorList.isEmpty()){
+					//TODO: Create Dialog with all error Messages!
 					JOptionPane.showMessageDialog(frame, "Message versenden fehlgeschlagen! Mehr Informationen im Log-Window");
 				}else{
 					tFRecipient.setText("");
@@ -416,9 +420,11 @@ public class MultiChannelGUI {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			AllMessageTypes type = (AllMessageTypes) comboBox.getSelectedItem();
+			
 			JComboBox cb = (JComboBox)e.getSource();
 
-			switch (AllMessageTypes.valueOf((String)cb.getSelectedItem())){
+			switch (type){
 				case Email:
 					tFAttachment.setVisible(true);
 					lblAttachment.setVisible(true);

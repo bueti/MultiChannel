@@ -1,5 +1,8 @@
 package test;
 
+import java.awt.List;
+import java.util.ArrayList;
+
 import junit.framework.TestCase;
 
 import messageTypes.Email;
@@ -10,6 +13,7 @@ import messageTypes.Sms;
 import org.junit.Test;
 
 import core.MessageFactory;
+import core.MessageInfo;
 
 public class MessageFactoryTest extends TestCase
 {
@@ -17,6 +21,7 @@ public class MessageFactoryTest extends TestCase
 	private Sms testSms;
 	private Mms testMms;
 	private Print testPrint;
+	private MessageInfo testInfo;
 	
 	@Override
 	public void setUp(){
@@ -24,11 +29,13 @@ public class MessageFactoryTest extends TestCase
 		this.testSms = new Sms("0791234567","test","test",null,null);
 		this.testMms = new Mms("0791234567","test","test",null,null,null);
 		this.testPrint = new Print("PRT 21","test","test",null,null);
+		this.testInfo = new MessageInfo(null,"test","test",null,null,null,null);
 	}
 	
 	@Test
 	public void testCreateNewEmail() {
-		Object testObj = MessageFactory.createNewMessage("test@test.com", "test", "test", "Email", null, null, null);
+		this.testInfo.setType("Email");
+		Object testObj = MessageFactory.createNewMessage("test@test.com",this.testInfo);
 		if(testObj instanceof Email){
 			Email newEmail = (Email)testObj;
 			if(!newEmail.getRecipient().equals(testEmail.getRecipient())){
@@ -47,7 +54,8 @@ public class MessageFactoryTest extends TestCase
 	
 	@Test
 	public void testCreateNewSms() {
-		Object testObj = MessageFactory.createNewMessage("0791234567","test","test","Sms",null,null, null);
+		this.testInfo.setType("Sms");
+		Object testObj = MessageFactory.createNewMessage("0791234567",this.testInfo);
 		if(testObj instanceof Sms){
 			Sms newSms = (Sms)testObj;
 			if(!newSms.getRecipient().equals(testSms.getRecipient())){
@@ -66,7 +74,8 @@ public class MessageFactoryTest extends TestCase
 	
 	@Test
 	public void testCreateNewMms() {
-		Object testObj = MessageFactory.createNewMessage("0791234567","test","test","Mms",null,null,null);
+		this.testInfo.setType("Mms");
+		Object testObj = MessageFactory.createNewMessage("0791234567",this.testInfo);
 		if(testObj instanceof Mms){
 			Mms newMms = (Mms)testObj;
 			if(!newMms.getRecipient().equals(testMms.getRecipient())){
@@ -85,7 +94,8 @@ public class MessageFactoryTest extends TestCase
 	
 	@Test
 	public void testCreateNewPrint() {
-		Object testObj = MessageFactory.createNewMessage("PRT 21","test","test","Print",null,null,null);
+		this.testInfo.setType("Print");
+		Object testObj = MessageFactory.createNewMessage("PRT 21",this.testInfo);
 		if(testObj instanceof Print){
 			Print newPrint = (Print)testObj;
 			if(!newPrint.getRecipient().equals(testPrint.getRecipient())){
@@ -104,6 +114,7 @@ public class MessageFactoryTest extends TestCase
 	
 	@Test
 	public void testInvalidMessageType(){
-		assertEquals(null, MessageFactory.createNewMessage("invalid", "invalid", "invalid", "Picture", null, null, null));
+		this.testInfo.setType("Picture");
+		assertEquals(null, MessageFactory.createNewMessage("invalid", this.testInfo));
 	}
 }

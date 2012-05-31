@@ -13,19 +13,15 @@ import messageTypes.Message;
  * immediately the providers calls the send method of the message superclass, it
  * doesn't care which message type it is. If a message should be sent on a specific
  * time the <code>MessageProvider</code> hands the message over to the <code>MessageScheduler</code>.
+ * To keep the abstraction it implements the <code>IMessageProvider</code> Interface.
  * 
  * @author  Yannik Kopp
  * @version 1.0
  * @see core.MessageScheduler
+ * @see core.IMessageProvider
  */
-public class MessageProvider {
-    /**
-     * Instance of <code>MessageProvider</code> class, is used to implement the singleton pattern
-     *
-     * @see #getInstance()
-     */
-    private static MessageProvider _instance = null;
-    
+public class MessageProvider implements IMessageProvider{
+
     /**
      *  <code>MessageScheduler<code> to send a message at a specific time
      *
@@ -33,34 +29,20 @@ public class MessageProvider {
      */
     private IMessageScheduler messageScheduler;
     
+    /**
+     *  <code>MultiChannelLogMonitor<code> to log different status messages and exceptions
+     *
+     * @see MultiChannelLogMonitor
+     */
     private MultiChannelLogMonitor logMonitor;
     
     /** 	
     * Default constructor for <code>MessageProvider</code>
     * Creates <code>MessageScheduler</code> instance with the implemented interface 	
     */
-    private MessageProvider(IMessageScheduler pScheduler){
+    public MessageProvider(IMessageScheduler pScheduler){
     	this.messageScheduler = pScheduler;
     	this.logMonitor = MultiChannelLogMonitor.getInstance();
-    }
-    
-    
-    /**
-     * Method to send a message right after the send button is clicked.
-     * Returns always the same insance of the <code>MessageProvider</code> object, this is
-     * used to make sure only one object of this class is used.
-     * This pattern is called singleton. 
-     * <p>
-     * If no object is existing a new one will be created
-     *
-     * @return      An instance of and object of the <code>MessageProvider</code> class
-     * @see         MessageProvider
-     */
-    public static MessageProvider getInstance(IMessageScheduler scheduler) {
-        if (_instance == null) {
-            _instance = new MessageProvider(scheduler);
-        }
-        return _instance;
     }
     
     /** This method is used to send a message, if it needs to be send right now
