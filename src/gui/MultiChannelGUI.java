@@ -48,6 +48,13 @@ import com.toedter.calendar.JDateChooser;
 import core.IGUIHandler;
 import core.MessageInfo;
 
+/**
+ * The MultiChannelGUI class is used to generate the main GUI and is called by the <code>GUIHandler</code>.
+ *
+ * @see IGUIHandler
+ * @author  Benjamin Buetikofer, Yannik Kopp, Roland Hofer
+ * @version 1.0
+ */
 public class MultiChannelGUI {
 
 	// Instanzvariablen GUI
@@ -78,8 +85,6 @@ public class MultiChannelGUI {
 	/**
 	 * Konstruktor
 	 * 
-	 * @param IGUIHandler
-	 * 
 	 */
 	public MultiChannelGUI(IGUIHandler pGuiHandler) {
 
@@ -93,7 +98,6 @@ public class MultiChannelGUI {
 	/**
 	 * Initializes the contents of the frame, layout was created with Googles WindowBuilder Pro
 	 * 
-	 * @author bbuetikofer
 	 * 
 	 */
 	private void initialize() {
@@ -246,7 +250,6 @@ public class MultiChannelGUI {
 	
 	/**
 	 * This method creates the attachment panel
-	 * @author bbuetikofer
 	 */
 	public void createAttachmentPanel() {
 		lblAttachment = new JLabel("Attachment:");
@@ -265,10 +268,9 @@ public class MultiChannelGUI {
 	/**
 	 * This method creates the date picker panel
 	 * 
-	 * @param label: Label name
-	 * @param value: Date to display
+	 * @param label Label name
+	 * @param value Date to display
 	 * @return the panel with the date picker and the timespinner
-	 * @author bbuetikofer
 	 */
 	private JPanel datePicker(String label, Date value) {
 		JPanel datePanel = new JPanel();
@@ -302,8 +304,7 @@ public class MultiChannelGUI {
 	 * Patches the JTextArea so we can leave the TextArea with Tab
 	 * based on http://stackoverflow.com/a/525867
 	 * 
-	 * @author bbu
-	 * @param Component to patch
+	 * @param c Component to patch
 	 *
 	 */
 	public static void patch(Component c) {
@@ -485,8 +486,7 @@ public class MultiChannelGUI {
 	}
 	
 	/**
-	 * Anonyme innere Klasse zur Tab-Reihenfolge
-	 * @author bbu
+	 * Innere Klasse zur Tab-Reihenfolge
 	 *
 	 */
 	public static class TabFocusPolicy extends FocusTraversalPolicy {
