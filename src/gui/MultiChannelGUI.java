@@ -161,6 +161,7 @@ public class MultiChannelGUI {
 		JLabel lblRecipient = new JLabel("Empfänger:");
 		tFRecipient = new JTextField();
 		tFRecipient.setColumns(10);
+		tFRecipient.setToolTipText("Email-Adresse wie 'Felix.Muster@muster.ch' oder 'muster@muster.ch' eingeben");
 
 		// Betrefft
 		JLabel lblSubject = new JLabel("Betreff:");
@@ -445,21 +446,27 @@ public class MultiChannelGUI {
 					tFAttachment.setVisible(true);
 					lblAttachment.setVisible(true);
 					btnDurchsuchen.setVisible(true);
+					tFRecipient.setToolTipText("Email-Adresse wie 'Felix.Muster@muster.ch' oder 'muster@muster.ch' eingeben");
 					break;
 				case Mms:
 					tFAttachment.setVisible(true);
 					lblAttachment.setVisible(true);
 					btnDurchsuchen.setVisible(true);
+					tFRecipient.setToolTipText("<html> MMS-Nummer wie folgt eingeben u,x, y und z stehen für Ziffern 0-9 <br>" +
+							"+417uxxxyyzz, 07uxxxyyyzz, 07u / xxx yy zz, +41 7u xxx yy zz, 07u xxx yy zz, 07u/xxx yy zz </html>");
 					break;
 				case Sms:
 					tFAttachment.setVisible(false);
 					lblAttachment.setVisible(false);
 					btnDurchsuchen.setVisible(false);
+					tFRecipient.setToolTipText("<html> SMS-Nummer wie folgt eingeben u,x, y und z stehen für Ziffern 0-9 <br>" +
+							"+lluuxxxyyzz, 07uxxxyyyzz, 0uu / xxx yy zz, +ll uu xxx yy zz, 0uu xxx yy zz, 0uu/xxx yy zz </html>");
 					break;
 				case Print:
 					tFAttachment.setVisible(false);
 					lblAttachment.setVisible(false);
 					btnDurchsuchen.setVisible(false);
+					tFRecipient.setToolTipText("Geben Sie den Empfängername oder eine Druckeradresse ein");
 					break;
 			}
 		}
