@@ -351,11 +351,14 @@ public class MultiChannelGUI {
 
 				// TODO: What happens when time is set invalid? ben?
 				// Reminder Zeit zusammenstellen
-				// TODO: Wenn kei Reminder eingegeben wird -> CRASH!!!!
 				if (chckbxReminder.isSelected()) {
+					int reminderTime = convertedMin; // If nothing is set, reminder time is send time
 					reminderDate = (Date) timespinner.getValue();
-					int reminderTime = convertedMin
-							- Integer.parseInt(tFReminderTime.getText());
+					
+					if(!tFReminderTime.getText().equals("")) {
+						reminderTime = convertedMin	- Integer.parseInt(tFReminderTime.getText());
+					}
+					
 					convertedTime = "" + convertedHour + ":" + reminderTime;
 
 					df = new SimpleDateFormat("dd MMMM yyyy HH:mm");
