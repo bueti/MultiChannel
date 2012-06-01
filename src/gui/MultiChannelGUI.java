@@ -50,9 +50,7 @@ import core.MessageInfo;
 
 public class MultiChannelGUI {
 
-	/**
-	 * Instanzvariablen
-	 */
+	// Instanzvariablen GUI
 	private JFrame frame;
 	private JPanel schedulerPanel;
 	private JPanel calendarPanel;
@@ -75,11 +73,13 @@ public class MultiChannelGUI {
 	private JLabel lblAttachment;
 	private JButton btnDurchsuchen;
 	private File file;
-	private JLabel filePathLabel;
 	static TabFocusPolicy tabPolicy;
 
 	/**
 	 * Konstruktor
+	 * 
+	 * @param IGUIHandler
+	 * 
 	 */
 	public MultiChannelGUI(IGUIHandler pGuiHandler) {
 
@@ -91,7 +91,10 @@ public class MultiChannelGUI {
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Initializes the contents of the frame, layout was created with Googles WindowBuilder Pro
+	 * 
+	 * @author bbuetikofer
+	 * 
 	 */
 	private void initialize() {
 		frame = new JFrame();
@@ -213,7 +216,7 @@ public class MultiChannelGUI {
 		JButton btnSend = new JButton("Abschicken");
 		btnSend.addActionListener(new SendActionListener());
 		
-		// Alles dem frame hinzfügen
+		// Alles dem frame hinzufügen
 		frame.getContentPane().add(lblRecipient, "2, 2");
 		frame.getContentPane().add(tFRecipient, "4, 2, 25, 1, fill, default");
 		frame.getContentPane().add(lblSubject, "2, 4");
@@ -241,6 +244,10 @@ public class MultiChannelGUI {
 		
 	}
 	
+	/**
+	 * This method creates the attachment panel
+	 * @author bbuetikofer
+	 */
 	public void createAttachmentPanel() {
 		lblAttachment = new JLabel("Attachment:");
 		frame.getContentPane().add(lblAttachment, "2, 16, right, default");
@@ -253,11 +260,15 @@ public class MultiChannelGUI {
 		btnDurchsuchen = new JButton("Durchsuchen");
 		btnDurchsuchen.addActionListener(new AttachmentActionListener());
 		frame.getContentPane().add(btnDurchsuchen, "30, 16");
-		//frame.pack();
 	}
 
-	/*
-	 * Date Picker
+	/**
+	 * This method creates the date picker panel
+	 * 
+	 * @param label: Label name
+	 * @param value: Date to display
+	 * @return the panel with the date picker and the timespinner
+	 * @author bbuetikofer
 	 */
 	private JPanel datePicker(String label, Date value) {
 		JPanel datePanel = new JPanel();
@@ -287,8 +298,12 @@ public class MultiChannelGUI {
 	}
 	
 	/**
-	 * Patch the JTextArea so we can leave the TextArea with Tab
+	 * 
+	 * Patches the JTextArea so we can leave the TextArea with Tab
+	 * based on http://stackoverflow.com/a/525867
+	 * 
 	 * @author bbu
+	 * @param Component to patch
 	 *
 	 */
 	public static void patch(Component c) {
@@ -337,7 +352,7 @@ public class MultiChannelGUI {
 
 				int schedulerTime = convertedMin;
 
-				// Scheduler Zeit zusammenstellen
+				// Schedulerzeit zusammenstellen
 				String convertedTime = "" + convertedHour + ":" + schedulerTime;
 
 				df = new SimpleDateFormat("dd MMMM yyyy HH:mm");
@@ -349,8 +364,7 @@ public class MultiChannelGUI {
 					e.printStackTrace();
 				}
 
-				// TODO: What happens when time is set invalid? ben?
-				// Reminder Zeit zusammenstellen
+				// Reminderzeit zusammenstellen
 				if (chckbxReminder.isSelected()) {
 					int reminderTime = convertedMin; // If nothing is set, reminder time is send time
 					reminderDate = (Date) timespinner.getValue();
@@ -371,7 +385,7 @@ public class MultiChannelGUI {
 					}
 				}
 			}
-			// Nachricht Abschicken
+			// Nachricht abschicken
 			try {
 				MessageInfo newInfo = new MessageInfo(recipients, tFSubject.getText(),messageBody.getText(), selectedItem, scheduleDate, reminderDate, file);
 				ArrayList<String> errorList = guiHandler.sendMessage(newInfo);
@@ -425,8 +439,6 @@ public class MultiChannelGUI {
 		public void actionPerformed(ActionEvent e) {
 			AllMessageTypes type = (AllMessageTypes) comboBox.getSelectedItem();
 			
-			JComboBox cb = (JComboBox)e.getSource();
-
 			switch (type){
 				case Email:
 					tFAttachment.setVisible(true);
