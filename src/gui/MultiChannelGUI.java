@@ -6,6 +6,8 @@ import java.awt.FocusTraversalPolicy;
 import java.awt.KeyboardFocusManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
 import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
@@ -19,6 +21,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.Vector;
 
+import javax.swing.BoundedRangeModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -29,6 +32,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
@@ -171,6 +175,21 @@ public class MultiChannelGUI {
 		// Nachrichtfeld
 		JLabel lblMessage = new JLabel("Nachricht:");
 		messageBody = new JTextPane();
+		final JScrollPane conversationScrollPane = new JScrollPane(messageBody);
+		  conversationScrollPane.getVerticalScrollBar().addAdjustmentListener(new AdjustmentListener() {
+
+		     BoundedRangeModel brm = conversationScrollPane.getVerticalScrollBar().getModel();
+		     boolean wasAtBottom = true;
+
+		     public void adjustmentValueChanged(AdjustmentEvent e) {
+		        if (!brm.getValueIsAdjusting()) {
+		           if (wasAtBottom)
+		              brm.setValue(brm.getMaximum());
+		        } else
+		           wasAtBottom = ((brm.getValue() + brm.getExtent()) == brm.getMaximum());
+
+		     }
+		  });  
 		patch(messageBody);
 
 		// Combobox zur Auswahl des Typs
@@ -227,7 +246,7 @@ public class MultiChannelGUI {
 		frame.getContentPane().add(lblSubject, "2, 4");
 		frame.getContentPane().add(tFSubject, "4, 4, 25, 1, fill, default");
 		frame.getContentPane().add(lblMessage, "2, 6");
-		frame.getContentPane().add(messageBody, "2, 8, 27, 7, fill, fill");
+		frame.getContentPane().add(conversationScrollPane, "2, 8, 27, 7, fill, fill");
 		frame.getContentPane().add(comboBox, "30, 6, fill, default");
 		frame.getContentPane().add(schedulerPanel, "30, 2, left, fill");
 		frame.getContentPane().add(reminderPanel, "30, 4, left, fill");
