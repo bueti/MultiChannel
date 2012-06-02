@@ -53,10 +53,11 @@ import core.IGUIHandler;
 import core.MessageInfo;
 
 /**
- * The MultiChannelGUI class is used to generate the main GUI and is called by the <code>GUIHandler</code>.
- *
+ * The MultiChannelGUI class is used to generate the main GUI and is called by
+ * the <code>GUIHandler</code>.
+ * 
  * @see IGUIHandler
- * @author  Benjamin Buetikofer, Yannik Kopp, Roland Hofer
+ * @author Benjamin Buetikofer, Yannik Kopp, Roland Hofer
  * @version 1.0
  */
 public class MultiChannelGUI {
@@ -95,12 +96,13 @@ public class MultiChannelGUI {
 		guiHandler = pGuiHandler;
 
 		initialize();
-		
+
 		frame.setVisible(true);
 	}
 
 	/**
-	 * Initializes the contents of the frame, layout was created with Googles WindowBuilder Pro
+	 * Initializes the contents of the frame, layout was created with Googles
+	 * WindowBuilder Pro
 	 * 
 	 * 
 	 */
@@ -108,58 +110,60 @@ public class MultiChannelGUI {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 526, 350);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(
-				new FormLayout(new ColumnSpec[] {
-				FormFactory.RELATED_GAP_COLSPEC,
-				FormFactory.MIN_COLSPEC,
-				FormFactory.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("default:grow"),
-				FormFactory.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("default:grow"),
-				FormFactory.RELATED_GAP_COLSPEC,
-				FormFactory.DEFAULT_COLSPEC,
-				FormFactory.RELATED_GAP_COLSPEC,
-				FormFactory.DEFAULT_COLSPEC,
-				FormFactory.RELATED_GAP_COLSPEC,
-				FormFactory.DEFAULT_COLSPEC,
-				FormFactory.RELATED_GAP_COLSPEC,
-				FormFactory.DEFAULT_COLSPEC,
-				FormFactory.RELATED_GAP_COLSPEC,
-				FormFactory.DEFAULT_COLSPEC,
-				FormFactory.RELATED_GAP_COLSPEC,
-				FormFactory.DEFAULT_COLSPEC,
-				FormFactory.RELATED_GAP_COLSPEC,
-				FormFactory.DEFAULT_COLSPEC,
-				FormFactory.RELATED_GAP_COLSPEC,
-				FormFactory.DEFAULT_COLSPEC,
-				FormFactory.RELATED_GAP_COLSPEC,
-				FormFactory.DEFAULT_COLSPEC,
-				FormFactory.RELATED_GAP_COLSPEC,
-				FormFactory.DEFAULT_COLSPEC,
-				FormFactory.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("min:grow"),
-				FormFactory.RELATED_GAP_COLSPEC,
-				FormFactory.MIN_COLSPEC,
-				FormFactory.RELATED_GAP_COLSPEC,
-				FormFactory.MIN_COLSPEC,},
-			new RowSpec[] {
-				FormFactory.RELATED_GAP_ROWSPEC,
-				FormFactory.DEFAULT_ROWSPEC,
-				FormFactory.NARROW_LINE_GAP_ROWSPEC,
-				FormFactory.DEFAULT_ROWSPEC,
-				FormFactory.RELATED_GAP_ROWSPEC,
-				FormFactory.DEFAULT_ROWSPEC,
-				FormFactory.RELATED_GAP_ROWSPEC,
-				FormFactory.DEFAULT_ROWSPEC,
-				FormFactory.RELATED_GAP_ROWSPEC,
-				RowSpec.decode("fill:max(46dlu;default)"),
-				FormFactory.RELATED_GAP_ROWSPEC,
-				RowSpec.decode("bottom:max(22dlu;default):grow"),
-				FormFactory.RELATED_GAP_ROWSPEC,
-				RowSpec.decode("fill:default"),
-				FormFactory.RELATED_GAP_ROWSPEC,
-				FormFactory.DEFAULT_ROWSPEC,
-				FormFactory.PREF_ROWSPEC,}));
+		frame.getContentPane()
+				.setLayout(
+						new FormLayout(
+								new ColumnSpec[] {
+										FormFactory.RELATED_GAP_COLSPEC,
+										FormFactory.MIN_COLSPEC,
+										FormFactory.RELATED_GAP_COLSPEC,
+										ColumnSpec.decode("default:grow"),
+										FormFactory.RELATED_GAP_COLSPEC,
+										ColumnSpec.decode("default:grow"),
+										FormFactory.RELATED_GAP_COLSPEC,
+										FormFactory.DEFAULT_COLSPEC,
+										FormFactory.RELATED_GAP_COLSPEC,
+										FormFactory.DEFAULT_COLSPEC,
+										FormFactory.RELATED_GAP_COLSPEC,
+										FormFactory.DEFAULT_COLSPEC,
+										FormFactory.RELATED_GAP_COLSPEC,
+										FormFactory.DEFAULT_COLSPEC,
+										FormFactory.RELATED_GAP_COLSPEC,
+										FormFactory.DEFAULT_COLSPEC,
+										FormFactory.RELATED_GAP_COLSPEC,
+										FormFactory.DEFAULT_COLSPEC,
+										FormFactory.RELATED_GAP_COLSPEC,
+										FormFactory.DEFAULT_COLSPEC,
+										FormFactory.RELATED_GAP_COLSPEC,
+										FormFactory.DEFAULT_COLSPEC,
+										FormFactory.RELATED_GAP_COLSPEC,
+										FormFactory.DEFAULT_COLSPEC,
+										FormFactory.RELATED_GAP_COLSPEC,
+										FormFactory.DEFAULT_COLSPEC,
+										FormFactory.RELATED_GAP_COLSPEC,
+										ColumnSpec.decode("min:grow"),
+										FormFactory.RELATED_GAP_COLSPEC,
+										FormFactory.MIN_COLSPEC,
+										FormFactory.RELATED_GAP_COLSPEC,
+										FormFactory.MIN_COLSPEC, },
+								new RowSpec[] {
+										FormFactory.RELATED_GAP_ROWSPEC,
+										FormFactory.DEFAULT_ROWSPEC,
+										FormFactory.NARROW_LINE_GAP_ROWSPEC,
+										FormFactory.DEFAULT_ROWSPEC,
+										FormFactory.RELATED_GAP_ROWSPEC,
+										FormFactory.DEFAULT_ROWSPEC,
+										FormFactory.RELATED_GAP_ROWSPEC,
+										FormFactory.DEFAULT_ROWSPEC,
+										FormFactory.RELATED_GAP_ROWSPEC,
+										RowSpec.decode("fill:max(46dlu;default)"),
+										FormFactory.RELATED_GAP_ROWSPEC,
+										RowSpec.decode("bottom:max(22dlu;default):grow"),
+										FormFactory.RELATED_GAP_ROWSPEC,
+										RowSpec.decode("fill:default"),
+										FormFactory.RELATED_GAP_ROWSPEC,
+										FormFactory.DEFAULT_ROWSPEC,
+										FormFactory.PREF_ROWSPEC, }));
 
 		// Empfänger
 		JLabel lblRecipient = new JLabel("Empfänger:");
@@ -174,28 +178,31 @@ public class MultiChannelGUI {
 		// Nachrichtfeld
 		JLabel lblMessage = new JLabel("Nachricht:");
 		messageBody = new JTextPane();
-		final JScrollPane conversationScrollPane = new JScrollPane(messageBody);
-		  conversationScrollPane.getVerticalScrollBar().addAdjustmentListener(new AdjustmentListener() {
+		final JScrollPane messageBodyScrollPane = new JScrollPane(messageBody);
+		messageBodyScrollPane.getVerticalScrollBar().addAdjustmentListener(
+				new AdjustmentListener() {
 
-		     BoundedRangeModel brm = conversationScrollPane.getVerticalScrollBar().getModel();
-		     boolean wasAtBottom = true;
+					BoundedRangeModel brm = messageBodyScrollPane
+							.getVerticalScrollBar().getModel();
+					boolean wasAtBottom = true;
 
-		     public void adjustmentValueChanged(AdjustmentEvent e) {
-		        if (!brm.getValueIsAdjusting()) {
-		           if (wasAtBottom)
-		              brm.setValue(brm.getMaximum());
-		        } else
-		           wasAtBottom = ((brm.getValue() + brm.getExtent()) == brm.getMaximum());
+					public void adjustmentValueChanged(AdjustmentEvent e) {
+						if (!brm.getValueIsAdjusting()) {
+							if (wasAtBottom)
+								brm.setValue(brm.getMaximum());
+						} else
+							wasAtBottom = ((brm.getValue() + brm.getExtent()) == brm
+									.getMaximum());
 
-		     }
-		  });  
+					}
+				});
 		patch(messageBody);
 
 		// Combobox zur Auswahl des Typs
 		comboBox = new JComboBox();
 		comboBox.addActionListener(new ComboboxActionLister());
 		comboBox.setModel(new DefaultComboBoxModel(AllMessageTypes.values()));
-		
+
 		// Scheduler
 		chckbxScheduler = new JCheckBox("Scheduler: ");
 		chckbxScheduler
@@ -206,11 +213,12 @@ public class MultiChannelGUI {
 		schedulerPanel = new JPanel();
 		schedulerPanel.add(chckbxScheduler);
 		schedulerPanel.setVisible(true);
-		
+
 		// Kalender anzeige
 		calendarPanel = datePicker(null, new Date());
-		calendarPanel.setVisible(false); // Nur Anzeigen wenn Schedule ausgewählt wird
-		
+		calendarPanel.setVisible(false); // Nur Anzeigen wenn Schedule
+											// ausgewählt wird
+
 		// Reminder
 		chckbxReminder = new JCheckBox("Reminder: ");
 		chckbxReminder
@@ -220,8 +228,9 @@ public class MultiChannelGUI {
 
 		reminderPanel = new JPanel();
 		reminderPanel.add(chckbxReminder);
-		reminderPanel.setVisible(false); // Nur Anzeigen wenn Schedule ausgewählt wird
-		
+		reminderPanel.setVisible(false); // Nur Anzeigen wenn Schedule
+											// ausgewählt wird
+
 		// Das Panel zur Reminder Zeit eingabe
 		reminderTimePanel = new JPanel();
 		reminderTimePanel.setLayout(null);
@@ -230,55 +239,56 @@ public class MultiChannelGUI {
 		tFReminderTime.setBounds(64, 6, 52, 28);
 		reminderTimePanel.add(tFReminderTime);
 		tFReminderTime.setColumns(10);
-		
+
 		JLabel lblMinuten = new JLabel("Minuten:");
 		lblMinuten.setBounds(6, 12, 61, 16);
 		reminderTimePanel.add(lblMinuten);
-		
+
 		// Absenden Button
 		JButton btnSend = new JButton("Abschicken");
 		btnSend.addActionListener(new SendActionListener());
-		
+
 		// Alles dem frame hinzufügen
 		frame.getContentPane().add(lblRecipient, "2, 2");
 		frame.getContentPane().add(tFRecipient, "4, 2, 25, 1, fill, default");
 		frame.getContentPane().add(lblSubject, "2, 4");
 		frame.getContentPane().add(tFSubject, "4, 4, 25, 1, fill, default");
 		frame.getContentPane().add(lblMessage, "2, 6");
-		frame.getContentPane().add(conversationScrollPane, "2, 8, 27, 7, fill, fill");
+		frame.getContentPane().add(messageBodyScrollPane,
+				"2, 8, 27, 7, fill, fill");
 		frame.getContentPane().add(comboBox, "30, 6, fill, default");
 		frame.getContentPane().add(schedulerPanel, "30, 2, left, fill");
 		frame.getContentPane().add(reminderPanel, "30, 4, left, fill");
 		frame.getContentPane().add(calendarPanel, "30, 10, fill, default");
 		frame.getContentPane().add(reminderTimePanel, "30, 12, fill, fill");
 		frame.getContentPane().add(btnSend, "30, 14, fill, fill");
-		
+
 		createAttachmentPanel();
-		
+
 		// Tab Reihenfolge festlegen
 		Vector<Component> order = new Vector<Component>(7);
-        order.add(tFRecipient);
-        order.add(tFSubject);
-        order.add(messageBody);
-        order.add(chckbxScheduler);
-        order.add(btnSend);
-        tabPolicy = new TabFocusPolicy(order);
-        frame.setFocusTraversalPolicy(tabPolicy);
-		
+		order.add(tFRecipient);
+		order.add(tFSubject);
+		order.add(messageBody);
+		order.add(chckbxScheduler);
+		order.add(btnSend);
+		tabPolicy = new TabFocusPolicy(order);
+		frame.setFocusTraversalPolicy(tabPolicy);
+
 	}
-	
+
 	/**
 	 * This method creates the attachment panel
 	 */
 	public void createAttachmentPanel() {
 		lblAttachment = new JLabel("Attachment:");
 		frame.getContentPane().add(lblAttachment, "2, 16, right, default");
-		
+
 		tFAttachment = new JTextField();
 		tFAttachment.setEditable(false);
 		frame.getContentPane().add(tFAttachment, "4, 16, 25, 1, fill, default");
 		tFAttachment.setColumns(10);
-		
+
 		btnDurchsuchen = new JButton("Durchsuchen");
 		btnDurchsuchen.addActionListener(new AttachmentActionListener());
 		frame.getContentPane().add(btnDurchsuchen, "30, 16");
@@ -287,8 +297,10 @@ public class MultiChannelGUI {
 	/**
 	 * This method creates the date picker panel
 	 * 
-	 * @param label Label name
-	 * @param value Date to display
+	 * @param label
+	 *            Label name
+	 * @param value
+	 *            Date to display
 	 * @return the panel with the date picker and the timespinner
 	 */
 	private JPanel datePicker(String label, Date value) {
@@ -317,22 +329,26 @@ public class MultiChannelGUI {
 
 		return datePanel;
 	}
-	
+
 	/**
 	 * 
-	 * Patches the JTextArea so we can leave the TextArea with Tab
-	 * based on http://stackoverflow.com/a/525867
+	 * Patches the JTextArea so we can leave the TextArea with Tab based on
+	 * http://stackoverflow.com/a/525867
 	 * 
-	 * @param c Component to patch
-	 *
+	 * @param c
+	 *            Component to patch
+	 * 
 	 */
 	public static void patch(Component c) {
-        Set<KeyStroke> 
-        strokes = new HashSet<KeyStroke>(Arrays.asList(KeyStroke.getKeyStroke("pressed TAB")));
-        c.setFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, strokes);
-        strokes = new HashSet<KeyStroke>(Arrays.asList(KeyStroke.getKeyStroke("shift pressed TAB")));
-        c.setFocusTraversalKeys(KeyboardFocusManager.BACKWARD_TRAVERSAL_KEYS, strokes);
-    }
+		Set<KeyStroke> strokes = new HashSet<KeyStroke>(Arrays.asList(KeyStroke
+				.getKeyStroke("pressed TAB")));
+		c.setFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS,
+				strokes);
+		strokes = new HashSet<KeyStroke>(Arrays.asList(KeyStroke
+				.getKeyStroke("shift pressed TAB")));
+		c.setFocusTraversalKeys(KeyboardFocusManager.BACKWARD_TRAVERSAL_KEYS,
+				strokes);
+	}
 
 	/*
 	 * ActionListeners
@@ -344,16 +360,17 @@ public class MultiChannelGUI {
 			Date scheduleDate = null;
 			Date scheduleHour = null;
 			Date reminderDate = null;
-			
-			//selectedItem = (String) comboBox.getSelectedItem();
-			AllMessageTypes enums = (AllMessageTypes) comboBox.getSelectedItem();
+
+			// selectedItem = (String) comboBox.getSelectedItem();
+			AllMessageTypes enums = (AllMessageTypes) comboBox
+					.getSelectedItem();
 			selectedItem = enums.toString();
 			// Der Methode muss eine Liste von Recipients übergeben werden
 			List<String> recipients = new ArrayList<String>(); // Nur zum
 																// testen
 			// Split the address input field into single addresses
 			String[] addresses = tFRecipient.getText().split("[,;]+");
-			
+
 			for (int i = 0; i < addresses.length; i++) {
 				recipients.add(addresses[i]);
 			}
@@ -386,13 +403,16 @@ public class MultiChannelGUI {
 
 				// Reminderzeit zusammenstellen
 				if (chckbxReminder.isSelected()) {
-					int reminderTime = convertedMin; // If nothing is set, reminder time is send time
+					int reminderTime = convertedMin; // If nothing is set,
+														// reminder time is send
+														// time
 					reminderDate = (Date) timespinner.getValue();
-					
-					if(!tFReminderTime.getText().equals("")) {
-						reminderTime = convertedMin	- Integer.parseInt(tFReminderTime.getText());
+
+					if (!tFReminderTime.getText().equals("")) {
+						reminderTime = convertedMin
+								- Integer.parseInt(tFReminderTime.getText());
 					}
-					
+
 					convertedTime = "" + convertedHour + ":" + reminderTime;
 
 					df = new SimpleDateFormat("dd MMMM yyyy HH:mm");
@@ -407,12 +427,16 @@ public class MultiChannelGUI {
 			}
 			// Nachricht abschicken
 			try {
-				MessageInfo newInfo = new MessageInfo(recipients, tFSubject.getText(),messageBody.getText(), selectedItem, scheduleDate, reminderDate, file);
+				MessageInfo newInfo = new MessageInfo(recipients,
+						tFSubject.getText(), messageBody.getText(),
+						selectedItem, scheduleDate, reminderDate, file);
 				ArrayList<String> errorList = guiHandler.sendMessage(newInfo);
-				if(!errorList.isEmpty()){
-					//TODO: Create Dialog with all error Messages!
-					JOptionPane.showMessageDialog(frame, "Message versenden fehlgeschlagen! Mehr Informationen im Log-Window");
-				}else{
+				if (!errorList.isEmpty()) {
+					// TODO: Create Dialog with all error Messages!
+					JOptionPane
+							.showMessageDialog(frame,
+									"Message versenden fehlgeschlagen! Mehr Informationen im Log-Window");
+				} else {
 					tFRecipient.setText("");
 					tFSubject.setText("");
 					messageBody.setText("");
@@ -452,38 +476,38 @@ public class MultiChannelGUI {
 
 		}
 	}
-	
+
 	private class ComboboxActionLister implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			AllMessageTypes type = (AllMessageTypes) comboBox.getSelectedItem();
-			
-			switch (type){
-				case Email:
-					tFAttachment.setVisible(true);
-					lblAttachment.setVisible(true);
-					btnDurchsuchen.setVisible(true);
-					break;
-				case Mms:
-					tFAttachment.setVisible(true);
-					lblAttachment.setVisible(true);
-					btnDurchsuchen.setVisible(true);
-					break;
-				case Sms:
-					tFAttachment.setVisible(false);
-					lblAttachment.setVisible(false);
-					btnDurchsuchen.setVisible(false);
-					break;
-				case Print:
-					tFAttachment.setVisible(false);
-					lblAttachment.setVisible(false);
-					btnDurchsuchen.setVisible(false);
-					break;
+
+			switch (type) {
+			case Email:
+				tFAttachment.setVisible(true);
+				lblAttachment.setVisible(true);
+				btnDurchsuchen.setVisible(true);
+				break;
+			case Mms:
+				tFAttachment.setVisible(true);
+				lblAttachment.setVisible(true);
+				btnDurchsuchen.setVisible(true);
+				break;
+			case Sms:
+				tFAttachment.setVisible(false);
+				lblAttachment.setVisible(false);
+				btnDurchsuchen.setVisible(false);
+				break;
+			case Print:
+				tFAttachment.setVisible(false);
+				lblAttachment.setVisible(false);
+				btnDurchsuchen.setVisible(false);
+				break;
 			}
 		}
 	}
-	
+
 	private class AttachmentActionListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent ae) {
@@ -503,10 +527,10 @@ public class MultiChannelGUI {
 			}
 		}
 	}
-	
+
 	/**
 	 * Innere Klasse zur Tab-Reihenfolge
-	 *
+	 * 
 	 */
 	public static class TabFocusPolicy extends FocusTraversalPolicy {
 		Vector<Component> order;
@@ -542,6 +566,6 @@ public class MultiChannelGUI {
 		public Component getFirstComponent(Container focusCycleRoot) {
 			return order.get(0);
 		}
-}
+	}
 
 }
