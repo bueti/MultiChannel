@@ -46,7 +46,6 @@ public class GUIHandler implements IGUIHandler {
 		for (String recipient : info.getRecipients()) {
 			Message newMsg = null;
 			String errorMsg = "";
-			//TODO:Was passiert bei mehreren Empfängern und nur einer ist falsch ist!!!!!!
 			try {
 				newMsg = MessageFactory.createNewMessage(recipient,info);
 				if(newMsg == null){

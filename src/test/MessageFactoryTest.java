@@ -32,6 +32,9 @@ public class MessageFactoryTest extends TestCase
 		this.testInfo = new MessageInfo(null,"test","test",null,null,null,null);
 	}
 	
+	/**
+	 * Test method for {@link core.MessageFactory#createNewMessage(string,core.MessageInfo)}.
+	 */
 	@Test
 	public void testCreateNewEmail() {
 		this.testInfo.setType("Email");
@@ -52,6 +55,9 @@ public class MessageFactoryTest extends TestCase
 		}
 	}
 	
+	/**
+	 * Test method for {@link core.MessageFactory#createNewMessage(string,core.MessageInfo)}.
+	 */
 	@Test
 	public void testCreateNewSms() {
 		this.testInfo.setType("Sms");
@@ -72,6 +78,9 @@ public class MessageFactoryTest extends TestCase
 		}
 	}
 	
+	/**
+	 * Test method for {@link core.MessageFactory#createNewMessage(string,core.MessageInfo)}.
+	 */
 	@Test
 	public void testCreateNewMms() {
 		this.testInfo.setType("Mms");
@@ -92,6 +101,9 @@ public class MessageFactoryTest extends TestCase
 		}
 	}
 	
+	/**
+	 * Test method for {@link core.MessageFactory#createNewMessage(string,core.MessageInfo)}.
+	 */
 	@Test
 	public void testCreateNewPrint() {
 		this.testInfo.setType("Print");
@@ -112,6 +124,9 @@ public class MessageFactoryTest extends TestCase
 		}
 	}
 	
+	/**
+	 * Test method for {@link core.MessageFactory#createNewMessage(string,core.MessageInfo)}.
+	 */
 	@Test
 	public void testInvalidMessageType(){
 		this.testInfo.setType("Picture");
