@@ -4,10 +4,7 @@
  */
 package core;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 public interface IGUIHandler {
 	ArrayList<String> sendMessage(MessageInfo info) throws Exception; 

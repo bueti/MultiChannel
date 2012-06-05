@@ -4,9 +4,6 @@
  */
 package core;
 
-import java.io.File;
-import java.util.Date;
-
 import messageTypes.AllMessageTypes;
 import messageTypes.Email;
 import messageTypes.Message;

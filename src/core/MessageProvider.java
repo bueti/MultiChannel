@@ -53,7 +53,8 @@ public class MessageProvider implements IMessageProvider{
      * @return      Boolean if message sending was successfully
      * @see         MessageProvider
      */
-    public boolean sendMessage(Message msg) {
+    @Override
+	public boolean sendMessage(Message msg) {
     	
     	if(!msg.getSendLater()){
     		try {
