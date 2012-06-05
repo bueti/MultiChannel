@@ -1,3 +1,6 @@
+/**
+ * This package contains all the available messagetypes and also the superclass <Message>
+ */
 package messageTypes;
 
 import java.util.Date;
@@ -9,7 +12,10 @@ public class Sms extends Message implements IValidator{
 	public Sms(String pRecipient,String pSubject, String pMessage, Date pSendTime, Date pReminderTime){
 		super(pRecipient, pSubject, pMessage, pSendTime, pReminderTime);
 	}
-
+	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void send() {
 		// TODO: Schöner Output
@@ -18,16 +24,22 @@ public class Sms extends Message implements IValidator{
 		System.out.println(getText());
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void sendReminder() {
 		System.out.println("\"Das ist der Reminder an die Message: " + this.getSubject() + " an den Empfänger: " + this.getRecipient() + " \"");
 	}
 	
-
-	@Override
-	/** Prüfung ob SMS-Nummer gültig ist oder nicht.
+	//TODO: translate
+	/**
+	 * Prüfung ob SMS-Nummer gültig ist oder nicht.
 	 * Falls Nummer ungültig, wird Benutzer Meldung angezeigt
+	 *
+	 * {@inheritDoc}
 	 */
+	@Override
 	public boolean validate() throws Exception {
 		if (isValidPhoneNumber(this.getRecipient())) {
 			if (this.getSubject().equals("") || this.getText().equals("")) {

@@ -17,8 +17,8 @@ import messageTypes.Message;
  * 
  * @author  Yannik Kopp
  * @version 1.0
- * @see core.MessageScheduler
- * @see core.IMessageProvider
+ * @see MessageScheduler
+ * @see IMessageProvider
  */
 public class MessageProvider implements IMessageProvider{
 

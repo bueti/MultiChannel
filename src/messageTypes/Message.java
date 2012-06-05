@@ -1,3 +1,6 @@
+/**
+ * This package contains all the available messagetypes and also the superclass <Message>
+ */
 package messageTypes;
 
 import java.util.Date;

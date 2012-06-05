@@ -1,5 +1,6 @@
 /**
- * 
+ * Provides the classes to handle the sending and scheduling mechanisms for the
+ * messages in the MultiChannel project 
  */
 package core;
 

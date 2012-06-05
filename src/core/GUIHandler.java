@@ -36,7 +36,10 @@ public class GUIHandler implements IGUIHandler {
 	public GUIHandler(IMessageProvider pProvider) {
 		this.provider = pProvider;
 	}
-
+	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public ArrayList<String> sendMessage(MessageInfo info) throws Exception {
 		// TODO ANALYZE THIS!!

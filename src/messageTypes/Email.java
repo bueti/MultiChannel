@@ -1,3 +1,6 @@
+/**
+ * This package contains all the available messagetypes and also the superclass <Message>
+ */
 package messageTypes;
 
 import java.io.File;
@@ -16,7 +19,10 @@ public class Email extends Message implements IValidator {
 			this.setAttachment(pAttachment);
 		}
 	}
-
+	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void send() {
 		System.out.println("\"" + this.getSubject() + "\" an \""
@@ -27,7 +33,10 @@ public class Email extends Message implements IValidator {
 			System.out.println("Attachment: " + this.getAttachment().getAbsolutePath());
 		}
 	}
-
+	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean validate() throws Exception{
 		if (isValidEmailAddress(this.getRecipient())) {
@@ -50,7 +59,10 @@ public class Email extends Message implements IValidator {
 		return matcher.matches();
 
 	}
-
+	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void sendReminder() {
 		System.out.println("\"Das ist der Reminder an die Message: "
