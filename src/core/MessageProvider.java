@@ -55,7 +55,8 @@ public class MessageProvider implements IMessageProvider{
      * @return      boolean if message sending was successfully
      * @see         MessageProvider
      */
-    public boolean sendMessage(Message msg) {
+    @Override
+	public boolean sendMessage(Message msg) {
     	
     	if(msg==null){
     		//TODO: Log to logger
