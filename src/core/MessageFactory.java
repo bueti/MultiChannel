@@ -26,6 +26,18 @@ import messageTypes.Sms;
  */
 public class MessageFactory {
 	
+    /** 
+     * This Factory is used to create typed message objects out of a <code>MessageInfo</code> object
+     * 
+     * @param recipient Recipient of the message
+     * @param info All informations to create a typed message object
+     * @return Message a typed message object
+     * @see	Message
+     * @see	Email
+     * @see	Sms
+     * @see	Mms
+     * @see	Print
+     */
 	public static Message createNewMessage(String recipient, MessageInfo info)
 	{
 		Message msg = null;

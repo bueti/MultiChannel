@@ -25,7 +25,7 @@ public class MessageProvider implements IMessageProvider{
     /**
      *  <code>MessageScheduler<code> to send a message at a specific time
      *
-     * @see #getInstance()
+     * @see #MessageScheduler()
      */
     private IMessageScheduler messageScheduler;
     
@@ -38,22 +38,29 @@ public class MessageProvider implements IMessageProvider{
     
     /** 	
     * Default constructor for <code>MessageProvider</code>
-    * Creates <code>MessageScheduler</code> instance with the implemented interface 	
+    * Creates <code>MessageScheduler</code> instance with the implemented interface
+    * @param pScheduler Instance of a class which implements the IMessageScheduler interface to schedule the messages 	
     */
     public MessageProvider(IMessageScheduler pScheduler){
     	this.messageScheduler = pScheduler;
     	this.logMonitor = MultiChannelLogMonitor.getInstance();
     }
     
-    /** This method is used to send a message, if it needs to be send right now
+    /** 
+     * This method is used to send a message, if it needs to be send right now
      * it just calls the send method of the super class, if it should be sent at a specific
      * time the <code>MessageProvider</code> creates a new TimerTask with the <code>MessageScheduler</code>
      *
      * @param		msg Message to send
-     * @return      Boolean if message sending was successfully
+     * @return      boolean if message sending was successfully
      * @see         MessageProvider
      */
     public boolean sendMessage(Message msg) {
+    	
+    	if(msg==null){
+    		//TODO: Log to logger
+    		return false;
+    	}
     	
     	if(!msg.getSendLater()){
     		try {
