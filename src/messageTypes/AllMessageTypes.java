@@ -3,6 +3,12 @@
  */
 package messageTypes;
 
+/**
+ * Possible Message Types
+ * 
+ * @author Yannik Kopp
+ *
+ */
 public enum AllMessageTypes {
 	Email,
 	Sms,

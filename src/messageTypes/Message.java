@@ -5,8 +5,6 @@ package messageTypes;
 
 import java.util.Date;
 
-import core.MessageProvider;
-
 /**
  * This class represent the basic message type which is used for all the sub message classes, every
  * typed message class needs to extend this abstract class. In the whole sending mechanism only this
@@ -60,20 +58,20 @@ public abstract class Message {
 	//TODO: Maybe split this into two constructors for the sendTime and the remindertime
 	public Message(String pRecipient, String pSubject, String pMessage,
 			Date pSendTime, Date pReminderTime) {
-		this.setRecipient(pRecipient);
-		this.setSubject(pSubject);
-		this.setText(pMessage);
+		setRecipient(pRecipient);
+		setSubject(pSubject);
+		setText(pMessage);
 
-		this.setSendLater(false);
-		this.setSendReminder(false);
+		setSendLater(false);
+		setSendReminder(false);
 
 		if (pSendTime != null) {
-			this.setSendTime(pSendTime);
-			this.setSendLater(true);
+			setSendTime(pSendTime);
+			setSendLater(true);
 		}
 		if (pReminderTime != null) {
-			this.setSendReminder(true);
-			this.setReminderTime(pReminderTime);
+			setSendReminder(true);
+			setReminderTime(pReminderTime);
 		}
 	}
 

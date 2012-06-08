@@ -8,6 +8,12 @@ import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
+/**
+ * Email Class
+ * Manages email specific options
+ *
+ */
 public class Email extends Message implements IValidator {
 	
 	private File attachment;

@@ -86,9 +86,10 @@ public class MultiChannelGUI {
 	private File file;
 	static TabFocusPolicy tabPolicy;
 
+	
 	/**
-	 * Konstruktor
-	 * 
+	 * Constructor MultiChannel GUI
+	 * @param pGuiHandler Handler from the GUI Interface
 	 */
 	public MultiChannelGUI(IGUIHandler pGuiHandler) {
 
@@ -100,8 +101,7 @@ public class MultiChannelGUI {
 	}
 
 	/**
-	 * Initializes the contents of the frame, layout was created with Googles WindowBuilder Pro
-	 * 
+	 * Initialises the contents of the frame, layout was created with Googles WindowBuilder Pro
 	 * 
 	 */
 	private void initialize() {
@@ -161,18 +161,18 @@ public class MultiChannelGUI {
 				FormFactory.DEFAULT_ROWSPEC,
 				FormFactory.PREF_ROWSPEC,}));
 
-		// Empfänger
+		// Reciepient
 		JLabel lblRecipient = new JLabel("Empfänger:");
 		tFRecipient = new JTextField();
 		tFRecipient.setColumns(10);
 		tFRecipient.setToolTipText("Email-Adresse wie 'Felix.Muster@muster.ch' oder 'muster@muster.ch' eingeben");
 
-		// Betrefft
+		// Subject
 		JLabel lblSubject = new JLabel("Betreff:");
 		tFSubject = new JTextField();
 		tFSubject.setColumns(10);
 
-		// Nachrichtfeld
+		// MessageField
 		JLabel lblMessage = new JLabel("Nachricht:");
 		messageBody = new JTextPane();
 		final JScrollPane conversationScrollPane = new JScrollPane(messageBody);
@@ -193,7 +193,7 @@ public class MultiChannelGUI {
 		  });  
 		patch(messageBody);
 
-		// Combobox zur Auswahl des Typs
+		// Combobox for choosing the message type
 		comboBox = new JComboBox();
 		comboBox.addActionListener(new ComboboxActionLister());
 		comboBox.setModel(new DefaultComboBoxModel(AllMessageTypes.values()));
@@ -209,7 +209,7 @@ public class MultiChannelGUI {
 		schedulerPanel.add(chckbxScheduler);
 		schedulerPanel.setVisible(true);
 		
-		// Kalender anzeige
+		// Display the calendar
 		calendarPanel = datePicker(null, new Date());
 		calendarPanel.setVisible(false); // Nur Anzeigen wenn Schedule ausgewählt wird
 		
@@ -222,9 +222,9 @@ public class MultiChannelGUI {
 
 		reminderPanel = new JPanel();
 		reminderPanel.add(chckbxReminder);
-		reminderPanel.setVisible(false); // Nur Anzeigen wenn Schedule ausgewählt wird
+		reminderPanel.setVisible(false); // Only show when scheduler is selected
 		
-		// Das Panel zur Reminder Zeit eingabe
+		// Panel for reminder time input
 		reminderTimePanel = new JPanel();
 		reminderTimePanel.setLayout(null);
 		reminderTimePanel.setVisible(false);
@@ -237,11 +237,11 @@ public class MultiChannelGUI {
 		lblMinuten.setBounds(6, 12, 61, 16);
 		reminderTimePanel.add(lblMinuten);
 		
-		// Absenden Button
+		// Send Button
 		JButton btnSend = new JButton("Abschicken");
 		btnSend.addActionListener(new SendActionListener());
 		
-		// Alles dem frame hinzufügen
+		// Put everything into the frame
 		frame.getContentPane().add(lblRecipient, "2, 2");
 		frame.getContentPane().add(tFRecipient, "4, 2, 25, 1, fill, default");
 		frame.getContentPane().add(lblSubject, "2, 4");
@@ -257,7 +257,7 @@ public class MultiChannelGUI {
 		
 		createAttachmentPanel();
 		
-		// Tab Reihenfolge festlegen
+		// Tab Policy
 		Vector<Component> order = new Vector<Component>(7);
         order.add(tFRecipient);
         order.add(tFSubject);
@@ -337,7 +337,15 @@ public class MultiChannelGUI {
     }
 
 	/*
-	 * ActionListeners
+	 * Inner classes
+	 */
+	
+	/**
+	 * This ActionListener will collect all necessary information to dispatch
+	 * the message created by the user.
+	 * 
+	 * @author bbuetikofer
+	 *
 	 */
 	private class SendActionListener implements ActionListener {
 
@@ -347,12 +355,12 @@ public class MultiChannelGUI {
 			Date scheduleHour = null;
 			Date reminderDate = null;
 			
-			//selectedItem = (String) comboBox.getSelectedItem();
+			// Get all message types
 			AllMessageTypes enums = (AllMessageTypes) comboBox.getSelectedItem();
 			selectedItem = enums.toString();
-			// Der Methode muss eine Liste von Recipients übergeben werden
-			List<String> recipients = new ArrayList<String>(); // Nur zum
-																// testen
+
+			List<String> recipients = new ArrayList<String>();
+			
 			// Split the address input field into single addresses
 			String[] addresses = tFRecipient.getText().split("[,;]+");
 			
@@ -360,6 +368,7 @@ public class MultiChannelGUI {
 				recipients.add(addresses[i]);
 			}
 
+			// Check if the user wants to schedule the message and take the apropriate action
 			if (chckbxScheduler.isSelected()) {
 				scheduleHour = (Date) timespinner.getValue();
 				scheduleDate = dateChooser.getDate();
@@ -374,7 +383,7 @@ public class MultiChannelGUI {
 
 				int schedulerTime = convertedMin;
 
-				// Schedulerzeit zusammenstellen
+				// Scheduletime in one string
 				String convertedTime = "" + convertedHour + ":" + schedulerTime;
 
 				df = new SimpleDateFormat("dd MMMM yyyy HH:mm");
@@ -386,9 +395,9 @@ public class MultiChannelGUI {
 					e.printStackTrace();
 				}
 
-				// Reminderzeit zusammenstellen
+				// Remindertime in one string, if reminder is selected
 				if (chckbxReminder.isSelected()) {
-					int reminderTime = convertedMin; // If nothing is set, reminder time is send time
+					int reminderTime = convertedMin; // If nothing is set, reminder time = send time
 					reminderDate = (Date) timespinner.getValue();
 					
 					if(!tFReminderTime.getText().equals("")) {
@@ -407,14 +416,14 @@ public class MultiChannelGUI {
 					}
 				}
 			}
-			// Nachricht abschicken
+			// Send message
 			try {
 				MessageInfo newInfo = new MessageInfo(recipients, tFSubject.getText(),messageBody.getText(), selectedItem, scheduleDate, reminderDate, file);
 				ArrayList<String> errorList = guiHandler.sendMessage(newInfo);
 				if(!errorList.isEmpty()){
 					//TODO: Create Dialog with all error Messages!
 					JOptionPane.showMessageDialog(frame, "Message versenden fehlgeschlagen! Mehr Informationen im Log-Window");
-				}else{
+				} else {
 					tFRecipient.setText("");
 					tFSubject.setText("");
 					messageBody.setText("");
@@ -426,6 +435,12 @@ public class MultiChannelGUI {
 		}
 	}
 
+	/**
+	 * Shows the reminder and calendar panel
+	 * 
+	 * @author bbuetikofer
+	 *
+	 */
 	private class SchedulerActionListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent ae) {
@@ -443,6 +458,12 @@ public class MultiChannelGUI {
 		}
 	}
 
+	/**
+	 * Shows the reminder panel
+	 * 
+	 * @author bbuetikofer
+	 *
+	 */
 	private class ReminderActionListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent ae) {
@@ -455,6 +476,12 @@ public class MultiChannelGUI {
 		}
 	}
 	
+	/**
+	 * ActionListener for the combobox selector
+	 * 
+	 * @author R. Hofer
+	 *
+	 */
 	private class ComboboxActionLister implements ActionListener {
 
 		@Override
@@ -492,6 +519,12 @@ public class MultiChannelGUI {
 		}
 	}
 	
+	/**
+	 * ActionListener for attachment selection
+	 * 
+	 * @author bbuetikofer
+	 *
+	 */
 	private class AttachmentActionListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent ae) {
@@ -513,7 +546,10 @@ public class MultiChannelGUI {
 	}
 	
 	/**
-	 * Innere Klasse zur Tab-Reihenfolge
+	 * Inner class which sets the TabFocusPolicy
+	 * Derived from http://docs.oracle.com/javase/tutorial/uiswing/misc/focus.html
+	 * 
+	 * @author bbuetikofer
 	 *
 	 */
 	public static class TabFocusPolicy extends FocusTraversalPolicy {
