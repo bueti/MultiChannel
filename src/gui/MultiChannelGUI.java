@@ -428,6 +428,7 @@ public class MultiChannelGUI {
 					tFSubject.setText("");
 					messageBody.setText("");
 					tFAttachment.setText("");
+					file = null;
 				}
 			} catch (Exception e) {
 				JOptionPane.showMessageDialog(frame, e.getMessage());
