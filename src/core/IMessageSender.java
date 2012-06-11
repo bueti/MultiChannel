@@ -7,15 +7,15 @@ package core;
 import messageTypes.Message;
 
 /**
- * This Interface makes sure the <code>MessageProvider</code> is easy replaceable. If there is a need
+ * This Interface makes sure the <code>MessageSender</code> is easy replaceable. If there is a need
  * for another type of message providing the new provider only needs to implement this interface.
  * Its also very useful for the unittests because it gives us the possibility to implement a MockObject
  *
- * @see MessageProvider
+ * @see MessageSender
  * @author  Yannik Kopp
  * @version 1.0
  */
-public interface IMessageProvider {
+public interface IMessageSender {
 	
     /** 
      * This method is used to send a message, if it needs to be send right now
@@ -24,7 +24,7 @@ public interface IMessageProvider {
      *
      * @param		msg Message to send
      * @return      boolean if message sending was successfully
-     * @see         IMessageProvider
+     * @see         IMessageSender
      */
 	public boolean sendMessage(Message msg);
 }

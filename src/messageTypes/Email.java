@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
  *
  */
 public class Email extends Message implements IValidator {
-	
+	//TODO: Javadoc
 	private File attachment;
 	
 	public Email(String pRecipient,String pSubject, String pMessage, Date pSendTime, Date pReminderTime, File pAttachment) {

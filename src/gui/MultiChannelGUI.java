@@ -1,3 +1,4 @@
+//TODO Document package
 package gui;
 
 import java.awt.Component;
@@ -56,7 +57,7 @@ import core.MessageInfo;
  * The MultiChannelGUI class is used to generate the main GUI and is called by the <code>GUIHandler</code>.
  *
  * @see IGUIHandler
- * @author  Benjamin Buetikofer, Yannik Kopp, Roland Hofer
+ * @author  Benjamin Buetikofer, Roland Hofer
  * @version 1.0
  */
 public class MultiChannelGUI {
@@ -391,7 +392,7 @@ public class MultiChannelGUI {
 					scheduleDate = df
 							.parse(convertedDate + " " + convertedTime);
 				} catch (ParseException e) {
-					// TODO Handle this error
+					// TODO Log to Logwindow
 					e.printStackTrace();
 				}
 
@@ -539,7 +540,7 @@ public class MultiChannelGUI {
 					file = loadDialog.getSelectedFile();
 					tFAttachment.setText(file.getCanonicalPath());
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
+					// TODO implement logger
 					e.printStackTrace();
 				}
 			}

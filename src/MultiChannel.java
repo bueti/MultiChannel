@@ -1,7 +1,7 @@
 import gui.MultiChannelGUI;
 import gui.MultiChannelLogMonitor;
 import core.GUIHandler;
-import core.MessageProvider;
+import core.MessageSender;
 import core.MessageScheduler;
 
 public class MultiChannel {
@@ -10,7 +10,7 @@ public class MultiChannel {
 		
 		MessageScheduler scheduler = new MessageScheduler();
 		
-		MessageProvider provider = new MessageProvider(scheduler);
+		MessageSender provider = new MessageSender(scheduler);
 		
 		GUIHandler guiHandler = new GUIHandler(provider);
 		

@@ -1,13 +1,12 @@
 package test;
 
 import messageTypes.Message;
-import core.IMessageProvider;
+import core.IMessageSender;
 
-public class MockMessageProvider implements IMessageProvider {
+public class MockMessageProvider implements IMessageSender {
 
 	@Override
 	public boolean sendMessage(Message msg) {
-		// TODO Auto-generated method stub
 		return true;
 	}
 

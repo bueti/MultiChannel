@@ -19,7 +19,7 @@ import messageTypes.Message;
  * @author  Yannik Kopp
  * @version 1.0
  * @see IMessageScheduler
- * @see IMessageProvider
+ * @see IMessageSender
  */
 public class MessageScheduler implements IMessageScheduler{
 	
@@ -81,6 +81,7 @@ public class MessageScheduler implements IMessageScheduler{
 		return true;
 	}
 	
+	//TODO: messagescheduler
 	private class SenderTask extends TimerTask {
 		
 		private Message msg;
@@ -95,6 +96,7 @@ public class MessageScheduler implements IMessageScheduler{
 	    	try{
 	    		msg.send();
 	    	}catch(Exception ex) {
+	    		//TODO log to logger
 	    		//MultiChannelLogMonitor.getInstance().writeLogEntry(, status)
 	    	}
 	    }

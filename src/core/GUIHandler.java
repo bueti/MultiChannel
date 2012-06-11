@@ -19,30 +19,31 @@ import messageTypes.Message;
 public class GUIHandler implements IGUIHandler {
 
 	/**
-	 * Instance of <code>MessageProvider</code> class, which is used to send the
+	 * Instance of <code>MessageSender</code> class, which is used to send the
 	 * message immediately or at a specific time
 	 * 
-	 * @see MessageProvider
+	 * @see MessageSender
 	 */
-	IMessageProvider provider;
+	IMessageSender provider;
 
 	/**
 	 * Default constructor for <code>GUIHandler</code>.
 	 * 
-	 * @param pProvider Instance of a <code>IMessageProvider</code> object
-	 * @See MessageProvider
-	 * @see IMessageProvider
+	 * @param pProvider Instance of a <code>IMessageSender</code> object
+	 * @See MessageSender
+	 * @see IMessageSender
 	 */
-	public GUIHandler(IMessageProvider pProvider) {
+	public GUIHandler(IMessageSender pProvider) {
 		this.provider = pProvider;
 	}
 	
+	//TODO: Handle inherit Doc
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	public ArrayList<String> sendMessage(MessageInfo info) throws Exception {
-		// TODO ANALYZE THIS!!
+		// TODO ANALYZE THIS!! Exception handling yak
 		ArrayList<String> errorList = new ArrayList<String>();
 
 		for (String recipient : info.getRecipients()) {

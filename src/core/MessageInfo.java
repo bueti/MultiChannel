@@ -17,6 +17,7 @@ public class MessageInfo {
 	private Date reminderTime;
 	private File attachment;
 	
+	//TODO javadoc
 	/**
 	 * @param recipient
 	 * @param subject

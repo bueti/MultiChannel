@@ -16,7 +16,7 @@ import messageTypes.Sms;
 import org.junit.Before;
 import org.junit.Test;
 
-import core.MessageProvider;
+import core.MessageSender;
 
 /**
  * @author yannik
@@ -24,7 +24,7 @@ import core.MessageProvider;
  */
 public class MessageProviderTest {
 	
-	private MessageProvider testProvider;
+	private MessageSender testProvider;
 	private Email testEmail;
 	private Sms testSms;
 	private Mms testMms;
@@ -39,11 +39,11 @@ public class MessageProviderTest {
 		this.testSms = new Sms("0791231212","Test sms","This is a test sms",null,null);
 		this.testMms = new Mms("0791231212","Test Mms","This is a test Mms",null,null,new File(""));
 		this.testPrint = new Print("PRT 123","Test print","This is a test print",null,null);
-		this.testProvider = new MessageProvider(new MockMessageScheduler());
+		this.testProvider = new MessageSender(new MockMessageScheduler());
 	}
 
 	/**
-	 * Test method for {@link core.MessageProvider#sendMessage(messageTypes.Message)}.
+	 * Test method for {@link core.MessageSender#sendMessage(messageTypes.Message)}.
 	 */
 	@Test
 	public void testSendMessage() {
@@ -54,7 +54,7 @@ public class MessageProviderTest {
 	}
 	
 	/**
-	 * Test method for {@link core.MessageProvider#sendMessage(messageTypes.Message)}.
+	 * Test method for {@link core.MessageSender#sendMessage(messageTypes.Message)}.
 	 */
 	@Test
 	public void testSendLaterMessage() {

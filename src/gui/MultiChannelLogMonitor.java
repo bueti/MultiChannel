@@ -9,6 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+//TODO Javadoc
 public class MultiChannelLogMonitor extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -57,6 +58,7 @@ public class MultiChannelLogMonitor extends JFrame {
 	
 	public void logInformation(String text,int status){
 		this.area.append(text+"\n");
+		//TODO Output zu Konsole
 	}
 	
 	public void logException(Exception exception){

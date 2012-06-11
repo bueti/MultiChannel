@@ -55,7 +55,7 @@ public abstract class Message {
 	 * @param pSendTime time to sent the message later (optional)
 	 * @param pReminderTime time to send a reminder for the message (optional)
 	 */
-	//TODO: Maybe split this into two constructors for the sendTime and the remindertime
+	//TODO: Improvment: Maybe split this into two constructors for the sendTime and the remindertime
 	public Message(String pRecipient, String pSubject, String pMessage,
 			Date pSendTime, Date pReminderTime) {
 		setRecipient(pRecipient);
@@ -78,7 +78,6 @@ public abstract class Message {
 	/**
 	 * @return boolean if the message needs to send a reminder
 	 */
-	// TODO:These fields are maybe obsolete!!
 	public boolean getSendReminder() {
 		return sendReminder;
 	}
@@ -86,7 +85,6 @@ public abstract class Message {
 	/**
 	 * @param sendReminder indicator if the message needs to send a reminder
 	 */
-	// TODO:These fields are maybe obsolete!!
 	public void setSendReminder(boolean sendReminder) {
 		this.sendReminder = sendReminder;
 	}
@@ -108,7 +106,6 @@ public abstract class Message {
 	/**
 	 * @return boolean if the message needs to be sent at a specific time
 	 */
-	// TODO:These fields are maybe obsolete!!
 	public boolean getSendLater() {
 		return sendLater;
 	}
@@ -116,7 +113,6 @@ public abstract class Message {
 	/**
 	 * @param sendLater if the message needs to be sent at a specific time
 	 */
-	// TODO:These fields are maybe obsolete!!
 	public void setSendLater(boolean sendLater) {
 		this.sendLater = sendLater;
 	}

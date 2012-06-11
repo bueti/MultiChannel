@@ -13,6 +13,7 @@ public class Sms extends Message implements IValidator{
 		super(pRecipient, pSubject, pMessage, pSendTime, pReminderTime);
 	}
 	
+	//TODO: no inheritDOc!
 	/**
 	 * {@inheritDoc}
 	 */

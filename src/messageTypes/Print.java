@@ -10,7 +10,7 @@ public class Print extends Message implements IValidator{
 	public Print(String pRecipient,String pSubject, String pMessage, Date pSendTime, Date pReminderTime){
 		super(pRecipient, pSubject, pMessage, pSendTime, pReminderTime);
 	}
-	
+	//TODO: no inheritDOc!
 	/**
 	 * {@inheritDoc}
 	 */

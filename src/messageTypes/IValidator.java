@@ -3,6 +3,7 @@
  */
 package messageTypes;
 
+//TODO javadoc
 public interface IValidator {
 	boolean validate() throws Exception;
 }

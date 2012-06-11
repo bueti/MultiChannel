@@ -119,6 +119,6 @@ public class MessageTypesValidationTest {
 		this.testPrint.validate();
 	}
 	
-	//TODO Maybe some more special testcases
+	//TODO Improvment: Maybe some more special testcases
 
 }

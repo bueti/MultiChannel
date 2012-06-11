@@ -19,7 +19,7 @@ public class Mms extends Message implements IValidator {
 			this.setAttachment(pAttachment);
 		}
 	}
-
+	//TODO: no inheritDOc!
 	/**
 	 * {@inheritDoc}
 	 */
