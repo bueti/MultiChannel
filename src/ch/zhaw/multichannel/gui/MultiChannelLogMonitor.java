@@ -40,9 +40,7 @@ public class MultiChannelLogMonitor extends JFrame {
     /**
 	 * Constructor MultiChannelLogMonitor
 	 * starts the frame of MultiChannelLogMonitor
-	 * @param 
 	 */
-    
 	private MultiChannelLogMonitor() {
 		logMonitor();
 	}
@@ -73,12 +71,12 @@ public class MultiChannelLogMonitor extends JFrame {
 	}
 	
 	public void logInformation(String text,int status){
-		this.area.append((new Date())+" "+text+"\n");
+		this.area.append(String.format("%td.%<tm.%<tY, %<tT", new Date())+" "+text+"\n");
 		//TODO Output zu Konsole
 	}
 	
 	public void logException(Exception exception){
-		this.area.append((new Date())+" "+exception.getMessage()+"\n");
+		this.area.append(String.format("%td.%<tm.%<tY, %<tT", new Date())+" "+exception.getMessage()+"\n");
 		
 	}
 
