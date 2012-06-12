@@ -53,7 +53,7 @@ public class Email extends Message implements IValidator {
 	 */
 	@Override
 	public boolean validate() throws ValidationException{
-		if (isValidEmailAddress(this.getRecipient())) {
+		if (isValidEmailAddress(this.getRecipient().trim())) {
 			if (this.getSubject().equals("") || this.getText().equals("")) {
 				throw new ValidationException(this.getRecipient(),"Subject or Text is empty!");
 			}
