@@ -4,6 +4,7 @@ import messageTypes.Message;
 
 public class MessageSenderException extends Exception {
 	
+	private static final long serialVersionUID = -6624873749429160999L;
 	private Message failedMsg;
 	
 	public MessageSenderException(Message failedMsg,String message){
