@@ -12,14 +12,21 @@ import exceptions.ValidationException;
 
 
 /**
- * This is a specific message type which 
+ * This is a subclass of the superclass <code>Message</code> and represents a specific message type.
+ * The Interface <code>IValidator</code> makes sure each specific message type implements a validation
+ * for itself which is called in the constructor
+ * 
+ * @author Benjamin Bütikofer
+ * @version 1.0
+ * @see Message
+ * @see IValidator
  *
  */
 public class Email extends Message implements IValidator {
 	//TODO: Javadoc
 	private File attachment;
 	
-	public Email(String recipient,String subject, String message, Date sendTime, Date reminderTime, File attachment) throws Exception {
+	public Email(String recipient,String subject, String message, Date sendTime, Date reminderTime, File attachment) throws ValidationException {
 		super(recipient, subject, message, sendTime, reminderTime);
 		
 		if(attachment!=null){

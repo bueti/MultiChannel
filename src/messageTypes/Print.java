@@ -7,9 +7,20 @@ import java.util.Date;
 
 import exceptions.ValidationException;
 
+/**
+ * This is a subclass of the superclass <code>Message</code> and represents a specific message type.
+ * The Interface <code>IValidator</code> makes sure each specific message type implements a validation
+ * for itself which is called in the constructor
+ * 
+ * @author Benjamin Bütikofer
+ * @version 1.0
+ * @see Message
+ * @see IValidator
+ *
+ */
 public class Print extends Message implements IValidator{
 	
-	public Print(String pRecipient,String pSubject, String pMessage, Date pSendTime, Date pReminderTime) throws Exception{
+	public Print(String pRecipient,String pSubject, String pMessage, Date pSendTime, Date pReminderTime) throws ValidationException{
 		super(pRecipient, pSubject, pMessage, pSendTime, pReminderTime);
 		
 		try{

@@ -10,7 +10,7 @@ import java.util.Date;
  * typed message class needs to extend this abstract class. In the whole sending mechanism only this
  * superclass is used.
  * 
- * @author ben
+ * @author Benjamin Bütikofer
  * @version 1.0
  */
 public abstract class Message {
@@ -29,8 +29,9 @@ public abstract class Message {
 	
     /** 
      * Each typed message class must implement a send method to send itself
+     * @throws Exception Throws an Exception if message failed to send
      */
-	public abstract void send();
+	public abstract void send() throws Exception;
 	
     /** 
      * Each typed message class must implement a send reminder method to send a reminder
@@ -55,7 +56,7 @@ public abstract class Message {
 	 * @param pSendTime time to sent the message later (optional)
 	 * @param pReminderTime time to send a reminder for the message (optional)
 	 */
-	//TODO: Improvment: Maybe split this into two constructors for the sendTime and the remindertime
+	//IMPROVMENT: Maybe split this into two constructors for the sendTime and the remindertime
 	public Message(String recipient, String subject, String message,
 			Date sendTime, Date reminderTime) {
 		setRecipient(recipient);

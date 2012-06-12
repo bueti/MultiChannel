@@ -4,7 +4,7 @@
 package messageTypes;
 
 /**
- * The enum contains all the available messagetypes
+ * This enum contains all the available messagetypes
  * 
  * @author Yannik Kopp
  *

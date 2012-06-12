@@ -9,10 +9,30 @@ import java.util.regex.Pattern;
 
 import exceptions.ValidationException;
 
+/**
+ * This is a subclass of the superclass <code>Message</code> and represents a specific message type.
+ * The Interface <code>IValidator</code> makes sure each specific message type implements a validation
+ * for itself which is called in the constructor
+ * 
+ * @author Benjamin Bütikofer
+ * @version 1.0
+ * @see Message
+ * @see IValidator
+ *
+ */
 public class Sms extends Message implements IValidator{
 	
-	public Sms(String pRecipient,String pSubject, String pMessage, Date pSendTime, Date pReminderTime) throws Exception{
-		super(pRecipient, pSubject, pMessage, pSendTime, pReminderTime);
+	
+	/**
+	 * @param recipient
+	 * @param subject
+	 * @param message
+	 * @param sendTime
+	 * @param reminderTime
+	 * @throws Exception
+	 */
+	public Sms(String recipient,String subject, String message, Date sendTime, Date reminderTime) throws ValidationException{
+		super(recipient, subject, message, sendTime, reminderTime);
 		
 		try{
 			this.validate();
@@ -22,21 +42,14 @@ public class Sms extends Message implements IValidator{
 		}
 	}
 	
-	//TODO: no inheritDOc!
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
-	public void send() {
+	public void send() throws Exception{
 		// TODO: Schöner Output
 		System.out.println("SMS abgeschickt!");
 		System.out.println(getRecipient());
 		System.out.println(getText());
 	}
 	
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void sendReminder() {
 		System.out.println("\"Das ist der Reminder an die Message: " + this.getSubject() + " an den Empfänger: " + this.getRecipient() + " \"");

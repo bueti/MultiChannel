@@ -10,15 +10,26 @@ import java.util.regex.Pattern;
 
 import exceptions.ValidationException;
 
+/**
+ * This is a subclass of the superclass <code>Message</code> and represents a specific message type.
+ * The Interface <code>IValidator</code> makes sure each specific message type implements a validation
+ * for itself which is called in the constructor
+ * 
+ * @author Benjamin Bütikofer
+ * @version 1.0
+ * @see Message
+ * @see IValidator
+ *
+ */
 public class Mms extends Message implements IValidator {
 
 	private File attachment;
 
-	public Mms(String pRecipient, String pSubject, String pMessage,
-			Date pSendTime, Date pReminderTime, File pAttachment) throws Exception {
-		super(pRecipient, pSubject, pMessage, pSendTime, pReminderTime);
+	public Mms(String recipient, String subject, String message,
+			Date sendTime, Date reminderTime, File attachment) throws ValidationException {
+		super(recipient, subject, message, sendTime, reminderTime);
 		if (attachment != null) {
-			this.setAttachment(pAttachment);
+			this.setAttachment(attachment);
 		}
 		try{
 			this.validate();
@@ -27,10 +38,6 @@ public class Mms extends Message implements IValidator {
 			throw validationException;
 		}
 	}
-	//TODO: no inheritDOc!
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void send() {
 		System.out.println("\"" + this.getSubject() + "\" an \""
@@ -55,7 +62,7 @@ public class Mms extends Message implements IValidator {
 	 * 
 	 */
 	@Override
-	public boolean validate() throws Exception {
+	public boolean validate() throws ValidationException {
 		//TODO: Check for empty recipient
 		/*if(this.getRecipient()==null){
 			throw new ValidationException("","Emailadress is empty");
@@ -85,9 +92,6 @@ public class Mms extends Message implements IValidator {
 		return matcher.matches();
 	}
 	
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void sendReminder() {
 		System.out.println("\"Das ist der Reminder an die Message: "
