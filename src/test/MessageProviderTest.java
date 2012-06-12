@@ -3,7 +3,7 @@
  */
 package test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.util.Date;
@@ -18,7 +18,6 @@ import org.junit.Test;
 
 import core.MessageSender;
 import exceptions.MessageSenderException;
-import exceptions.ValidationException;
 
 /**
  * @author yannik

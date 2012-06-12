@@ -4,8 +4,6 @@
  */
 package core;
 
-import java.util.ArrayList;
-
 import exceptions.ValidationException;
 
 //TODO javadoc yak

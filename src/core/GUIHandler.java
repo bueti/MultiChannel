@@ -4,12 +4,10 @@
  */
 package core;
 
-import java.util.ArrayList;
-
+import messageTypes.Message;
 import exceptions.MessageSenderException;
 import exceptions.ValidationException;
 import gui.MultiChannelLogMonitor;
-import messageTypes.Message;
 
 /**
  * The GUIHandler class is used to encapsulate the businesslogic from the GUI.
