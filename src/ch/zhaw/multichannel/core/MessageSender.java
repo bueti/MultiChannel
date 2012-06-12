@@ -6,7 +6,7 @@ package ch.zhaw.multichannel.core;
 
 import ch.zhaw.multichannel.core.interfaces.IMessageScheduler;
 import ch.zhaw.multichannel.core.interfaces.IMessageSender;
-import ch.zhaw.multichannel.exception.MessageSenderException;
+import ch.zhaw.multichannel.exceptions.MessageSenderException;
 import ch.zhaw.multichannel.gui.MultiChannelLogMonitor;
 import ch.zhaw.multichannel.messages.Message;
 

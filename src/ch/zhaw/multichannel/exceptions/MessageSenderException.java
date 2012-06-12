@@ -1,4 +1,4 @@
-package ch.zhaw.multichannel.exception;
+package ch.zhaw.multichannel.exceptions;
 
 import ch.zhaw.multichannel.messages.Message;
 

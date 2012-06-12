@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import ch.zhaw.multichannel.core.MessageFactory;
 import ch.zhaw.multichannel.core.MessageInfo;
-import ch.zhaw.multichannel.exception.ValidationException;
+import ch.zhaw.multichannel.exceptions.ValidationException;
 import ch.zhaw.multichannel.messages.Email;
 import ch.zhaw.multichannel.messages.Mms;
 import ch.zhaw.multichannel.messages.Print;

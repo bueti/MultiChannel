@@ -5,7 +5,7 @@ package ch.zhaw.multichannel.messages;
 
 import java.util.Date;
 
-import ch.zhaw.multichannel.exception.ValidationException;
+import ch.zhaw.multichannel.exceptions.ValidationException;
 import ch.zhaw.multichannel.messages.interfaces.IValidator;
 
 

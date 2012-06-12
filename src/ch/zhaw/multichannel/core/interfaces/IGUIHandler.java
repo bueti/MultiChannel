@@ -5,7 +5,7 @@
 package ch.zhaw.multichannel.core.interfaces;
 
 import ch.zhaw.multichannel.core.MessageInfo;
-import ch.zhaw.multichannel.exception.ValidationException;
+import ch.zhaw.multichannel.exceptions.ValidationException;
 
 //TODO javadoc yak
 public interface IGUIHandler {

@@ -3,7 +3,7 @@
  */
 package ch.zhaw.multichannel.messages.interfaces;
 
-import ch.zhaw.multichannel.exception.ValidationException;
+import ch.zhaw.multichannel.exceptions.ValidationException;
 
 /**
  * Each specific message type needs to implement its own validation

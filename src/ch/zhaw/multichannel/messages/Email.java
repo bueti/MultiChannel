@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import ch.zhaw.multichannel.exception.ValidationException;
+import ch.zhaw.multichannel.exceptions.ValidationException;
 import ch.zhaw.multichannel.messages.interfaces.IValidator;
 
 

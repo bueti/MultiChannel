@@ -1,4 +1,4 @@
-package ch.zhaw.multichannel.exception;
+package ch.zhaw.multichannel.exceptions;
 
 public class ValidationException extends Exception {
 

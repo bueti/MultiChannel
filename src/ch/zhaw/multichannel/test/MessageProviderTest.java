@@ -13,7 +13,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ch.zhaw.multichannel.core.MessageSender;
-import ch.zhaw.multichannel.exception.MessageSenderException;
+import ch.zhaw.multichannel.exceptions.MessageSenderException;
 import ch.zhaw.multichannel.messages.Email;
 import ch.zhaw.multichannel.messages.Mms;
 import ch.zhaw.multichannel.messages.Print;

@@ -45,7 +45,7 @@ import javax.swing.SwingConstants;
 
 import ch.zhaw.multichannel.core.MessageInfo;
 import ch.zhaw.multichannel.core.interfaces.IGUIHandler;
-import ch.zhaw.multichannel.exception.ValidationException;
+import ch.zhaw.multichannel.exceptions.ValidationException;
 import ch.zhaw.multichannel.messages.AllMessageTypes;
 
 import com.jgoodies.forms.factories.FormFactory;

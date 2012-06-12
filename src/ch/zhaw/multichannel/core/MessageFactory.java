@@ -4,7 +4,7 @@
  */
 package ch.zhaw.multichannel.core;
 
-import ch.zhaw.multichannel.exception.ValidationException;
+import ch.zhaw.multichannel.exceptions.ValidationException;
 import ch.zhaw.multichannel.messages.AllMessageTypes;
 import ch.zhaw.multichannel.messages.Email;
 import ch.zhaw.multichannel.messages.Message;

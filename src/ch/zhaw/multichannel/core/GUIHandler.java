@@ -6,8 +6,8 @@ package ch.zhaw.multichannel.core;
 
 import ch.zhaw.multichannel.core.interfaces.IGUIHandler;
 import ch.zhaw.multichannel.core.interfaces.IMessageSender;
-import ch.zhaw.multichannel.exception.MessageSenderException;
-import ch.zhaw.multichannel.exception.ValidationException;
+import ch.zhaw.multichannel.exceptions.MessageSenderException;
+import ch.zhaw.multichannel.exceptions.ValidationException;
 import ch.zhaw.multichannel.gui.MultiChannelLogMonitor;
 import ch.zhaw.multichannel.messages.Message;
 
