@@ -1,4 +1,6 @@
-//TODO Document package
+/**
+ * This package contains all GUI classes for the application MultiChannel
+ */
 package ch.zhaw.multichannel.gui;
 
 import java.awt.Component;
@@ -41,7 +43,6 @@ import javax.swing.KeyStroke;
 import javax.swing.SpinnerDateModel;
 import javax.swing.SpinnerModel;
 import javax.swing.SwingConstants;
-
 
 import ch.zhaw.multichannel.core.MessageInfo;
 import ch.zhaw.multichannel.core.interfaces.IGUIHandler;

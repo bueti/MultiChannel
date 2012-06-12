@@ -24,7 +24,6 @@ public interface IMessageSender {
      * time the <code>MessageSender</code> creates a new TimerTask with the <code>MessageScheduler</code>
      *
      * @param		msg Message to send
-     * @return      boolean if message sending was successfully
      * @throws 		Exception thrown if a exception happens during the message sending
      * @see         MessageSender
      */

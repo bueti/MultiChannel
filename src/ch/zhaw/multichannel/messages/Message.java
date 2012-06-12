@@ -169,7 +169,7 @@ public abstract class Message {
 	}
 
 	/**
-	 * @param String subject of the message
+	 * @param subject subject of the message
 	 */
 	public void setSubject(String subject) {
 		this.subject = subject;

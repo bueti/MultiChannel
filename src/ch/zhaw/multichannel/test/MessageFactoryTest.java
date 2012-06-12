@@ -2,7 +2,6 @@ package ch.zhaw.multichannel.test;
 
 import junit.framework.TestCase;
 
-
 import org.junit.Test;
 
 import ch.zhaw.multichannel.core.MessageFactory;
@@ -37,7 +36,7 @@ public class MessageFactoryTest extends TestCase
 	}
 	
 	/**
-	 * Test method for {@link ch.zhaw.multichannel.core.MessageFactory#createNewMessage(string,ch.zhaw.multichannel.core.MessageInfo)}.
+	 * Test method for {@link ch.zhaw.multichannel.core.MessageFactory#createNewMessage(ch.zhaw.multichannel.core.MessageInfo)}.
 	 */
 	@Test
 	public void testCreateNewEmail() {
@@ -66,7 +65,7 @@ public class MessageFactoryTest extends TestCase
 	}
 	
 	/**
-	 * Test method for {@link ch.zhaw.multichannel.core.MessageFactory#createNewMessage(string,ch.zhaw.multichannel.core.MessageInfo)}.
+	 * Test method for {@link ch.zhaw.multichannel.core.MessageFactory#createNewMessage(ch.zhaw.multichannel.core.MessageInfo)}.
 	 */
 	@Test
 	public void testCreateNewSms() {
@@ -95,7 +94,7 @@ public class MessageFactoryTest extends TestCase
 	}
 	
 	/**
-	 * Test method for {@link ch.zhaw.multichannel.core.MessageFactory#createNewMessage(string,ch.zhaw.multichannel.core.MessageInfo)}.
+	 * Test method for {@link ch.zhaw.multichannel.core.MessageFactory#createNewMessage(ch.zhaw.multichannel.core.MessageInfo)}.
 	 */
 	@Test
 	public void testCreateNewMms() {
@@ -124,7 +123,7 @@ public class MessageFactoryTest extends TestCase
 	}
 	
 	/**
-	 * Test method for {@link ch.zhaw.multichannel.core.MessageFactory#createNewMessage(string,ch.zhaw.multichannel.core.MessageInfo)}.
+	 * Test method for {@link ch.zhaw.multichannel.core.MessageFactory#createNewMessage(ch.zhaw.multichannel.core.MessageInfo)}.
 	 */
 	@Test
 	public void testCreateNewPrint() {
@@ -153,7 +152,7 @@ public class MessageFactoryTest extends TestCase
 	}
 	
 	/**
-	 * Test method for {@link ch.zhaw.multichannel.core.MessageFactory#createNewMessage(string,ch.zhaw.multichannel.core.MessageInfo)}.
+	 * Test method for {@link ch.zhaw.multichannel.core.MessageFactory#createNewMessage(ch.zhaw.multichannel.core.MessageInfo)}.
 	 */
 	@Test (expected=ValidationException.class)
 	public void testInvalidValidation() {

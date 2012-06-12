@@ -1,3 +1,6 @@
+/**
+ * This package contains all GUI classes for the application MultiChannel
+ */
 package ch.zhaw.multichannel.gui;
 
 import java.awt.BorderLayout;
@@ -9,8 +12,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-
-
 
 /**
  * The MultiChannelLogMonitor class is used to show log-messages include error-messages.
@@ -44,11 +45,12 @@ public class MultiChannelLogMonitor extends JFrame {
 	private MultiChannelLogMonitor() {
 		logMonitor();
 	}
+	
 	/**
 	 * Initialises the contents of the frame
 	 * 
 	 */
-		private void logMonitor() {
+	private void logMonitor() {
 		frame = new JFrame("MultiChannel-LogMonitor");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLocation(850, 450);
@@ -70,14 +72,29 @@ public class MultiChannelLogMonitor extends JFrame {
 		this.frame.setVisible(true);
 	}
 	
+	/**
+	 * Writes down the text parameter in the log window
+	 * 
+	 * @param text text to write
+	 * @param status used to identify the type of the log message
+	 * 
+	 */
 	public void logInformation(String text,int status){
 		this.area.append(String.format("%td.%<tm.%<tY, %<tT", new Date())+" "+text+"\n");
-		//TODO Output zu Konsole
+		this.area.append("---------------"+"\n");
+		System.out.println(String.format("%td.%<tm.%<tY, %<tT", new Date())+" "+text+"\n");
 	}
 	
+	/**
+	 * Writes down an exception to the log window
+	 * 
+	 * @param exception exception to log
+	 * 
+	 */
 	public void logException(Exception exception){
 		this.area.append(String.format("%td.%<tm.%<tY, %<tT", new Date())+" "+exception.getMessage()+"\n");
-		
+		this.area.append("---------------"+"\n");
+		System.out.println(String.format("%td.%<tm.%<tY, %<tT", new Date())+" "+exception.getMessage()+"\n");
 	}
 
 }

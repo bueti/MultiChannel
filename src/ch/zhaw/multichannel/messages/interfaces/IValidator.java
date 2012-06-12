@@ -3,6 +3,7 @@
  */
 package ch.zhaw.multichannel.messages.interfaces;
 
+import ch.zhaw.multichannel.core.interfaces.IMessageScheduler;
 import ch.zhaw.multichannel.exceptions.ValidationException;
 
 /**

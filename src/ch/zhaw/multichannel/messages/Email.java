@@ -67,7 +67,7 @@ public class Email extends Message implements IValidator {
 		   but the possibility to implement it is given with the superclass
 		 */
 		String message = "\"" + getSubject() + "\" an \""+ getRecipient() + "\" geschickt." +"\n";
-		message += "Nachricht: " + getText() +"\n";
+		message += "Nachricht: " + getText();
 		if(getAttachment()!=null) {
 			message += "Attachment: " + getAttachment().getAbsolutePath();
 		}

@@ -1,9 +1,8 @@
 package ch.zhaw.multichannel.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 
 import java.util.Date;
-
 
 import org.junit.After;
 import org.junit.Before;
@@ -31,9 +30,6 @@ public class MessageSchedulerTest {
 		testScheduler = null;
 	}
 	
-	/**
-	 * Test method for {@link ch.zhaw.multichannel.core.MessageScheduler#createMessageTimer(messageTypes.Message)}.
-	 */
 	@Test
 	public void testCreateMessageTimer() {
 		try {
@@ -43,27 +39,18 @@ public class MessageSchedulerTest {
 		}
 	}
 	
-	/**
-	 * Test method for {@link ch.zhaw.multichannel.core.MessageScheduler#createMessageTimer(messageTypes.Message)}.
-	 */
 	@Test (expected = Exception.class)
 	public void testNullTimeCreateMessageTimer() throws Exception{
 		testEmail.setSendTime(null);
 		testScheduler.createMessageTimer(testEmail);
 	}
 	
-	/**
-	 * Test method for {@link ch.zhaw.multichannel.core.MessageScheduler#createMessageTimer(messageTypes.Message)}.
-	 */
 	@Test (expected = Exception.class)
 	public void testNullMessageCreateMessageTimer() throws Exception{
 		testEmail = null;
 		testScheduler.createMessageTimer(testEmail);
 	}
 	
-	/**
-	 * Test method for {@link ch.zhaw.multichannel.core.MessageScheduler#createReminderTimer(messageTypes.Message)}.
-	 */
 	@Test
 	public void testCreateReminderTimer() {
 		try {
@@ -72,21 +59,13 @@ public class MessageSchedulerTest {
 			fail("failed to create reminder task " + e.getMessage());
 		}
 	}
-	
-	/**
-	 * Test method for {@link ch.zhaw.multichannel.core.MessageScheduler#createReminderTimer(messageTypes.Message)}.
-	 * @throws Exception 
-	 */
+
 	@Test (expected = Exception.class)
 	public void testNullTimeCreateReminderTimer() throws Exception{
 		testEmail.setReminderTime(null);
 		testScheduler.createReminderTimer(testEmail);
 	}
 	
-	/**
-	 * Test method for {@link ch.zhaw.multichannel.core.MessageScheduler#createReminderTimer(messageTypes.Message)}.
-	 * @throws Exception 
-	 */
 	@Test (expected = Exception.class)
 	public void testNullMessageCreateReminderTimer() throws Exception{
 		this.testEmail = null;

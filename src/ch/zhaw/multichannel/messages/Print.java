@@ -6,6 +6,7 @@ package ch.zhaw.multichannel.messages;
 import java.util.Date;
 
 import ch.zhaw.multichannel.exceptions.ValidationException;
+import ch.zhaw.multichannel.gui.MultiChannelLogMonitor;
 import ch.zhaw.multichannel.messages.interfaces.IValidator;
 
 
@@ -47,15 +48,25 @@ public class Print extends Message implements IValidator{
 
 	@Override
 	public void send() {
-		System.out.println("\"" + getSubject() + "\" an Drucker \""
-				+ getRecipient() + "\" geschickt.");
-		System.out.println("Nachricht:");
-		System.out.println(getText());
+		/*
+		   At the moment there is no exception handling needed in the send method
+		   but the possibility to implement it is given with the superclass
+		 */
+		String message = "\"" + getSubject() + "\" an Drucker \""+ getRecipient() + "\" geschickt." +"\n";
+		message += "Nachricht: " + getText();
+
+		MultiChannelLogMonitor.getInstance().logInformation(message, 1);
 	}
 	
 	@Override
 	public void sendReminder() {
-		System.out.println("\"Das ist der Reminder an die Message: " + getSubject() + " an den Empfänger " + getRecipient() + "\"");
+		/*
+		   At the moment there is no exception handling needed in the send method
+		   but the possibility to implement it is given with the superclass
+		 */
+
+		String message = "\"Das ist der Reminder an den Print: " + getSubject() + " an den Drucker " + getRecipient() + "\"";
+		MultiChannelLogMonitor.getInstance().logInformation(message, 1);
 	}
 	
 	@Override

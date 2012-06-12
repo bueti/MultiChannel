@@ -8,7 +8,6 @@ import static org.junit.Assert.fail;
 import java.io.File;
 import java.util.Date;
 
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -44,9 +43,6 @@ public class MessageProviderTest {
 		testProvider = new MessageSender(new MockMessageScheduler());
 	}
 
-	/**
-	 * Test method for {@link ch.zhaw.multichannel.core.MessageSender#sendMessage(messageTypes.Message)}.
-	 */
 	@Test
 	public void testSendMessage() {
 		try {
@@ -60,9 +56,6 @@ public class MessageProviderTest {
 
 	}
 	
-	/**
-	 * Test method for {@link ch.zhaw.multichannel.core.MessageSender#sendMessage(messageTypes.Message)}.
-	 */
 	@Test
 	public void testSendLaterMessage() {
 		this.testEmail.setSendTime(new Date(System.currentTimeMillis() + 1000));

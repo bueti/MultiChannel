@@ -34,7 +34,7 @@ public class GUIHandler implements IGUIHandler {
 	 * Default constructor for <code>GUIHandler</code>.
 	 * 
 	 * @param provider Instance of a <code>IMessageSender</code> object
-	 * @See MessageSender
+	 * @see MessageSender
 	 * @see IMessageSender
 	 */
 	public GUIHandler(IMessageSender provider) {

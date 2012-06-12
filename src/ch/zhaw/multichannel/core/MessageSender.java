@@ -32,21 +32,13 @@ public class MessageSender implements IMessageSender{
      */
     private IMessageScheduler messageScheduler;
     
-    /**
-     *  <code>MultiChannelLogMonitor<code> to log different status messages and exceptions
-     *
-     * @see MultiChannelLogMonitor
-     */
-    private MultiChannelLogMonitor logMonitor;
-    
     /** 	
     * Default constructor for <code>MessageSender</code>
     * Creates <code>MessageScheduler</code> instance with the implemented interface
-    * @param pScheduler Instance of a class which implements the IMessageScheduler interface to schedule the messages 	
+    * @param scheduler Instance of a class which implements the IMessageScheduler interface to schedule the messages 	
     */
-    public MessageSender(IMessageScheduler pScheduler){
-    	this.messageScheduler = pScheduler;
-    	this.logMonitor = MultiChannelLogMonitor.getInstance();
+    public MessageSender(IMessageScheduler scheduler){
+    	this.messageScheduler = scheduler;
     }
     
     @Override
@@ -63,6 +55,7 @@ public class MessageSender implements IMessageSender{
     		
     	} else {
     		try{
+    			MultiChannelLogMonitor.getInstance().logInformation("Create timer task for msg: " + msg.getSubject() + " at " + msg.getSendTime().toString(), 2);
     			this.messageScheduler.createMessageTimer(msg);
     		}
     		catch(Exception timerException) {
@@ -71,6 +64,7 @@ public class MessageSender implements IMessageSender{
     		
     		if(msg.getSendReminder()){
         		try{
+        			MultiChannelLogMonitor.getInstance().logInformation("Create reminder task for msg: " + msg.getSubject() + " at " + msg.getSendTime().toString(), 2);
         			this.messageScheduler.createReminderTimer(msg);
         		}
         		catch(Exception timerException) {

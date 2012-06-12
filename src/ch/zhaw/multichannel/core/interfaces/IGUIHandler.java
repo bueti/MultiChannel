@@ -4,6 +4,7 @@
  */
 package ch.zhaw.multichannel.core.interfaces;
 
+import ch.zhaw.multichannel.core.GUIHandler;
 import ch.zhaw.multichannel.core.MessageInfo;
 import ch.zhaw.multichannel.exceptions.ValidationException;
 
