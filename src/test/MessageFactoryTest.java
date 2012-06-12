@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import core.MessageFactory;
 import core.MessageInfo;
+import exceptions.ValidationException;
 
 public class MessageFactoryTest extends TestCase
 {
@@ -22,11 +23,16 @@ public class MessageFactoryTest extends TestCase
 	
 	@Override
 	public void setUp(){
-		this.testEmail = new Email("test@test.com","test","test",null,null,null);
-		this.testSms = new Sms("0791234567","test","test",null,null);
-		this.testMms = new Mms("0791234567","test","test",null,null,null);
-		this.testPrint = new Print("PRT 21","test","test",null,null);
-		this.testInfo = new MessageInfo(null,"test","test",null,null,null,null);
+		try {
+			testEmail = new Email("test@test.com","test","test",null,null,null);
+			testSms = new Sms("0791234567","test","test",null,null);
+			testMms = new Mms("0791234567","test","test",null,null,null);
+			testPrint = new Print("PRT 21","test","test",null,null);
+			testInfo = new MessageInfo(null,"test","test",null,null,null,null);
+		} catch (Exception e) {
+			fail("setup failed");
+		}
+
 	}
 	
 	/**
@@ -34,8 +40,14 @@ public class MessageFactoryTest extends TestCase
 	 */
 	@Test
 	public void testCreateNewEmail() {
-		this.testInfo.setType("Email");
-		Object testObj = MessageFactory.createNewMessage("test@test.com",this.testInfo);
+		testInfo.setType("Email");
+		testInfo.setRecipient("test@test.com");
+		Object testObj = null;
+		try {
+			testObj = MessageFactory.createNewMessage(this.testInfo);
+		} catch (Exception e) {
+			fail("Message creation failed");
+		}
 		if(testObj instanceof Email){
 			Email newEmail = (Email)testObj;
 			if(!newEmail.getRecipient().equals(testEmail.getRecipient())){
@@ -57,8 +69,14 @@ public class MessageFactoryTest extends TestCase
 	 */
 	@Test
 	public void testCreateNewSms() {
-		this.testInfo.setType("Sms");
-		Object testObj = MessageFactory.createNewMessage("0791234567",this.testInfo);
+		testInfo.setType("Sms");
+		testInfo.setRecipient("0791234567");
+		Object testObj = null;
+		try {
+			testObj = MessageFactory.createNewMessage(testInfo);
+		} catch (Exception e) {
+			fail("Message creation failed");
+		}
 		if(testObj instanceof Sms){
 			Sms newSms = (Sms)testObj;
 			if(!newSms.getRecipient().equals(testSms.getRecipient())){
@@ -80,8 +98,14 @@ public class MessageFactoryTest extends TestCase
 	 */
 	@Test
 	public void testCreateNewMms() {
-		this.testInfo.setType("Mms");
-		Object testObj = MessageFactory.createNewMessage("0791234567",this.testInfo);
+		testInfo.setType("Mms");
+		testInfo.setRecipient("0791234567");
+		Object testObj = null;
+		try {
+			testObj = MessageFactory.createNewMessage(testInfo);
+		} catch (Exception e) {
+			fail("Message creation failed");
+		}
 		if(testObj instanceof Mms){
 			Mms newMms = (Mms)testObj;
 			if(!newMms.getRecipient().equals(testMms.getRecipient())){
@@ -103,8 +127,14 @@ public class MessageFactoryTest extends TestCase
 	 */
 	@Test
 	public void testCreateNewPrint() {
-		this.testInfo.setType("Print");
-		Object testObj = MessageFactory.createNewMessage("PRT 21",this.testInfo);
+		testInfo.setRecipient("PRT 21");
+		testInfo.setType("Print");
+		Object testObj = null;
+		try {
+			testObj = MessageFactory.createNewMessage(testInfo);
+		} catch (Exception e) {
+			fail("Message creation failed");
+		}
 		if(testObj instanceof Print){
 			Print newPrint = (Print)testObj;
 			if(!newPrint.getRecipient().equals(testPrint.getRecipient())){
@@ -124,9 +154,9 @@ public class MessageFactoryTest extends TestCase
 	/**
 	 * Test method for {@link core.MessageFactory#createNewMessage(string,core.MessageInfo)}.
 	 */
-	@Test
-	public void testInvalidMessageType(){
-		this.testInfo.setType("Picture");
-		assertEquals(null, MessageFactory.createNewMessage("invalid", this.testInfo));
+	@Test (expected=ValidationException.class)
+	public void testInvalidValidation() {
+		testInfo.setType("Email");
+		testInfo.setRecipient("1234");
 	}
 }

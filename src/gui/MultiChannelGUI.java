@@ -52,6 +52,7 @@ import com.toedter.calendar.JDateChooser;
 
 import core.IGUIHandler;
 import core.MessageInfo;
+import exceptions.ValidationException;
 
 /**
  * The MultiChannelGUI class is used to generate the main GUI and is called by the <code>GUIHandler</code>.
@@ -417,23 +418,37 @@ public class MultiChannelGUI {
 					}
 				}
 			}
+			
 			// Send message
-			try {
-				MessageInfo newInfo = new MessageInfo(recipients, tFSubject.getText(),messageBody.getText(), selectedItem, scheduleDate, reminderDate, file);
-				ArrayList<String> errorList = guiHandler.sendMessage(newInfo);
-				if(!errorList.isEmpty()){
-					//TODO: Create Dialog with all error Messages!
-					JOptionPane.showMessageDialog(frame, "Message versenden fehlgeschlagen! Mehr Informationen im Log-Window");
-				} else {
-					tFRecipient.setText("");
-					tFSubject.setText("");
-					messageBody.setText("");
-					tFAttachment.setText("");
-					file = null;
+			List<ValidationException> validationErrorList = new ArrayList<ValidationException>();
+			for(String recipient : recipients)
+			{
+				try{
+					MessageInfo newInfo = new MessageInfo(recipient, tFSubject.getText(),messageBody.getText(), selectedItem, scheduleDate, reminderDate, file);
+					guiHandler.sendMessage(newInfo);
+				}catch(ValidationException validationError){
+					validationErrorList.add(validationError);
+				}catch(Exception senderException){
+					JOptionPane.showMessageDialog(frame, senderException.getMessage());
 				}
-			} catch (Exception e) {
-				JOptionPane.showMessageDialog(frame, e.getMessage());
 			}
+			if(validationErrorList.size()!=0){
+				String nonValidRecipients  = "";
+				for(ValidationException validationException : validationErrorList){
+					JOptionPane.showMessageDialog(frame, "Recipient: " + validationException.getRecipient() + " VALIDATION ERROR: " + validationException.getValidationError());
+					nonValidRecipients += validationException.getRecipient() + ";";
+				}
+				
+				//Need cut away the last ; to refill the invalid recipients to the textfield
+				nonValidRecipients = nonValidRecipients.substring(0, nonValidRecipients.length()-1);
+				tFRecipient.setText(nonValidRecipients);
+			}else{
+				tFRecipient.setText("");
+				tFSubject.setText("");
+				messageBody.setText("");
+				tFAttachment.setText("");
+				file = null;
+			}		
 		}
 	}
 

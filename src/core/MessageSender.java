@@ -4,6 +4,7 @@
  */
 package core;
 
+import exceptions.MessageSenderException;
 import gui.MultiChannelLogMonitor;
 import messageTypes.Message;
 
@@ -54,37 +55,41 @@ public class MessageSender implements IMessageSender{
      *
      * @param		msg Message to send
      * @return      boolean if message sending was successfully
+     * @throws 		Exception 
      * @see         MessageSender
      */
     @Override
-	public boolean sendMessage(Message msg) {
-    	
+	public void sendMessage(Message msg) throws Exception {
     	if(msg==null){
-    		//TODO: Log to logger
-    		return false;
+    		throw new Exception("no message found");
     	}
     	
     	if(!msg.getSendLater()){
+    		//TODO: Kann send() überhaupt fehlschlagen??
     		try {
     			msg.send();
-    			this.logMonitor.logInformation("Message send Successfully",1);
-    		} catch(Exception e){
-    			this.logMonitor.logException(e);
-    			return false;
+    			//logMonitor.logInformation("Message send Successfully",1);
+    		} catch(Exception senderException){
+    			//logMonitor.logException(senderException);
+    			throw new MessageSenderException(msg,senderException.getMessage());
     		}
     	} else {
-    		if(!this.messageScheduler.createMessageTimer(msg)) {
-    			return false;
+    		try{
+    			this.messageScheduler.createMessageTimer(msg);
+    		}
+    		catch(Exception timerException) {
+    			throw new MessageSenderException(msg,timerException.getMessage());
     		}
     		
     		if(msg.getSendReminder()){
-    			if(!this.messageScheduler.createReminderTimer(msg)) {
-    				return false;
-    			}
+        		try{
+        			this.messageScheduler.createReminderTimer(msg);
+        		}
+        		catch(Exception timerException) {
+        			throw new MessageSenderException(msg,timerException.getMessage());
+        		}
     		}
     	}
-    	
-    	return true;
     } 
 }
 

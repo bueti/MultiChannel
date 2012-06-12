@@ -20,14 +20,14 @@ public class MessageSchedulerTest {
 
 	@Before
 	public void setUp() throws Exception {
-		this.testScheduler = new MessageScheduler();
-		this.testEmail = new Email("test@test.com","Test","This is a test email",new Date(System.currentTimeMillis() + 1000),new Date(System.currentTimeMillis() + 1000),null);
+		testScheduler = new MessageScheduler();
+		testEmail = new Email("test@test.com","Test","This is a test email",new Date(System.currentTimeMillis() + 1000),new Date(System.currentTimeMillis() + 1000),null);
 	}
 	
 	@After
 	public void tearDown(){
-		this.testEmail = null;
-		this.testScheduler = null;
+		testEmail = null;
+		testScheduler = null;
 	}
 	
 	/**
@@ -35,26 +35,29 @@ public class MessageSchedulerTest {
 	 */
 	@Test
 	public void testCreateMessageTimer() {
-		assertTrue(this.testScheduler.createMessageTimer(this.testEmail));
-		//fail("Message scheduler failed to create a new TimerTask");
+		try {
+			testScheduler.createMessageTimer(testEmail);
+		} catch (Exception e) {
+			fail("failed to create timer task " + e.getMessage());
+		}
 	}
 	
 	/**
 	 * Test method for {@link core.MessageScheduler#createMessageTimer(messageTypes.Message)}.
 	 */
 	@Test (expected = Exception.class)
-	public void testNullTimeCreateMessageTimer(){
-		this.testEmail.setSendTime(null);
-		this.testScheduler.createMessageTimer(this.testEmail);
+	public void testNullTimeCreateMessageTimer() throws Exception{
+		testEmail.setSendTime(null);
+		testScheduler.createMessageTimer(testEmail);
 	}
 	
 	/**
 	 * Test method for {@link core.MessageScheduler#createMessageTimer(messageTypes.Message)}.
 	 */
 	@Test (expected = Exception.class)
-	public void testNullMessageCreateMessageTimer(){
-		this.testEmail = null;
-		this.testScheduler.createMessageTimer(this.testEmail);
+	public void testNullMessageCreateMessageTimer() throws Exception{
+		testEmail = null;
+		testScheduler.createMessageTimer(testEmail);
 	}
 	
 	/**
@@ -62,23 +65,29 @@ public class MessageSchedulerTest {
 	 */
 	@Test
 	public void testCreateReminderTimer() {
-		assertTrue(this.testScheduler.createReminderTimer(this.testEmail));
+		try {
+			testScheduler.createReminderTimer(testEmail);
+		} catch (Exception e) {
+			fail("failed to create reminder task " + e.getMessage());
+		}
 	}
 	
 	/**
 	 * Test method for {@link core.MessageScheduler#createReminderTimer(messageTypes.Message)}.
+	 * @throws Exception 
 	 */
 	@Test (expected = Exception.class)
-	public void testNullTimeCreateReminderTimer(){
-		this.testEmail.setReminderTime(null);
-		this.testScheduler.createReminderTimer(this.testEmail);
+	public void testNullTimeCreateReminderTimer() throws Exception{
+		testEmail.setReminderTime(null);
+		testScheduler.createReminderTimer(testEmail);
 	}
 	
 	/**
 	 * Test method for {@link core.MessageScheduler#createReminderTimer(messageTypes.Message)}.
+	 * @throws Exception 
 	 */
 	@Test (expected = Exception.class)
-	public void testNullMessageCreateReminderTimer(){
+	public void testNullMessageCreateReminderTimer() throws Exception{
 		this.testEmail = null;
 		this.testScheduler.createReminderTimer(this.testEmail);
 	}

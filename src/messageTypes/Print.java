@@ -5,10 +5,19 @@ package messageTypes;
 
 import java.util.Date;
 
+import exceptions.ValidationException;
+
 public class Print extends Message implements IValidator{
 	
-	public Print(String pRecipient,String pSubject, String pMessage, Date pSendTime, Date pReminderTime){
+	public Print(String pRecipient,String pSubject, String pMessage, Date pSendTime, Date pReminderTime) throws Exception{
 		super(pRecipient, pSubject, pMessage, pSendTime, pReminderTime);
+		
+		try{
+			this.validate();
+		}
+		catch(ValidationException validationException){
+			throw validationException;
+		}
 	}
 	//TODO: no inheritDOc!
 	/**
@@ -34,14 +43,14 @@ public class Print extends Message implements IValidator{
 	 * {@inheritDoc}
 	 */
 	@Override
-	public boolean validate() throws Exception{
+	public boolean validate() throws ValidationException{
 		if (!this.getRecipient().equals("")) {
 			if (this.getSubject().equals("") || this.getText().equals("")) {
-				throw new Exception("Subject or Text is empty!");
+				throw new ValidationException(this.getRecipient(),"Subject or Text is empty!");
 			}
 			return true;
 		} else {
-			throw new Exception("Printer address is invalid");
+			throw new ValidationException(this.getRecipient(),"Printer address is invalid");
 		}
 	}
 

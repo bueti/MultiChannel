@@ -7,10 +7,19 @@ import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import exceptions.ValidationException;
+
 public class Sms extends Message implements IValidator{
 	
-	public Sms(String pRecipient,String pSubject, String pMessage, Date pSendTime, Date pReminderTime){
+	public Sms(String pRecipient,String pSubject, String pMessage, Date pSendTime, Date pReminderTime) throws Exception{
 		super(pRecipient, pSubject, pMessage, pSendTime, pReminderTime);
+		
+		try{
+			this.validate();
+		}
+		catch(ValidationException validationException){
+			throw validationException;
+		}
 	}
 	
 	//TODO: no inheritDOc!
@@ -41,13 +50,13 @@ public class Sms extends Message implements IValidator{
 	 * {@inheritDoc}
 	 */
 	@Override
-	public boolean validate() throws Exception {
+	public boolean validate() throws ValidationException{
 		if (isValidPhoneNumber(this.getRecipient())) {
 			if (this.getSubject().equals("") || this.getText().equals("")) {
-				throw new Exception("Subject or Text is empty!");
+				throw new ValidationException(this.getRecipient(),"Subject or Text is empty!");
 			}
 		} else {
-			throw new Exception("Telephone-Number is invalid");
+			throw new ValidationException(this.getRecipient(),"Telephone-Number is invalid");
 		}
 
 		return true;

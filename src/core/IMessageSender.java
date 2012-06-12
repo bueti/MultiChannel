@@ -24,7 +24,8 @@ public interface IMessageSender {
      *
      * @param		msg Message to send
      * @return      boolean if message sending was successfully
+     * @throws		Exception Sender exception
      * @see         IMessageSender
      */
-	public boolean sendMessage(Message msg);
+	public void sendMessage(Message msg) throws Exception;
 }

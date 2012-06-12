@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 public class MessageInfo {
-	private List<String> recipientList;
+	private String recipient;
 	private String subject;
 	private String message;
 	private String type;
@@ -27,9 +27,9 @@ public class MessageInfo {
 	 * @param reminderTime
 	 * @param attachment
 	 */
-	public MessageInfo(List<String> recipientList, String subject, String message,
+	public MessageInfo(String recipient, String subject, String message,
 			String type, Date sendTime, Date reminderTime, File attachment) {
-		this.recipientList = recipientList;
+		this.recipient = recipient;
 		this.subject = subject;
 		this.message = message;
 		this.type = type;
@@ -42,11 +42,11 @@ public class MessageInfo {
 		
 	}
 	
-	public List<String> getRecipients() {
-		return recipientList;
+	public String getRecipient() {
+		return recipient;
 	}
-	public void setRecipients(List<String> recipientList) {
-		this.recipientList = recipientList;
+	public void setRecipient(String recipient) {
+		this.recipient = recipient;
 	}
 	public String getSubject() {
 		return subject;

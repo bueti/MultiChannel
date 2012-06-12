@@ -4,6 +4,7 @@
  */
 package core;
 
+import exceptions.ValidationException;
 import messageTypes.AllMessageTypes;
 import messageTypes.Email;
 import messageTypes.Message;
@@ -29,37 +30,40 @@ public class MessageFactory {
      * @param recipient Recipient of the message
      * @param info All informations to create a typed message object
      * @return Message a typed message object
+     * @throws Exception 
      * @see	Message
      * @see	Email
      * @see	Sms
      * @see	Mms
      * @see	Print
      */
-	public static Message createNewMessage(String recipient, MessageInfo info)
+	public static Message createNewMessage(MessageInfo info) throws Exception
 	{
 		Message msg = null;
 		try{
 			switch (AllMessageTypes.valueOf(info.getType())){
 				case Email:
-					msg = new Email(recipient, info.getSubject(), info.getMessage(), info.getSendTime(), info.getReminderTime(), info.getAttachment());
+					msg = new Email(info.getRecipient(), info.getSubject(), info.getMessage(), info.getSendTime(), info.getReminderTime(), info.getAttachment());
 					break;
 				case Sms:
-					msg = new Sms(recipient, info.getSubject(), info.getMessage(), info.getSendTime(), info.getReminderTime());
+					msg = new Sms(info.getRecipient(), info.getSubject(), info.getMessage(), info.getSendTime(), info.getReminderTime());
 					break;
 				case Mms:
-					msg = new Mms(recipient, info.getSubject(), info.getMessage(), info.getSendTime(), info.getReminderTime(), info.getAttachment());
+					msg = new Mms(info.getRecipient(), info.getSubject(), info.getMessage(), info.getSendTime(), info.getReminderTime(), info.getAttachment());
 					break;
 				case Print:
-					msg = new Print(recipient, info.getSubject(), info.getMessage(), info.getSendTime(), info.getReminderTime());
+					msg = new Print(info.getRecipient(), info.getSubject(), info.getMessage(), info.getSendTime(), info.getReminderTime());
 					break;
 			}
 		}catch(IllegalArgumentException ex){
-			//TODO: Log to Logger
-			return null;
+			//Unhandled Exception because of programmatic error
+			ex.printStackTrace();
+		}
+		catch(ValidationException validationException){
+			throw validationException;
 		}
 		
 		return msg;
-		
 	}
 
 }

@@ -56,22 +56,22 @@ public abstract class Message {
 	 * @param pReminderTime time to send a reminder for the message (optional)
 	 */
 	//TODO: Improvment: Maybe split this into two constructors for the sendTime and the remindertime
-	public Message(String pRecipient, String pSubject, String pMessage,
-			Date pSendTime, Date pReminderTime) {
-		setRecipient(pRecipient);
-		setSubject(pSubject);
-		setText(pMessage);
+	public Message(String recipient, String subject, String message,
+			Date sendTime, Date reminderTime) {
+		setRecipient(recipient);
+		setSubject(subject);
+		setText(message);
 
 		setSendLater(false);
 		setSendReminder(false);
 
-		if (pSendTime != null) {
-			setSendTime(pSendTime);
+		if (sendTime != null) {
+			setSendTime(sendTime);
 			setSendLater(true);
 		}
-		if (pReminderTime != null) {
+		if (reminderTime != null) {
 			setSendReminder(true);
-			setReminderTime(pReminderTime);
+			setReminderTime(reminderTime);
 		}
 	}
 

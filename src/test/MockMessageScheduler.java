@@ -6,13 +6,13 @@ import core.IMessageScheduler;
 public class MockMessageScheduler implements IMessageScheduler{
 
 	@Override
-	public boolean createMessageTimer(Message msg) {
-		return true;
+	public void createMessageTimer(Message msg) {
+
 	}
 
 	@Override
-	public boolean createReminderTimer(Message msg) {
-		return true;
+	public void createReminderTimer(Message msg) {
+
 	}
 
 }

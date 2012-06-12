@@ -6,7 +6,9 @@ package core;
 
 import java.util.ArrayList;
 
+import exceptions.ValidationException;
+
 //TODO javadoc yak
 public interface IGUIHandler {
-	ArrayList<String> sendMessage(MessageInfo info) throws Exception; 
+	void sendMessage(MessageInfo info) throws ValidationException,Exception; 
 }

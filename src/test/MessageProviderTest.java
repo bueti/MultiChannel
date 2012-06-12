@@ -17,6 +17,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import core.MessageSender;
+import exceptions.MessageSenderException;
+import exceptions.ValidationException;
 
 /**
  * @author yannik
@@ -35,11 +37,11 @@ public class MessageProviderTest {
 	 */
 	@Before
 	public void setUp() throws Exception {
-		this.testEmail = new Email("test@test.com","Test","This is a test email",null,null,null);
-		this.testSms = new Sms("0791231212","Test sms","This is a test sms",null,null);
-		this.testMms = new Mms("0791231212","Test Mms","This is a test Mms",null,null,new File(""));
-		this.testPrint = new Print("PRT 123","Test print","This is a test print",null,null);
-		this.testProvider = new MessageSender(new MockMessageScheduler());
+		testEmail = new Email("test@test.com","Test","This is a test email",null,null,null);
+		testSms = new Sms("0791231212","Test sms","This is a test sms",null,null);
+		testMms = new Mms("0791231212","Test Mms","This is a test Mms",null,null,new File(""));
+		testPrint = new Print("PRT 123","Test print","This is a test print",null,null);
+		testProvider = new MessageSender(new MockMessageScheduler());
 	}
 
 	/**
@@ -47,10 +49,15 @@ public class MessageProviderTest {
 	 */
 	@Test
 	public void testSendMessage() {
-		assertTrue(this.testProvider.sendMessage(testSms));
-		assertTrue(this.testProvider.sendMessage(testMms));
-		assertTrue(this.testProvider.sendMessage(testPrint));
-		assertTrue(this.testProvider.sendMessage(testEmail));
+		try {
+			testProvider.sendMessage(testSms);
+			testProvider.sendMessage(testMms);
+			testProvider.sendMessage(testPrint);
+			testProvider.sendMessage(testEmail);
+		} catch (Exception e) {
+			fail("message sending failed" + e.getMessage());
+		}
+
 	}
 	
 	/**
@@ -62,10 +69,15 @@ public class MessageProviderTest {
 		this.testMms.setSendTime(new Date(System.currentTimeMillis() + 1000));
 		this.testPrint.setSendTime(new Date(System.currentTimeMillis() + 1000));
 		this.testSms.setSendTime(new Date(System.currentTimeMillis() + 1000));
-		assertTrue(this.testProvider.sendMessage(testSms));
-		assertTrue(this.testProvider.sendMessage(testMms));
-		assertTrue(this.testProvider.sendMessage(testPrint));
-		assertTrue(this.testProvider.sendMessage(testEmail));
+		try {
+			testProvider.sendMessage(testSms);
+			testProvider.sendMessage(testMms);
+			testProvider.sendMessage(testPrint);
+			testProvider.sendMessage(testEmail);
+		} catch (Exception e) {
+			fail("send message failed" + e.getMessage());
+		}
+
 	}
 	
 	@Test
@@ -78,15 +90,19 @@ public class MessageProviderTest {
 		this.testMms.setReminderTime(new Date(System.currentTimeMillis() + 500));
 		this.testPrint.setReminderTime(new Date(System.currentTimeMillis() + 500));
 		this.testSms.setSendTime(new Date(System.currentTimeMillis() + 500));
-		assertTrue(this.testProvider.sendMessage(testSms));
-		assertTrue(this.testProvider.sendMessage(testMms));
-		assertTrue(this.testProvider.sendMessage(testPrint));
-		assertTrue(this.testProvider.sendMessage(testEmail));
+		try {
+			testProvider.sendMessage(testSms);
+			testProvider.sendMessage(testMms);
+			testProvider.sendMessage(testPrint);
+			testProvider.sendMessage(testEmail);
+		} catch (Exception e) {
+			fail("send message failed" + e.getMessage());
+		}
 	}
 	
-	@Test
-	public void testFailSend(){
-		assertFalse(this.testProvider.sendMessage(null));
+	@Test (expected=Exception.class)
+	public void testFailSend() throws MessageSenderException, Exception{
+		testProvider.sendMessage(null);
 	}
 	
 

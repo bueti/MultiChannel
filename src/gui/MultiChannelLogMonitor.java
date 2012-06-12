@@ -39,7 +39,7 @@ public class MultiChannelLogMonitor extends JFrame {
 		frame.setSize(500, 250);
 		frame.getContentPane().setLayout(new BorderLayout());
 		label = new JLabel("Multi-Channel Log-Einträge");
-		area = new JTextArea();// todo - einfüllen
+		area = new JTextArea();
 		// area einrichten
 		area.setLineWrap(true);
 		area.setWrapStyleWord(true);
@@ -57,13 +57,14 @@ public class MultiChannelLogMonitor extends JFrame {
 	}
 	
 	public void logInformation(String text,int status){
+		//TODO Roli, add timestamp
 		this.area.append(text+"\n");
 		//TODO Output zu Konsole
 	}
 	
 	public void logException(Exception exception){
-		//TODO Message schön ausgeben
 		this.area.append(exception.getMessage()+"\n");
+		//TODO Roli, add timestamp
 	}
 
 }

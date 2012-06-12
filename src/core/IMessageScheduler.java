@@ -20,17 +20,17 @@ public interface IMessageScheduler {
      * Creates a new TimerTask to send a message at a specific time
      *
      * @param		msg Message to send
-     * @return      boolean if the scheduling was succesfully
+     * @throws 		Exception 
      * @see         IMessageScheduler
      */
-	public boolean createMessageTimer(Message msg);
+	public void createMessageTimer(Message msg) throws Exception;
 	
     /** 
      * Creates a new ReminderTask to send a reminder of a message at a specific time
      *
      * @param		msg Message to send
-     * @return      boolean if the scheduling was succesfully
+     * @throws 		Exception 
      * @see         IMessageScheduler
      */
-	public boolean createReminderTimer(Message msg);
+	public void createReminderTimer(Message msg) throws Exception;
 }

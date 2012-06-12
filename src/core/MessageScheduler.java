@@ -41,54 +41,54 @@ public class MessageScheduler implements IMessageScheduler{
 	
 	/**
 	 * Uses the <code>java.util.Timer</code> to schedule the message
+	 * @throws Exception 
 	 * @see java.util.Timer
 	 * {@inheritDoc}
 	 */
 	@Override
-	public boolean createMessageTimer(Message msg) {
+	public void createMessageTimer(Message msg) throws Exception {
 		try{
 			timer.schedule(new SenderTask(msg), msg.getSendTime());
 		}
 		catch(IllegalArgumentException ex){
 			//TODO Log to logger
-			return false;
+			throw new Exception(ex.getMessage());
 		}
 		catch(IllegalStateException ex){
 			//TODO Log to logger
-			return false;
+			throw new Exception(ex.getMessage());
 		}
-		return true;
 	}
 	
 	/**
 	 * Uses the <code>java.util.Timer</code> to schedule the reminder
+	 * @throws Exception 
 	 * @see java.util.Timer
 	 * {@inheritDoc}
 	 */
 	@Override
-	public boolean createReminderTimer(Message msg) {
+	public void createReminderTimer(Message msg) throws Exception {
 		try{
 			timer.schedule(new ReminderTask(msg), msg.getReminderTime());
 		}
-		catch(IllegalArgumentException ex) {
+		catch(IllegalArgumentException ex){
 			//TODO Log to logger
-			return false;
+			throw new Exception(ex.getMessage());
 		}
-		catch(IllegalStateException ex) {
+		catch(IllegalStateException ex){
 			//TODO Log to logger
-			return false;
+			throw new Exception(ex.getMessage());
 		}
-		return true;
 	}
 	
-	//TODO: messagescheduler
+	//TODO: messagescheduler javadoc
 	private class SenderTask extends TimerTask {
 		
 		private Message msg;
 		
 		public SenderTask(Message pmsg)
 		{
-			msg = pmsg;
+			this.msg = pmsg;
 		}
 		
 	    @Override
@@ -106,9 +106,9 @@ public class MessageScheduler implements IMessageScheduler{
 		
 		private Message msg;
 		
-		public ReminderTask(Message pmsg)
+		public ReminderTask(Message msg)
 		{
-			msg = pmsg;	
+			this.msg = msg;	
 		}
 		
 		@Override

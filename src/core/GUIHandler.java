@@ -5,6 +5,10 @@
 package core;
 
 import java.util.ArrayList;
+
+import exceptions.MessageSenderException;
+import exceptions.ValidationException;
+import gui.MultiChannelLogMonitor;
 import messageTypes.Message;
 
 /**
@@ -37,40 +41,25 @@ public class GUIHandler implements IGUIHandler {
 		this.provider = pProvider;
 	}
 	
-	//TODO: Handle inherit Doc
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
-	public ArrayList<String> sendMessage(MessageInfo info) throws Exception {
-		// TODO ANALYZE THIS!! Exception handling yak
-		ArrayList<String> errorList = new ArrayList<String>();
-
-		for (String recipient : info.getRecipients()) {
-			Message newMsg = null;
-			String errorMsg = "";
-
-			newMsg = MessageFactory.createNewMessage(recipient, info);
-			if (newMsg == null) {
-				errorMsg = "Ungültiger MessageType gewählt!";
-			} else {
-				try {
-					newMsg.validate();
-				} catch (Exception ex) {
-					errorMsg = ex.getMessage();
-				}
-			}
-
-			if (errorMsg.isEmpty()) {
-				if (!this.provider.sendMessage(newMsg)) {
-					errorMsg = "Message versenden fehlgeschlagen!";
-				}
-			}
-			if (!errorMsg.isEmpty()) {
-				errorList.add(errorMsg);
-			}
+	public void sendMessage(MessageInfo info) throws ValidationException,Exception {
+		
+		Message newMsg = null;
+		
+		try{
+			newMsg = MessageFactory.createNewMessage(info);
+		}catch(ValidationException validationError){
+			MultiChannelLogMonitor.getInstance().logInformation("Validation error found for recipient: " + validationError.getRecipient() + " because of: " + validationError.getValidationError(),1);
+			throw validationError;
 		}
-		return errorList;
+		
+		try{
+			this.provider.sendMessage(newMsg);
+			MultiChannelLogMonitor.getInstance().logInformation(info.getType() +" message: " + newMsg.getSubject() + " , recipient: " + newMsg.getRecipient() + " sent", 1);
+		}catch(MessageSenderException msgException){
+			MultiChannelLogMonitor.getInstance().logInformation("The message " + msgException.getFailedMessage().getSubject() + " for recipient " + msgException.getFailedMessage().getRecipient() + " failed because: " +msgException.getMessage(),1);
+			throw new Exception("Message sending failed, check log monitor for further information");
+		}
 	}
 
 }

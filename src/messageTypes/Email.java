@@ -8,21 +8,29 @@ import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import exceptions.ValidationException;
+
 
 /**
- * Email Class
- * Manages email specific options
+ * This is a specific message type which 
  *
  */
 public class Email extends Message implements IValidator {
 	//TODO: Javadoc
 	private File attachment;
 	
-	public Email(String pRecipient,String pSubject, String pMessage, Date pSendTime, Date pReminderTime, File pAttachment) {
-		super(pRecipient, pSubject, pMessage, pSendTime, pReminderTime);
+	public Email(String recipient,String subject, String message, Date sendTime, Date reminderTime, File attachment) throws Exception {
+		super(recipient, subject, message, sendTime, reminderTime);
 		
-		if(pAttachment!=null){
-			this.setAttachment(pAttachment);
+		if(attachment!=null){
+			this.setAttachment(attachment);
+		}
+		
+		try{
+			this.validate();
+		}
+		catch(ValidationException validationException){
+			throw validationException;
 		}
 	}
 	
@@ -44,13 +52,13 @@ public class Email extends Message implements IValidator {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public boolean validate() throws Exception{
+	public boolean validate() throws ValidationException{
 		if (isValidEmailAddress(this.getRecipient())) {
 			if (this.getSubject().equals("") || this.getText().equals("")) {
-				throw new Exception("Subject or Text is empty!");
+				throw new ValidationException(this.getRecipient(),"Subject or Text is empty!");
 			}
 		} else {
-			throw new Exception("Email address is invalid");
+			throw new ValidationException(this.getRecipient(),"Email address is invalid");
 		}
 		return true;
 	}
@@ -66,9 +74,6 @@ public class Email extends Message implements IValidator {
 
 	}
 	
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void sendReminder() {
 		System.out.println("\"Das ist der Reminder an die Message: "

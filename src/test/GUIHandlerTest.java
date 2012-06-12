@@ -21,16 +21,16 @@ public class GUIHandlerTest {
 	
 	private GUIHandler testHandler;
 	private MessageInfo testInfo;
-	private ArrayList receipientList;
+	private ArrayList<String> receipientList;
 
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@Before
 	public void setUp() throws Exception {
-		MockMessageProvider provider = new MockMessageProvider();
+		MockMessageSender provider = new MockMessageSender();
 		receipientList = new ArrayList<String>();
-		testInfo = new MessageInfo(receipientList,"test","test",null,null,null,null);
+		testInfo = new MessageInfo("","test","test",null,null,null,null);
 		testHandler = new GUIHandler(provider);
 	}
 
@@ -39,13 +39,10 @@ public class GUIHandlerTest {
 	 */
 	@Test
 	public void testSendEmailSingleMessage() {
-		this.receipientList.add("test@test.com");
-		testInfo.setRecipients(receipientList);
+		this.testInfo.setRecipient("test@test.com");
 		testInfo.setType("Email");
 		try {
-			if(!this.testHandler.sendMessage(testInfo).isEmpty()){
-				fail("Could not send test message");
-			}
+			this.testHandler.sendMessage(testInfo);			
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}
@@ -59,14 +56,14 @@ public class GUIHandlerTest {
 		this.receipientList.add("test@test.com");
 		this.receipientList.add("test2@test.com");
 		this.receipientList.add("test3@test.com");
-		testInfo.setRecipients(receipientList);
 		testInfo.setType("Email");
-		try {
-			if(!this.testHandler.sendMessage(testInfo).isEmpty()){
-				fail("Could not send test message");
+		for(String recipient : this.receipientList){
+			testInfo.setRecipient(recipient);
+			try{
+				this.testHandler.sendMessage(testInfo);
+			}catch(Exception e){
+				fail(e.getMessage());
 			}
-		} catch (Exception e) {
-			fail(e.getMessage());
 		}
 	}
 	

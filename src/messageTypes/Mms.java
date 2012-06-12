@@ -8,15 +8,23 @@ import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import exceptions.ValidationException;
+
 public class Mms extends Message implements IValidator {
 
 	private File attachment;
 
 	public Mms(String pRecipient, String pSubject, String pMessage,
-			Date pSendTime, Date pReminderTime, File pAttachment) {
+			Date pSendTime, Date pReminderTime, File pAttachment) throws Exception {
 		super(pRecipient, pSubject, pMessage, pSendTime, pReminderTime);
 		if (attachment != null) {
 			this.setAttachment(pAttachment);
+		}
+		try{
+			this.validate();
+		}
+		catch(ValidationException validationException){
+			throw validationException;
 		}
 	}
 	//TODO: no inheritDOc!
@@ -34,7 +42,8 @@ public class Mms extends Message implements IValidator {
 					+ this.getAttachment().getAbsolutePath());
 		}
 	}
-
+	
+	//TODO: Translate to english
 	/**
 	 * Prüfung ob MMS-Nummer gültig ist oder nicht. Falls Nummer ungültig, wird
 	 * Benutzer Meldung angezeigt. Prüfung der MMS-Nummer kontrolliert, ob es
@@ -47,12 +56,16 @@ public class Mms extends Message implements IValidator {
 	 */
 	@Override
 	public boolean validate() throws Exception {
+		//TODO: Check for empty recipient
+		/*if(this.getRecipient()==null){
+			throw new ValidationException("","Emailadress is empty");
+		}*/
 		if (isValidPhoneNumber(this.getRecipient())) {
 			if (this.getSubject().equals("") || this.getText().equals("")) {
-				throw new Exception("Subject or Text is empty!");
+				throw new ValidationException(this.getRecipient(),"Subject or Text is empty!");
 			}
 		} else {
-			throw new Exception("Telephone-Number for MMS is invalid");
+			throw new ValidationException(this.getRecipient(),"Telephone-Number for MMS is invalid");
 		}
 
 		return true;
