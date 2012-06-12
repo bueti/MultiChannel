@@ -33,12 +33,12 @@ public class GUIHandler implements IGUIHandler {
 	/**
 	 * Default constructor for <code>GUIHandler</code>.
 	 * 
-	 * @param pProvider Instance of a <code>IMessageSender</code> object
+	 * @param provider Instance of a <code>IMessageSender</code> object
 	 * @See MessageSender
 	 * @see IMessageSender
 	 */
-	public GUIHandler(IMessageSender pProvider) {
-		this.provider = pProvider;
+	public GUIHandler(IMessageSender provider) {
+		this.provider = provider;
 	}
 	
 	@Override

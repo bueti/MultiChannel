@@ -28,7 +28,7 @@ public class MessageSender implements IMessageSender{
     /**
      *  <code>MessageScheduler<code> to send a message at a specific time
      *
-     * @see #MessageScheduler()
+     * @see MessageScheduler
      */
     private IMessageScheduler messageScheduler;
     
@@ -49,17 +49,6 @@ public class MessageSender implements IMessageSender{
     	this.logMonitor = MultiChannelLogMonitor.getInstance();
     }
     
-    //TODO document in interface
-    /** 
-     * This method is used to send a message, if it needs to be send right now
-     * it just calls the send method of the super class, if it should be sent at a specific
-     * time the <code>MessageSender</code> creates a new TimerTask with the <code>MessageScheduler</code>
-     *
-     * @param		msg Message to send
-     * @return      boolean if message sending was successfully
-     * @throws 		Exception 
-     * @see         MessageSender
-     */
     @Override
 	public void sendMessage(Message msg) throws Exception {
     	if(msg==null){
@@ -67,14 +56,11 @@ public class MessageSender implements IMessageSender{
     	}
     	
     	if(!msg.getSendLater()){
-    		//TODO: Kann send() überhaupt fehlschlagen??
-    		try {
-    			msg.send();
-    			//logMonitor.logInformation("Message send Successfully",1);
-    		} catch(Exception senderException){
-    			//logMonitor.logException(senderException);
-    			throw new MessageSenderException(msg,senderException.getMessage());
-    		}
+    		/*At the moment there is no need for exception handling here because
+    		 * there is no real provider behind the send mechanism
+    		 */
+    		msg.send();
+    		
     	} else {
     		try{
     			this.messageScheduler.createMessageTimer(msg);

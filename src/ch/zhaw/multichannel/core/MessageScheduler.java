@@ -42,12 +42,6 @@ public class MessageScheduler implements IMessageScheduler{
 		timer = new Timer();
 	}
 	
-	/**
-	 * Uses the <code>java.util.Timer</code> to schedule the message
-	 * @throws Exception 
-	 * @see java.util.Timer
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void createMessageTimer(Message msg) throws Exception {
 		try{
@@ -63,12 +57,6 @@ public class MessageScheduler implements IMessageScheduler{
 		}
 	}
 	
-	/**
-	 * Uses the <code>java.util.Timer</code> to schedule the reminder
-	 * @throws Exception 
-	 * @see java.util.Timer
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void createReminderTimer(Message msg) throws Exception {
 		try{
@@ -84,14 +72,28 @@ public class MessageScheduler implements IMessageScheduler{
 		}
 	}
 	
-	//TODO: messagescheduler javadoc
+	/**
+	 * Represents a task for the timer to send a message at a specific time
+	 * 
+	 * @author  Yannik Kopp
+	 * @version 1.0
+	 * @see java.util.TimerTask
+	 */
 	private class SenderTask extends TimerTask {
 		
+		/**
+		 * Message to send when the timer schedules the task
+		 */
 		private Message msg;
 		
-		public SenderTask(Message pmsg)
+		/**
+		 * Constructor to set the message to send
+		 * 
+		 * @param msg message to send
+		 */
+		public SenderTask(Message msg)
 		{
-			this.msg = pmsg;
+			this.msg = msg;
 		}
 		
 	    @Override
@@ -105,10 +107,25 @@ public class MessageScheduler implements IMessageScheduler{
 	    }
 	}
 	
+	/**
+	 * Represents a task for the timer to send a reminder of a message at a specific time
+	 * 
+	 * @author  Yannik Kopp
+	 * @version 1.0
+	 * @see java.util.TimerTask
+	 */
 	private class ReminderTask extends TimerTask {
 		
+		/**
+		 * Message to send the reminder for when the timer schedules the task
+		 */
 		private Message msg;
 		
+		/**
+		 * Constructor to set the message to send
+		 * 
+		 * @param msg message to take the reminder from
+		 */
 		public ReminderTask(Message msg)
 		{
 			this.msg = msg;	

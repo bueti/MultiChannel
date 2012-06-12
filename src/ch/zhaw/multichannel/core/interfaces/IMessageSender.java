@@ -10,7 +10,7 @@ import ch.zhaw.multichannel.messages.Message;
 /**
  * This Interface makes sure the <code>MessageSender</code> is easy replaceable. If there is a need
  * for another type of message providing the new provider only needs to implement this interface.
- * Its also very useful for the unittests because it gives us the possibility to implement a MockObject
+ * Its also very useful for the unit tests because it gives us the possibility to implement a MockObject
  *
  * @see MessageSender
  * @author  Yannik Kopp
@@ -20,13 +20,13 @@ public interface IMessageSender {
 	
     /** 
      * This method is used to send a message, if it needs to be send right now
-     * it just calls the send method of the super class, if its supposed to be sent
-     * later or with a reminder the decision what happens is made in this method
+     * it just calls the send method of the super class, if it should be sent at a specific
+     * time the <code>MessageSender</code> creates a new TimerTask with the <code>MessageScheduler</code>
      *
      * @param		msg Message to send
      * @return      boolean if message sending was successfully
-     * @throws		Exception Sender exception
-     * @see         IMessageSender
+     * @throws 		Exception thrown if a exception happens during the message sending
+     * @see         MessageSender
      */
 	public void sendMessage(Message msg) throws Exception;
 }

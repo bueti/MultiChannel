@@ -37,7 +37,7 @@ public class MessageFactory {
      * @see	Mms
      * @see	Print
      */
-	public static Message createNewMessage(MessageInfo info) throws Exception
+	public static Message createNewMessage(MessageInfo info) throws ValidationException
 	{
 		Message msg = null;
 		try{
