@@ -64,7 +64,7 @@ public class Sms extends Message implements IValidator{
 	
 	
 	// RegEx für SMS-Number
-	// Format Handling: +lluuxxxyyzz, 07uxxxyyyzz, 0uu / xxx yy zz,
+	// Format Handling: +lluuxxxyyzz, 0uuxxxyyyzz, 0uu / xxx yy zz,
 	// +ll uu xxx yy zz, 0uu xxx yy zz, 0uu/xxx yy zz
 		public boolean isValidPhoneNumber(String smsNumber) {
 			//Vorgängig alle Leerschläge entfernen in smsNumber
