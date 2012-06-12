@@ -22,14 +22,18 @@ import exceptions.ValidationException;
  */
 public class Sms extends Message implements IValidator{
 	
-	
 	/**
-	 * @param recipient
-	 * @param subject
-	 * @param message
-	 * @param sendTime
-	 * @param reminderTime
-	 * @throws Exception
+	 * Default constructor for the <code>Sms</code> class, which is called
+	 * to create a new sms. After creation of the sms it is validated and if
+	 * it's invalid the <code>ValidationException</code> is thrown.
+	 * 
+	 * @param recipient recipient of the message
+	 * @param subject subject of the message
+	 * @param message message body
+	 * @param sendTime time to sent the message later (optional)
+	 * @param reminderTime time to send a reminder for the message (optional)
+	 * @throws ValidationException exception thrown if the email is invalid contains the recipient
+	 							   and the error
 	 */
 	public Sms(String recipient,String subject, String message, Date sendTime, Date reminderTime) throws ValidationException{
 		super(recipient, subject, message, sendTime, reminderTime);
@@ -52,42 +56,45 @@ public class Sms extends Message implements IValidator{
 	
 	@Override
 	public void sendReminder() {
-		System.out.println("\"Das ist der Reminder an die Message: " + this.getSubject() + " an den Empfänger: " + this.getRecipient() + " \"");
+		System.out.println("\"Das ist der Reminder an die Message: " + getSubject() + " an den Empfänger: " + getRecipient() + " \"");
 	}
 	
-	//TODO: translate
 	/**
-	 * Prüfung ob SMS-Nummer gültig ist oder nicht.
-	 * Falls Nummer ungültig, wird Benutzer Meldung angezeigt
-	 *
-	 * {@inheritDoc}
+	 * Check if the mobile number is valid. If the number is invalid and
+	 * <code>ValidationException</code> is thrown. This validation checks
+	 * if its a correct swiss mobile phone number. (with country code +41,
+	 * number has to start with a 7, without it has to start with a 0)
 	 */
 	@Override
-	public boolean validate() throws ValidationException{
-		if (isValidPhoneNumber(this.getRecipient())) {
-			if (this.getSubject().equals("") || this.getText().equals("")) {
-				throw new ValidationException(this.getRecipient(),"Subject or Text is empty!");
+	public boolean validate() throws ValidationException {
+		if (isValidPhoneNumber(getRecipient())) {
+			if (getSubject().equals("") || getText().equals("")) {
+				throw new ValidationException(getRecipient(),"Subject or Text is empty!");
 			}
 		} else {
-			throw new ValidationException(this.getRecipient(),"Telephone-Number is invalid");
+			throw new ValidationException(getRecipient(),"Telephone-Number for MMS is invalid");
 		}
 
 		return true;
 	}
-	
-	
-	// RegEx für SMS-Number
-	// Format Handling: +lluuxxxyyzz, 0uuxxxyyyzz, 0uu / xxx yy zz,
-	// +ll uu xxx yy zz, 0uu xxx yy zz, 0uu/xxx yy zz
-		public boolean isValidPhoneNumber(String smsNumber) {
-			//Vorgängig alle Leerschläge entfernen in smsNumber
-			String smsNumberStripSpaces = smsNumber.replaceAll("\\s","");
-			//String expression = (\+|0)?\d([/ -]?\d)+;
-			String expression = "(\\+|0)?\\d([/ -]?\\d)+";
-			CharSequence inputStr = smsNumberStripSpaces;
-			Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
-			Matcher matcher = pattern.matcher(inputStr);
-			return matcher.matches();
-		}
+
+	/**
+	 * Regex to check mobile phone number:
+	 * Format Handling: +417uxxxyyzz, 07uxxxyyyzz, 07u / xxx yy zz,
+	 * +41 7u xxx yy zz, 07u xxx yy zz, 07u/xxx yy zz
+	 * 
+	 * @param number number to check
+	 * @return boolean if number is valid or not
+	 */
+	public boolean isValidPhoneNumber(String number) {
+		
+		// strip all spaces and slashes in phone number
+		String mmsNumberStripSpaces = number.replaceAll("[\\s[/]]", "");
+		String expression = "(\\+|0)?(41)?[7]{1}\\d([/ -]?\\d)+";
+		CharSequence inputStr = mmsNumberStripSpaces;
+		Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+		Matcher matcher = pattern.matcher(inputStr);
+		return matcher.matches();
+	}
 
 }

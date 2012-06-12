@@ -20,8 +20,20 @@ import exceptions.ValidationException;
  */
 public class Print extends Message implements IValidator{
 	
-	public Print(String pRecipient,String pSubject, String pMessage, Date pSendTime, Date pReminderTime) throws ValidationException{
-		super(pRecipient, pSubject, pMessage, pSendTime, pReminderTime);
+	/**
+	 * Default constructor for the <code>Print</code> class, which is called
+	 * to create a new print. After creation of the print it is validated and if
+	 * it's invalid the <code>ValidationException</code> is thrown.
+	 * 
+	 * @param recipient recipient of the message
+	 * @param subject subject of the message
+	 * @param message message body
+	 * @param sendTime time to sent the message later (optional)
+	 * @param reminderTime time to send a reminder for the message (optional)
+	 * @throws ValidationException exception thrown if the email is invalid contains the recipient and the error
+	 */
+	public Print(String recipient,String subject, String message, Date sendTime, Date reminderTime) throws ValidationException{
+		super(recipient, subject, message, sendTime, reminderTime);
 		
 		try{
 			this.validate();
@@ -30,38 +42,29 @@ public class Print extends Message implements IValidator{
 			throw validationException;
 		}
 	}
-	//TODO: no inheritDOc!
-	/**
-	 * {@inheritDoc}
-	 */
+
 	@Override
 	public void send() {
-		System.out.println("\"" + this.getSubject() + "\" an Drucker \""
-				+ this.getRecipient() + "\" geschickt.");
+		System.out.println("\"" + getSubject() + "\" an Drucker \""
+				+ getRecipient() + "\" geschickt.");
 		System.out.println("Nachricht:");
-		System.out.println(this.getText());
+		System.out.println(getText());
 	}
 	
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void sendReminder() {
-		System.out.println("\"Das ist der Reminder an die Message: " + this.getSubject() + " an den Empfänger " + this.getRecipient() + "\"");
+		System.out.println("\"Das ist der Reminder an die Message: " + getSubject() + " an den Empfänger " + getRecipient() + "\"");
 	}
 	
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public boolean validate() throws ValidationException{
-		if (!this.getRecipient().equals("")) {
-			if (this.getSubject().equals("") || this.getText().equals("")) {
-				throw new ValidationException(this.getRecipient(),"Subject or Text is empty!");
+		if (!getRecipient().equals("")) {
+			if (getSubject().equals("") || getText().equals("")) {
+				throw new ValidationException(getRecipient(),"Subject or Text is empty!");
 			}
 			return true;
 		} else {
-			throw new ValidationException(this.getRecipient(),"Printer address is invalid");
+			throw new ValidationException(getRecipient(),"Printer address is invalid");
 		}
 	}
 

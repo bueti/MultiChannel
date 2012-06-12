@@ -35,9 +35,10 @@ public abstract class Message {
 	
     /** 
      * Each typed message class must implement a send reminder method to send a reminder
-     * of itself
+     * of itself.
+     *  @throws Exception Throws an Exception if reminder failed to send
      */
-	public abstract void sendReminder();
+	public abstract void sendReminder() throws Exception;
 	
     /** 
      * Each typed message class must implement a validation method to validate itself.
@@ -50,15 +51,15 @@ public abstract class Message {
 	 * Default constructor for the <code>Message</code> class, which is called
 	 * by the subclasses to create a basic message
 	 * 
-	 * @param pRecipient recipient of the message
-	 * @param pSubject subject of the message
-	 * @param pMessage message body
-	 * @param pSendTime time to sent the message later (optional)
-	 * @param pReminderTime time to send a reminder for the message (optional)
+	 * @param recipient recipient of the message
+	 * @param subject subject of the message
+	 * @param message message body
+	 * @param sendTime time to sent the message later (optional)
+	 * @param reminderTime time to send a reminder for the message (optional)
 	 */
 	//IMPROVMENT: Maybe split this into two constructors for the sendTime and the remindertime
-	public Message(String recipient, String subject, String message,
-			Date sendTime, Date reminderTime) {
+	public Message(String recipient, String subject, String message,Date sendTime, Date reminderTime) {
+		
 		setRecipient(recipient);
 		setSubject(subject);
 		setText(message);

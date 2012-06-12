@@ -23,9 +23,25 @@ import exceptions.ValidationException;
  *
  */
 public class Email extends Message implements IValidator {
-	//TODO: Javadoc
+
+	/**
+	 * The email class got the specific type member attachment
+	 */
 	private File attachment;
 	
+	/**
+	 * Default constructor for the <code>Email</code> class, which is called
+	 * to create a new email. After creation of the email it is validated and if
+	 * it's invalid the <code>ValidationException</code> is thrown.
+	 * 
+	 * @param recipient recipient of the message
+	 * @param subject subject of the message
+	 * @param message message body
+	 * @param sendTime time to sent the message later (optional)
+	 * @param reminderTime time to send a reminder for the message (optional)
+	 * @param attachment attachment of the email
+	 * @throws ValidationException exception thrown if the email is invalid contains the recipient and the error
+	 */
 	public Email(String recipient,String subject, String message, Date sendTime, Date reminderTime, File attachment) throws ValidationException {
 		super(recipient, subject, message, sendTime, reminderTime);
 		
@@ -41,36 +57,39 @@ public class Email extends Message implements IValidator {
 		}
 	}
 	
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void send() {
-		System.out.println("\"" + this.getSubject() + "\" an \""
-				+ this.getRecipient() + "\" geschickt.");
+		/*
+		   At the moment there is no exception handling needed in the send method
+		   but the possibility to implement it is given with the superclass
+		 */
+		
+		System.out.println("\"" + getSubject() + "\" an \""
+				+ getRecipient() + "\" geschickt.");
 		System.out.println("Nachricht:");
-		System.out.println(this.getText());
-		if(this.getAttachment()!=null) {
-			System.out.println("Attachment: " + this.getAttachment().getAbsolutePath());
+		System.out.println(getText());
+		if(getAttachment()!=null) {
+			System.out.println("Attachment: " + getAttachment().getAbsolutePath());
 		}
 	}
 	
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public boolean validate() throws ValidationException{
-		if (isValidEmailAddress(this.getRecipient().trim())) {
-			if (this.getSubject().equals("") || this.getText().equals("")) {
-				throw new ValidationException(this.getRecipient(),"Subject or Text is empty!");
+		if (isValidEmailAddress(getRecipient().trim())) {
+			if (getSubject().equals("") || getText().equals("")) {
+				throw new ValidationException(getRecipient(),"Subject or Text is empty!");
 			}
 		} else {
-			throw new ValidationException(this.getRecipient(),"Email address is invalid");
+			throw new ValidationException(getRecipient(),"Email address is invalid");
 		}
 		return true;
 	}
 	
-	// RegEx für Email addresse
+	/**
+	 * Regex to check email addresses
+	 * @param emailAddress address to check
+	 * @return boolean is valid or not
+	 */
 	public boolean isValidEmailAddress(String emailAddress) {
 		//String expression = "^[\\w\\-]([\\.\\w])+[\\w]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
 		String expression = "^[\\w\\-]([\\.\\w])+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
@@ -83,15 +102,25 @@ public class Email extends Message implements IValidator {
 	
 	@Override
 	public void sendReminder() {
+		/*
+		   At the moment there is no exception handling needed in the send method
+		   but the possibility to implement it is given with the superclass
+		 */
 		System.out.println("\"Das ist der Reminder an die Message: "
-				+ this.getSubject() + " an den Empfänger " + this.getRecipient()
+				+ getSubject() + " an den Empfänger " + getRecipient()
 				+ "\"");
 	}
-
+	
+	/**
+	 * @return File attachment of the message
+	 */
 	public File getAttachment() {
 		return attachment;
 	}
 
+	/**
+	 * @param attachment attachment of the message
+	 */
 	public void setAttachment(File attachment) {
 		this.attachment = attachment;
 	}
