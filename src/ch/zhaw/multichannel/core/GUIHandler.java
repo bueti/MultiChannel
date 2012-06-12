@@ -49,13 +49,12 @@ public class GUIHandler implements IGUIHandler {
 		try{
 			newMsg = MessageFactory.createNewMessage(info);
 		}catch(ValidationException validationError){
-			MultiChannelLogMonitor.getInstance().logInformation("Validation error found for recipient: " + validationError.getRecipient() + " because of: " + validationError.getValidationError(),1);
+			MultiChannelLogMonitor.getInstance().logInformation("Validation error found for recipient: " + validationError.getRecipient() + " because of: " + validationError.getValidationError(),3);
 			throw validationError;
 		}
 		
 		try{
 			this.provider.sendMessage(newMsg);
-			MultiChannelLogMonitor.getInstance().logInformation(info.getType() +" message: " + newMsg.getSubject() + " , recipient: " + newMsg.getRecipient() + " sent", 1);
 		}catch(MessageSenderException msgException){
 			MultiChannelLogMonitor.getInstance().logInformation("The message " + msgException.getFailedMessage().getSubject() + " for recipient " + msgException.getFailedMessage().getRecipient() + " failed because: " +msgException.getMessage(),1);
 			throw new Exception("Message sending failed, check log monitor for further information");

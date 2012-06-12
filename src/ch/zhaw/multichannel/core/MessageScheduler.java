@@ -9,6 +9,7 @@ import java.util.TimerTask;
 
 import ch.zhaw.multichannel.core.interfaces.IMessageScheduler;
 import ch.zhaw.multichannel.core.interfaces.IMessageSender;
+import ch.zhaw.multichannel.gui.MultiChannelLogMonitor;
 import ch.zhaw.multichannel.messages.Message;
 
 
@@ -48,11 +49,9 @@ public class MessageScheduler implements IMessageScheduler{
 			timer.schedule(new SenderTask(msg), msg.getSendTime());
 		}
 		catch(IllegalArgumentException ex){
-			//TODO Log to logger
 			throw new Exception(ex.getMessage());
 		}
 		catch(IllegalStateException ex){
-			//TODO Log to logger
 			throw new Exception(ex.getMessage());
 		}
 	}
@@ -63,11 +62,9 @@ public class MessageScheduler implements IMessageScheduler{
 			timer.schedule(new ReminderTask(msg), msg.getReminderTime());
 		}
 		catch(IllegalArgumentException ex){
-			//TODO Log to logger
 			throw new Exception(ex.getMessage());
 		}
 		catch(IllegalStateException ex){
-			//TODO Log to logger
 			throw new Exception(ex.getMessage());
 		}
 	}
@@ -101,8 +98,7 @@ public class MessageScheduler implements IMessageScheduler{
 	    	try{
 	    		msg.send();
 	    	}catch(Exception ex) {
-	    		//TODO log to logger
-	    		//MultiChannelLogMonitor.getInstance().writeLogEntry(, status)
+	    		MultiChannelLogMonitor.getInstance().logInformation("Message sending failed because: "+ ex.getMessage(),3);
 	    	}
 	    }
 	}
@@ -132,11 +128,11 @@ public class MessageScheduler implements IMessageScheduler{
 		}
 		
 		@Override
-		public void run() {
+		public void run(){
 			try {
 				msg.sendReminder();
 			} catch (Exception ex) {
-				// TODO Log to error console
+				MultiChannelLogMonitor.getInstance().logInformation("Message sending failed because: "+ ex.getMessage(),3);
 			}
 	    }
 	}

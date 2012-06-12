@@ -9,6 +9,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import ch.zhaw.multichannel.exceptions.ValidationException;
+import ch.zhaw.multichannel.gui.MultiChannelLogMonitor;
 import ch.zhaw.multichannel.messages.interfaces.IValidator;
 
 
@@ -65,14 +66,23 @@ public class Email extends Message implements IValidator {
 		   At the moment there is no exception handling needed in the send method
 		   but the possibility to implement it is given with the superclass
 		 */
-		
-		System.out.println("\"" + getSubject() + "\" an \""
-				+ getRecipient() + "\" geschickt.");
-		System.out.println("Nachricht:");
-		System.out.println(getText());
+		String message = "\"" + getSubject() + "\" an \""+ getRecipient() + "\" geschickt." +"\n";
+		message += "Nachricht: " + getText() +"\n";
 		if(getAttachment()!=null) {
-			System.out.println("Attachment: " + getAttachment().getAbsolutePath());
+			message += "Attachment: " + getAttachment().getAbsolutePath();
 		}
+		MultiChannelLogMonitor.getInstance().logInformation(message, 1);
+	}
+	
+	@Override
+	public void sendReminder() {
+		/*
+		   At the moment there is no exception handling needed in the send method
+		   but the possibility to implement it is given with the superclass
+		 */
+
+		String message = "\"Das ist der Reminder an die Message: " + getSubject() + " an den Empfänger " + getRecipient() + "\"";
+		MultiChannelLogMonitor.getInstance().logInformation(message, 1);
 	}
 	
 	@Override
@@ -100,17 +110,6 @@ public class Email extends Message implements IValidator {
 		Matcher matcher = pattern.matcher(inputStr);
 		return matcher.matches();
 
-	}
-	
-	@Override
-	public void sendReminder() {
-		/*
-		   At the moment there is no exception handling needed in the send method
-		   but the possibility to implement it is given with the superclass
-		 */
-		System.out.println("\"Das ist der Reminder an die Message: "
-				+ getSubject() + " an den Empfänger " + getRecipient()
-				+ "\"");
 	}
 	
 	/**
