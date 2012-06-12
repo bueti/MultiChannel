@@ -3,6 +3,7 @@ package ch.zhaw.multichannel.gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
+import java.util.Date;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -72,14 +73,13 @@ public class MultiChannelLogMonitor extends JFrame {
 	}
 	
 	public void logInformation(String text,int status){
-		//TODO Roli, add timestamp
-		this.area.append(text+"\n");
+		this.area.append((new Date())+" "+text+"\n");
 		//TODO Output zu Konsole
 	}
 	
 	public void logException(Exception exception){
-		this.area.append(exception.getMessage()+"\n");
-		//TODO Roli, add timestamp
+		this.area.append((new Date())+" "+exception.getMessage()+"\n");
+		
 	}
 
 }
