@@ -3,8 +3,11 @@ package ch.zhaw.multichannel.gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
 import java.util.Date;
 
+import javax.swing.BoundedRangeModel;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
@@ -67,7 +70,7 @@ public class MultiChannelLogMonitor extends JFrame {
 		scrollbar.getViewport().setView(area);
 		scrollbar.getViewport().add(area, null);
 		frame.getContentPane().add(label, BorderLayout.NORTH);
-		frame.getContentPane().add(area, BorderLayout.CENTER);
+		frame.getContentPane().add(scrollbar, BorderLayout.CENTER);
 
 		this.frame.setVisible(true);
 	}
