@@ -29,8 +29,6 @@ public class MultiChannelLogMonitor extends JFrame {
 	private JScrollPane scrollbar;
 	private static MultiChannelLogMonitor _instance = null;
 
-	
-	
     public static MultiChannelLogMonitor getInstance() {
         if (_instance == null) {
             _instance = new MultiChannelLogMonitor();

@@ -69,7 +69,7 @@ public class Email extends Message implements IValidator {
 		String message = "\"" + getSubject() + "\" an \""+ getRecipient() + "\" geschickt." +"\n";
 		message += "Nachricht: " + getText();
 		if(getAttachment()!=null) {
-			message += "Attachment: " + getAttachment().getAbsolutePath();
+			message += "\nAttachment: " + getAttachment().getAbsolutePath();
 		}
 		MultiChannelLogMonitor.getInstance().logInformation(message, 1);
 	}
