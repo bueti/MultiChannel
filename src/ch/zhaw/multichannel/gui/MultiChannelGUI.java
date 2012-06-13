@@ -66,7 +66,7 @@ import com.toedter.calendar.JDateChooser;
 public class MultiChannelGUI {
 
 	// Instanzvariablen GUI
-	private JFrame frame;
+	private static JFrame frame;
 	private JPanel schedulerPanel;
 	private JPanel calendarPanel;
 	private JPanel reminderPanel;
@@ -98,9 +98,12 @@ public class MultiChannelGUI {
 	public MultiChannelGUI(IGUIHandler pGuiHandler) {
 
 		guiHandler = pGuiHandler;
-
+		// Create Main Window
 		initialize();
 		
+		// Show LogMonitor
+		MultiChannelLogMonitor.getInstance();
+		// Show MainWindow
 		frame.setVisible(true);
 	}
 
@@ -270,9 +273,14 @@ public class MultiChannelGUI {
         order.add(btnSend);
         tabPolicy = new TabFocusPolicy(order);
         frame.setFocusTraversalPolicy(tabPolicy);
+        frame.setLocationRelativeTo(null);
 		
 	}
 	
+	public static JFrame getFrame() {
+		return frame;
+	}
+
 	/**
 	 * This method creates the attachment panel
 	 */

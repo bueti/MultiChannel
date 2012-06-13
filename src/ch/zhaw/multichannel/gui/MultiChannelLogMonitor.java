@@ -6,6 +6,9 @@ package ch.zhaw.multichannel.gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
+import java.awt.Rectangle;
 import java.util.Date;
 
 import javax.swing.JFrame;
@@ -51,7 +54,6 @@ public class MultiChannelLogMonitor extends JFrame {
 	private void logMonitor() {
 		frame = new JFrame("MultiChannel-LogMonitor");
 		frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		frame.setLocation(850, 450);
 		frame.setSize(500, 250);
 		frame.getContentPane().setLayout(new BorderLayout());
 		label = new JLabel("Multi-Channel Log-Einträge");
@@ -66,8 +68,17 @@ public class MultiChannelLogMonitor extends JFrame {
 		scrollbar.getViewport().add(area, null);
 		frame.getContentPane().add(label, BorderLayout.NORTH);
 		frame.getContentPane().add(scrollbar, BorderLayout.CENTER);
-
-		this.frame.setVisible(true);
+		setPosition(frame);
+		frame.setVisible(true);
+	}
+	
+	public void setPosition(JFrame frame) {
+		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        GraphicsDevice defaultScreen = ge.getDefaultScreenDevice();
+        Rectangle rect = defaultScreen.getDefaultConfiguration().getBounds();
+        int x = (int) rect.getMaxX() - frame.getWidth();
+        int y = (int) rect.getMaxY() - frame.getHeight();
+        frame.setLocation(x, y);
 	}
 	
 	/**

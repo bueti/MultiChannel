@@ -35,8 +35,6 @@ public class MultiChannel {
 		
 		GUIHandler guiHandler = new GUIHandler(provider);
 		
-		MultiChannelLogMonitor.getInstance();
-		
 		new MultiChannelGUI(guiHandler);
 	}
 
