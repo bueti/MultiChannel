@@ -23,7 +23,7 @@ import ch.zhaw.multichannel.messages.Sms;
  * @author yannik
  *
  */
-public class MessageProviderTest {
+public class MessageSenderTest {
 	
 	private MessageSender testProvider;
 	private Email testEmail;

@@ -5,7 +5,7 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-@SuiteClasses({ MessageSchedulerTest.class, MessageTypesValidationTest.class, MessageFactoryTest.class, GUIHandlerTest.class,MessageProviderTest.class })
+@SuiteClasses({ MessageSchedulerTest.class, MessageTypesValidationTest.class, MessageFactoryTest.class, GUIHandlerTest.class,MessageSenderTest.class })
 public class TestRunner {
 
 }
