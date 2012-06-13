@@ -52,7 +52,7 @@ public class MultiChannelLogMonitor extends JFrame {
 	 */
 	private void logMonitor() {
 		frame = new JFrame("MultiChannel-LogMonitor");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		frame.setLocation(850, 450);
 		frame.setSize(500, 250);
 		frame.getContentPane().setLayout(new BorderLayout());
